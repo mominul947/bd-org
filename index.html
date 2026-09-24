@@ -607,8 +607,14 @@
             document.getElementById(`live_stat_${i}`).innerHTML=pos===1?'<span class="bg-yellow-500 text-black px-2 py-1 rounded text-[10px] font-bold">BOOYAH</span>':'';
         };
 
-        window.autoSaveMatchDebounced = () => { clearTimeout(state.saveTimeout); state.saveTimeout=setTimeout(async ()=>{
-            const data={aliveTeams:document.getElementById('liveAliveTeams').value, aliveEnemies:document.getElementById('liveAliveEnemies').value, timerSeconds:state.timerSeconds, teamStats:{}};
+       window.autoSaveMatchDebounced = () => { clearTimeout(state.saveTimeout); state.saveTimeout=setTimeout(async ()=>{
+            const data={
+                aliveTeams:document.getElementById('liveAliveTeams').value, 
+                aliveEnemies:document.getElementById('liveAliveEnemies').value, 
+                timerSeconds:state.timerSeconds, 
+                isTimerRunning: state.timerInterval !== null, 
+                teamStats:{}
+            };
             for(let i=0;i<12;i++) data.teamStats[i]={sl:parseInt(document.getElementById(`live_sl_${i}`).value)||99, elims:parseInt(document.getElementById(`live_elim_${i}`).value)||0, pos:document.getElementById(`live_pos_${i}`).value};
             await updateDoc(doc(db,'artifacts',appId,'users',userId,'matches',state.activeMId),data);
         }, 600); };
