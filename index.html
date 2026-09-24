@@ -47,10 +47,9 @@
         .live-table th { background: rgba(15, 23, 42, 0.9); color: #94A3B8; font-size: 0.85rem; text-transform: uppercase; border-bottom: 2px solid #3B82F6; padding: 12px; }
         .live-table td { border-bottom: 1px solid rgba(51, 65, 85, 0.5); padding: 10px; text-align: center; }
 
-        /* Custom Checkbox for Rush Teams */
         .rush-cb { accent-color: #F59E0B; width: 14px; height: 14px; cursor: pointer; }
         
-        /* Champion Rush Table Highlight CSS */
+        /* Champion Rush Highlight CSS */
         .rush-highlight td {
             background-color: rgba(245, 158, 11, 0.25) !important;
             border-top: 1px solid #f59e0b !important;
@@ -61,21 +60,21 @@
             text-shadow: 0 0 10px rgba(245, 158, 11, 0.8) !important;
         }
 
-        /* 35 PRO ESPORTS STANDINGS THEMES ENGINE */
+        /* 35 PRO ESPORTS STANDINGS ENGINE - FIXED ALIGNMENT */
         .pt-container {
             background-color: var(--pt-bg); background-image: var(--pt-bg-image, none); background-size: cover; background-position: center;
             border: var(--pt-border-size, 0px) solid var(--pt-border-color, transparent); border-radius: var(--pt-radius, 0px); box-shadow: var(--pt-box-shadow, 0 15px 40px rgba(0,0,0,0.8));
-            color: var(--pt-text-color, #fff); position: relative; overflow: hidden; font-family: 'Inter', sans-serif;
+            color: var(--pt-text-color, #fff); position: relative; overflow: hidden; font-family: 'Inter', sans-serif; padding-top: 10px;
         }
         .pt-header { 
-            text-align: var(--pt-header-align, center); padding: var(--pt-header-padding, 25px 20px); 
+            text-align: var(--pt-header-align, center); padding: 25px 20px; 
             border-bottom: var(--pt-header-border-bottom, none); background: var(--pt-header-bg, transparent); 
             position: relative; display: flex; flex-direction: column; justify-content: center;
         }
         .pt-header-title { 
-            color: var(--pt-title-color); font-size: var(--pt-title-size, 3.2rem); margin: 0; 
+            color: var(--pt-title-color); font-size: var(--pt-title-size, 3.2rem); margin: 0; padding-top: 10px;
             letter-spacing: var(--pt-title-spacing, 2px); text-shadow: var(--pt-title-shadow, none); 
-            font-weight: 700; line-height: 1.1; font-family: 'Oswald', sans-serif; text-transform: uppercase;
+            font-weight: 700; line-height: 1.2; font-family: 'Oswald', sans-serif; text-transform: uppercase;
         }
         .pt-header-sub { 
             color: var(--pt-sub-color); font-size: var(--pt-sub-size, 1.2rem); letter-spacing: var(--pt-sub-spacing, 6px); 
@@ -83,36 +82,60 @@
             display: inline-block; padding: var(--pt-sub-padding, 0); border-radius: var(--pt-sub-radius, 0);
             text-transform: uppercase; font-family: 'Oswald', sans-serif; text-shadow: var(--pt-sub-shadow, none);
         }
-        .pt-table-wrap { padding: var(--pt-wrap-padding, 20px); }
         
-        /* Table Edge Fix Applied Here */
-        .pt-table { width: 100%; border-collapse: var(--pt-table-collapse, separate); border-spacing: 0 var(--pt-row-gap, 4px); }
-        .pt-table th { padding: var(--pt-th-padding, 12px 10px); font-size: var(--pt-th-size, 0.95rem); color: var(--pt-th-color); background: var(--pt-th-bg, transparent); text-transform: uppercase; letter-spacing: 1.5px; border-bottom: var(--pt-th-border, none); font-weight: 700; vertical-align: middle; }
-        .pt-table td { padding: var(--pt-td-padding, 10px 10px); font-size: 1.1rem; text-align: center; background: var(--pt-td-bg, transparent); border-bottom: var(--pt-td-border, none); border-top: var(--pt-td-border-top, none); transition: 0.3s; vertical-align: middle; }
+        .pt-table-wrap { padding: 20px 25px; }
         
-        .pt-rank-col { font-family: 'Rajdhani', sans-serif; font-size: var(--pt-rank-size, 1.5rem); font-weight: 700; color: var(--pt-rank-color); background: var(--pt-rank-bg, transparent); border-radius: var(--pt-rank-radius, 0); }
+        /* TABLE ALIGNMENT FIX (A to Z Core Fix) */
+        .pt-table { 
+            width: 100%; 
+            border-collapse: collapse !important; 
+            border-spacing: 0 !important; 
+            table-layout: fixed; /* STRICT COLUMN WIDTHS */
+        }
         
-        /* Removed flexbox from team col to fix the jagged background bug */
-        .pt-team-col { text-align: left !important; font-weight: 800; font-size: var(--pt-team-size, 1.15rem); letter-spacing: 0.5px; color: var(--pt-team-color); padding-left: var(--pt-team-pl, 15px) !important; }
+        /* STRICT COLUMN SIZING */
+        .pt-table th:nth-child(1), .pt-table td:nth-child(1) { width: 8%; }  /* Rank */
+        .pt-table th:nth-child(2), .pt-table td:nth-child(2) { width: 40%; text-align: left; padding-left: 15px !important; } /* Team */
+        .pt-table th:nth-child(3), .pt-table td:nth-child(3) { width: 8%; }  /* M */
+        .pt-table th:nth-child(4), .pt-table td:nth-child(4) { width: 12%; } /* WWCD */
+        .pt-table th:nth-child(5), .pt-table td:nth-child(5) { width: 10%; } /* P.PTS */
+        .pt-table th:nth-child(6), .pt-table td:nth-child(6) { width: 10%; } /* ELIMS */
+        .pt-table th:nth-child(7), .pt-table td:nth-child(7) { width: 12%; } /* TOTAL */
+
+        .pt-table th { 
+            font-size: var(--pt-th-size, 0.95rem); color: var(--pt-th-color); background: var(--pt-th-bg, transparent); 
+            text-transform: uppercase; letter-spacing: 1.5px; border-bottom: var(--pt-th-border, none); 
+            font-weight: 700; vertical-align: middle; padding: 12px 5px; text-align: center;
+        }
+        .pt-table td { 
+            font-size: 1.1rem; text-align: center; background: var(--pt-td-bg, transparent); 
+            border-bottom: var(--pt-td-border, none); border-top: var(--pt-td-border-top, none); 
+            transition: 0.3s; vertical-align: middle; padding: 8px 5px; height: 45px;
+        }
+
+        .pt-rank-col { font-family: 'Rajdhani', sans-serif; font-size: var(--pt-rank-size, 1.5rem); font-weight: 700; color: var(--pt-rank-color) !important; background: var(--pt-rank-bg, transparent); }
+        .pt-team-col { font-weight: 800; font-size: var(--pt-team-size, 1.25rem); letter-spacing: 0.5px; color: var(--pt-team-color) !important; display: flex; align-items: center; justify-content: flex-start; gap: 8px; height: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+        .pt-stat-col { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: var(--pt-stat-size, 1.3rem); color: var(--pt-stat-color); }
+        .pt-booyah-col { color: var(--pt-booyah-color) !important; font-weight: 700; font-family: 'Rajdhani', sans-serif; font-size: var(--pt-booyah-size, 1.3rem); }
+        .pt-total-col { background: var(--pt-total-bg, transparent); color: var(--pt-total-color) !important; font-weight: 800; font-size: var(--pt-total-size, 1.6rem); font-family: 'Rajdhani', sans-serif; border-radius: 4px; padding: 2px 10px; display: inline-block; box-shadow: var(--pt-total-box-shadow, none); text-shadow: var(--pt-total-shadow, none); }
         
-        .pt-stat-col { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: var(--pt-stat-size, 1.3rem); color: var(--pt-stat-color); background: var(--pt-stat-bg, transparent); }
-        .pt-booyah-col { color: var(--pt-booyah-color); font-weight: 700; font-family: 'Rajdhani', sans-serif; font-size: var(--pt-booyah-size, 1.3rem); }
-        .pt-total-col { background: var(--pt-total-bg, transparent); color: var(--pt-total-color); font-weight: 800; font-size: var(--pt-total-size, 1.6rem); font-family: 'Rajdhani', sans-serif; border: var(--pt-total-border, none); border-radius: var(--pt-total-radius, 0); box-shadow: var(--pt-total-box-shadow, none); text-shadow: var(--pt-total-shadow, none); }
         .pt-footer { padding: var(--pt-footer-padding, 15px 25px); text-align: center; font-size: 0.9rem; border-top: var(--pt-footer-border, none); background: var(--pt-footer-bg, transparent); display: flex; justify-content: space-between; align-items: center; font-weight: 600; }
 
         /* THEMES 1 to 20 (Original) */
         .t-survival { --pt-bg:#09090b; --pt-header-bg:#000; --pt-header-border-bottom:2px solid #ea580c; --pt-title-color:#fff; --pt-title-shadow:2px 2px 0px #ea580c; --pt-sub-color:#ea580c; --pt-sub-bg:#171717; --pt-sub-padding:2px 15px; --pt-wrap-padding:20px 30px; --pt-th-bg:#171717; --pt-th-color:#fdba74; --pt-td-bg:#18181b; --pt-rank-color:#ea580c; --pt-rank-bg:#111; --pt-team-color:#fff; --pt-stat-color:#d4d4d8; --pt-booyah-color:#f97316; --pt-total-bg:#ea580c; --pt-total-color:#fff; --pt-footer-bg:#000; --pt-footer-border:1px solid #27272a; }
-        .t-survival .rank-1 .pt-rank-col { background:#ea580c; color:#fff; } .t-survival .rank-2 .pt-rank-col { background:#94a3b8; color:#fff; } .t-survival .rank-3 .pt-rank-col { background:#b45309; color:#fff; }
-        .t-worldcup { --pt-bg:#fff; --pt-border-size:1px; --pt-border-color:#e5e7eb; --pt-radius:8px; --pt-text-color:#111827; --pt-header-bg:#f3f4f6; --pt-header-border-bottom:3px solid #db2777; --pt-title-color:#111827; --pt-sub-color:#db2777; --pt-table-collapse:collapse; --pt-row-gap:0px; --pt-wrap-padding:0px; --pt-th-bg:#f9fafb; --pt-th-color:#111827; --pt-th-border:1px solid #e5e7eb; --pt-td-bg:#fff; --pt-td-border:1px solid #e5e7eb; --pt-rank-color:#111827; --pt-rank-bg:#f3f4f6; --pt-team-color:#111827; --pt-stat-color:#374151; --pt-booyah-color:#db2777; --pt-total-bg:#db2777; --pt-total-color:#fff; --pt-footer-bg:#f9fafb; --pt-footer-border:1px solid #e5e7eb; }
-        .t-worldcup .rank-1 td { background:#fdf2f8; } .t-worldcup .rank-1 .pt-rank-col { background:#fbcfe8; color:#db2777; } .t-worldcup .rank-2 td { background:#f3f4f6; } .t-worldcup .rank-3 td { background:#fef3c7; }
+        .t-survival .rank-1 td:first-child { background:#ea580c; color:#fff !important; } .t-survival .rank-2 td:first-child { background:#94a3b8; color:#fff !important; } .t-survival .rank-3 td:first-child { background:#b45309; color:#fff !important; }
+        .t-worldcup { --pt-bg:#fff; --pt-border-size:1px; --pt-border-color:#e5e7eb; --pt-radius:8px; --pt-text-color:#111827; --pt-header-bg:#f3f4f6; --pt-header-border-bottom:3px solid #db2777; --pt-title-color:#111827; --pt-sub-color:#db2777; --pt-th-bg:#f9fafb; --pt-th-color:#111827; --pt-th-border:1px solid #e5e7eb; --pt-td-bg:#fff; --pt-td-border:1px solid #e5e7eb; --pt-rank-color:#111827; --pt-rank-bg:#f3f4f6; --pt-team-color:#111827; --pt-stat-color:#374151; --pt-booyah-color:#db2777; --pt-total-bg:#db2777; --pt-total-color:#fff; --pt-footer-bg:#f9fafb; --pt-footer-border:1px solid #e5e7eb; }
+        .t-worldcup .rank-1 td { background:#fdf2f8; } .t-worldcup .rank-1 td:first-child { background:#fbcfe8; color:#db2777 !important; } .t-worldcup .rank-2 td { background:#f3f4f6; } .t-worldcup .rank-3 td { background:#fef3c7; }
         .t-volcano { --pt-bg:linear-gradient(180deg,#1e1b4b 0%,#0f172a 100%); --pt-border-size:2px; --pt-border-color:#8b5cf6; --pt-radius:12px; --pt-box-shadow:0 0 40px rgba(139,92,246,0.3); --pt-header-bg:rgba(0,0,0,0.5); --pt-header-border-bottom:2px solid #8b5cf6; --pt-title-color:#fff; --pt-title-shadow:0 0 20px #8b5cf6; --pt-sub-color:#c4b5fd; --pt-th-bg:rgba(139,92,246,0.2); --pt-th-color:#ddd6fe; --pt-td-bg:rgba(0,0,0,0.4); --pt-td-border:1px solid rgba(139,92,246,0.3); --pt-rank-color:#8b5cf6; --pt-team-color:#fff; --pt-stat-color:#e2e8f0; --pt-booyah-color:#c4b5fd; --pt-total-bg:#8b5cf6; --pt-total-color:#fff; --pt-total-radius:6px; --pt-footer-bg:rgba(0,0,0,0.6); --pt-footer-border:1px solid #8b5cf6; }
-        .t-volcano .rank-1 td { background:rgba(139,92,246,0.4); border-color:#a78bfa; } .t-volcano .rank-1 .pt-total-col { background:#fff; color:#8b5cf6; }
+        .t-volcano .rank-1 td { background:rgba(139,92,246,0.4); border-color:#a78bfa; } .t-volcano .rank-1 .pt-total-col { background:#fff; color:#8b5cf6 !important; }
         .t-luxray { --pt-bg:#111; --pt-title-color:#f97316; --pt-sub-color:#fff; --pt-header-bg:#000; --pt-wrap-padding:0 10px 20px 10px; --pt-th-bg:#000; --pt-th-color:#f97316; --pt-td-bg:#f97316; --pt-rank-color:#000; --pt-team-color:#000; --pt-stat-color:#000; --pt-booyah-color:#fff; --pt-total-bg:#000; --pt-total-color:#f97316; --pt-footer-bg:#000; }
+        .t-luxray .pt-table { border-spacing: 0 5px !important; }
         .t-luxray td { transform:skewX(-10deg); border-radius:2px; } .t-luxray td > * { transform:skewX(10deg); display:block; } .t-luxray th { transform:skewX(-10deg); } .t-luxray th > * { transform:skewX(10deg); display:block; } .t-luxray .rank-1 td { background:#fbbf24; }
-        .t-tech { --pt-bg:#0a1128; --pt-border-size:1px; --pt-border-color:#1e3a8a; --pt-radius:16px; --pt-header-align:left; --pt-title-color:#60a5fa; --pt-sub-color:#fff; --pt-header-padding:30px 30px 10px 30px; --pt-wrap-padding:20px 30px; --pt-th-color:#60a5fa; --pt-td-bg:linear-gradient(90deg,#1e3a8a 0%,#172554 100%); --pt-rank-color:#fff; --pt-rank-bg:#1d4ed8; --pt-rank-radius:8px 0 0 8px; --pt-team-color:#fff; --pt-stat-color:#93c5fd; --pt-booyah-color:#fff; --pt-total-bg:#eff6ff; --pt-total-color:#1e3a8a; --pt-total-radius:0 8px 8px 0; }
+        .t-tech { --pt-bg:#0a1128; --pt-border-size:1px; --pt-border-color:#1e3a8a; --pt-radius:16px; --pt-header-align:left; --pt-title-color:#60a5fa; --pt-sub-color:#fff; --pt-th-color:#60a5fa; --pt-td-bg:linear-gradient(90deg,#1e3a8a 0%,#172554 100%); --pt-rank-color:#fff; --pt-rank-bg:#1d4ed8; --pt-rank-radius:8px 0 0 8px; --pt-team-color:#fff; --pt-stat-color:#93c5fd; --pt-booyah-color:#fff; --pt-total-bg:#eff6ff; --pt-total-color:#1e3a8a; --pt-total-radius:0 8px 8px 0; }
+        .t-tech .pt-table { border-spacing: 0 4px !important; }
         .t-tech .rank-1 td { background:linear-gradient(90deg,#2563eb 0%,#1d4ed8 100%); }
-        .t-matrix { --pt-bg:#080c16; --pt-border-size:1px; --pt-border-color:#1e3a8a; --pt-header-bg:#040811; --pt-header-border-bottom:2px solid #2563eb; --pt-title-color:#fff; --pt-sub-color:#3b82f6; --pt-header-align:left; --pt-table-collapse:collapse; --pt-row-gap:0px; --pt-wrap-padding:0px; --pt-th-bg:#080c16; --pt-th-color:#60a5fa; --pt-th-border:1px solid #1e293b; --pt-td-bg:#0b1120; --pt-td-border:1px solid #1e293b; --pt-rank-color:#94a3b8; --pt-team-color:#fff; --pt-stat-color:#94a3b8; --pt-booyah-color:#3b82f6; --pt-total-color:#3b82f6; --pt-footer-bg:#040811; }
-        .t-matrix .pt-stat-col, .t-matrix .pt-total-col { border-left:1px solid #1e293b; } .t-matrix .rank-1 td { background:#172554; } .t-matrix .rank-1 .pt-total-col { background:#2563eb; color:#fff; }
+        .t-matrix { --pt-bg:#080c16; --pt-border-size:1px; --pt-border-color:#1e3a8a; --pt-header-bg:#040811; --pt-header-border-bottom:2px solid #2563eb; --pt-title-color:#fff; --pt-sub-color:#3b82f6; --pt-header-align:left; --pt-th-bg:#080c16; --pt-th-color:#60a5fa; --pt-th-border:1px solid #1e293b; --pt-td-bg:#0b1120; --pt-td-border:1px solid #1e293b; --pt-rank-color:#94a3b8; --pt-team-color:#fff; --pt-stat-color:#94a3b8; --pt-booyah-color:#3b82f6; --pt-total-color:#3b82f6; --pt-footer-bg:#040811; }
+        .t-matrix .rank-1 td { background:#172554; } .t-matrix .rank-1 .pt-total-col { background:#2563eb; color:#fff !important; }
         .t-cyber { --pt-bg:#09090b; --pt-border-size:2px; --pt-border-color:#eab308; --pt-header-bg:linear-gradient(90deg,#4a044e,#000); --pt-header-border-bottom:4px solid #db2777; --pt-title-color:#fef08a; --pt-title-shadow:3px 3px 0px #db2777; --pt-sub-color:#22d3ee; --pt-th-bg:#eab308; --pt-th-color:#000; --pt-td-bg:#18181b; --pt-td-border:1px solid #27272a; --pt-rank-color:#eab308; --pt-team-color:#fff; --pt-stat-color:#a1a1aa; --pt-booyah-color:#22d3ee; --pt-total-bg:#db2777; --pt-total-color:#fff; --pt-footer-bg:#09090b; --pt-footer-border:2px solid #eab308; }
         .t-cyber .rank-1 td { background:rgba(234,179,8,0.15); border-left:4px solid #eab308; }
         .t-ice { --pt-bg:linear-gradient(180deg,#082f49 0%,#0f172a 100%); --pt-border-size:1px; --pt-border-color:#38bdf8; --pt-radius:10px; --pt-header-bg:rgba(2,132,199,0.3); --pt-header-border-bottom:2px solid #7dd3fc; --pt-title-color:#f0f9ff; --pt-title-shadow:0 0 10px #38bdf8; --pt-sub-color:#bae6fd; --pt-th-bg:rgba(56,189,248,0.1); --pt-th-color:#e0f2fe; --pt-td-bg:rgba(15,23,42,0.6); --pt-td-border:1px solid rgba(56,189,248,0.2); --pt-rank-color:#7dd3fc; --pt-team-color:#fff; --pt-stat-color:#cbd5e1; --pt-booyah-color:#38bdf8; --pt-total-bg:#0284c7; --pt-total-color:#fff; --pt-total-radius:4px; --pt-footer-bg:rgba(8,47,73,0.8); }
@@ -133,13 +156,13 @@
         .t-royal .rank-1 td { background:#2563eb; }
         .t-inferno { --pt-bg:#2c0606; --pt-header-bg:linear-gradient(0deg,#450a0a,#991b1b); --pt-title-color:#fef08a; --pt-sub-color:#fb923c; --pt-th-bg:#7f1d1d; --pt-th-color:#fcd34d; --pt-td-bg:#3f0f0f; --pt-td-border:1px solid #5c1414; --pt-rank-color:#f97316; --pt-team-color:#fff; --pt-stat-color:#fca5a5; --pt-booyah-color:#fef08a; --pt-total-bg:#ea580c; --pt-total-color:#fff; --pt-footer-bg:#2c0606; --pt-footer-border:1px solid #991b1b; }
         .t-inferno .rank-1 td { background:rgba(234,88,12,0.3); border-color:#f97316; }
-        .t-stealth { --pt-bg:#18181b; --pt-border-size:1px; --pt-border-color:#52525b; --pt-header-bg:#09090b; --pt-header-border-bottom:1px solid #71717a; --pt-title-color:#fff; --pt-sub-color:#a1a1aa; --pt-table-collapse:collapse; --pt-row-gap:0px; --pt-th-bg:#27272a; --pt-th-color:#d4d4d8; --pt-th-border:1px solid #3f3f46; --pt-td-bg:#18181b; --pt-td-border:1px solid #3f3f46; --pt-rank-color:#e4e4e7; --pt-team-color:#fff; --pt-stat-color:#71717a; --pt-booyah-color:#fff; --pt-total-bg:#52525b; --pt-total-color:#fff; --pt-footer-bg:#09090b; --pt-footer-border:1px solid #3f3f46; }
+        .t-stealth { --pt-bg:#18181b; --pt-border-size:1px; --pt-border-color:#52525b; --pt-header-bg:#09090b; --pt-header-border-bottom:1px solid #71717a; --pt-title-color:#fff; --pt-sub-color:#a1a1aa; --pt-th-bg:#27272a; --pt-th-color:#d4d4d8; --pt-th-border:1px solid #3f3f46; --pt-td-bg:#18181b; --pt-td-border:1px solid #3f3f46; --pt-rank-color:#e4e4e7; --pt-team-color:#fff; --pt-stat-color:#71717a; --pt-booyah-color:#fff; --pt-total-bg:#52525b; --pt-total-color:#fff; --pt-footer-bg:#09090b; --pt-footer-border:1px solid #3f3f46; }
         .t-stealth .rank-1 td { background:#27272a; border-left:4px solid #fff; }
         .t-sunset { --pt-bg:linear-gradient(135deg,#be123c,#c2410c); --pt-radius:10px; --pt-header-bg:rgba(0,0,0,0.3); --pt-title-color:#fff; --pt-sub-color:#fde047; --pt-th-bg:rgba(255,255,255,0.2); --pt-th-color:#fff; --pt-td-bg:rgba(0,0,0,0.2); --pt-td-border:1px solid rgba(255,255,255,0.1); --pt-rank-color:#fde047; --pt-team-color:#fff; --pt-stat-color:#fecdd3; --pt-booyah-color:#fff; --pt-total-bg:#fff; --pt-total-color:#be123c; --pt-total-radius:20px; --pt-footer-bg:rgba(0,0,0,0.4); }
         .t-sunset .rank-1 td { background:rgba(255,255,255,0.2); }
         .t-glitch { --pt-bg:#000; --pt-header-bg:#000; --pt-title-color:#fff; --pt-title-shadow:2px 0 0 #06b6d4, -2px 0 0 #db2777; --pt-sub-color:#06b6d4; --pt-th-bg:#111; --pt-th-color:#fff; --pt-th-border:1px solid #333; --pt-td-bg:#0a0a0a; --pt-td-border:1px dashed #333; --pt-rank-color:#db2777; --pt-team-color:#fff; --pt-stat-color:#a3a3a3; --pt-booyah-color:#06b6d4; --pt-total-bg:transparent; --pt-total-color:#fff; --pt-total-shadow:2px 2px 0 #db2777; --pt-footer-bg:#000; --pt-footer-border:1px solid #333; }
         .t-glitch .rank-1 td { border:1px solid #06b6d4; box-shadow:inset 0 0 10px rgba(6,182,212,0.3); }
-        .t-champion { --pt-bg:#f1f5f9; --pt-border-size:2px; --pt-border-color:#cbd5e1; --pt-header-bg:linear-gradient(90deg,#1e3a8a,#2563eb); --pt-title-color:#fff; --pt-sub-color:#bfdbfe; --pt-table-collapse:collapse; --pt-row-gap:0px; --pt-th-bg:#e2e8f0; --pt-th-color:#1e293b; --pt-th-border:1px solid #cbd5e1; --pt-td-bg:#fff; --pt-td-border:1px solid #cbd5e1; --pt-rank-color:#2563eb; --pt-team-color:#0f172a; --pt-stat-color:#475569; --pt-booyah-color:#ea580c; --pt-total-bg:#2563eb; --pt-total-color:#fff; --pt-footer-bg:#e2e8f0; --pt-footer-border:1px solid #cbd5e1; }
+        .t-champion { --pt-bg:#f1f5f9; --pt-border-size:2px; --pt-border-color:#cbd5e1; --pt-header-bg:linear-gradient(90deg,#1e3a8a,#2563eb); --pt-title-color:#fff; --pt-sub-color:#bfdbfe; --pt-th-bg:#e2e8f0; --pt-th-color:#1e293b; --pt-th-border:1px solid #cbd5e1; --pt-td-bg:#fff; --pt-td-border:1px solid #cbd5e1; --pt-rank-color:#2563eb; --pt-team-color:#0f172a; --pt-stat-color:#475569; --pt-booyah-color:#ea580c; --pt-total-bg:#2563eb; --pt-total-color:#fff; --pt-footer-bg:#e2e8f0; --pt-footer-border:1px solid #cbd5e1; }
         .t-champion .rank-1 td { background:#eff6ff; border-left:4px solid #2563eb; }
 
         /* THEMES 21 to 35 (NEW ADDITIONS) */
@@ -224,7 +247,7 @@
             <div class="p-3 md:p-4 border-t border-slate-700/50 flex flex-col gap-3 bg-slate-900/30">
                 <div class="text-center hidden md:block">
                     <div id="authStatus" class="text-xs text-green-500 mb-1"><i class="fa-solid fa-cloud"></i> Connected</div>
-                    <p class="text-[10px] text-slate-500">System v6.0 (35 Themes) • WP: 01303482412</p>
+                    <p class="text-[10px] text-slate-500">System v6.1 (Pro Alignment) • WP: 01303482412</p>
                 </div>
                 <button onclick="window.handleLogout()" class="w-full bg-red-900/40 hover:bg-red-700 border border-red-800 text-red-200 hover:text-white text-xs font-bold py-2 px-4 rounded-lg transition flex items-center justify-center whitespace-nowrap">
                     <i class="fa-solid fa-power-off mr-2"></i> <span class="hidden md:inline">Logout</span>
@@ -343,26 +366,20 @@
                     </div>
                 </div>
 
-                <!-- SPECIAL MATCH MODIFIERS (Champion & Rush) -->
+                <!-- SPECIAL MATCH MODIFIERS -->
                 <div class="glass-panel p-4 rounded-xl mb-6 relative overflow-hidden">
                     <div class="absolute w-1 h-full bg-purple-500 left-0 top-0"></div>
                     <h3 class="text-sm text-purple-400 mb-3 esports-font tracking-widest pl-2"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i>GLOBAL HIGHLIGHTS & EFFECTS (Synced across matches)</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pl-2">
-                        <!-- Champion Select -->
                         <div>
                             <label class="block text-[10px] text-slate-400 font-bold uppercase mb-2"><i class="fa-solid fa-crown text-yellow-500 mr-1"></i> Champion Team (Crown Logo)</label>
                             <select id="championTeamSelect" class="w-full p-2.5 rounded bg-slate-900 border border-slate-700 text-white text-sm outline-none focus:border-purple-500 font-bold" onchange="window.forceSaveLiveStats()">
                                 <option value="">-- No Champion Selected --</option>
                             </select>
-                            <p class="text-[9px] text-slate-500 mt-1">Select a team to display the champion crown in the Final Table.</p>
                         </div>
-                        <!-- Champion Rush Select -->
                         <div>
                             <label class="block text-[10px] text-slate-400 font-bold uppercase mb-2"><i class="fa-solid fa-fire text-orange-500 mr-1"></i> Champion Rush (Highlight Row)</label>
-                            <div id="championRushCheckboxes" class="grid grid-cols-2 md:grid-cols-3 gap-2 bg-slate-900/50 p-2 rounded-lg border border-slate-700 max-h-32 overflow-y-auto hide-scrollbar">
-                                <!-- Generated by JS -->
-                            </div>
-                            <p class="text-[9px] text-slate-500 mt-1">Checked teams will be globally highlighted in the Final Table.</p>
+                            <div id="championRushCheckboxes" class="grid grid-cols-2 md:grid-cols-3 gap-2 bg-slate-900/50 p-2 rounded-lg border border-slate-700 max-h-32 overflow-y-auto hide-scrollbar"></div>
                         </div>
                     </div>
                 </div>
@@ -391,7 +408,7 @@
                 </button>
             </div>
 
-            <!-- 5. Final Table View (35 PRO ESPORTS DESIGNS) -->
+            <!-- 5. Final Table View -->
             <div id="finalTableView" class="view-section max-w-7xl mx-auto">
                 <div class="flex flex-col justify-between items-start mb-6 gap-4">
                     <div class="flex justify-between w-full items-center">
@@ -401,10 +418,9 @@
                         </button>
                     </div>
                     
-                    <!-- 35 THEME SELECTORS (Scrollable horizontally) -->
                     <div class="w-full bg-slate-900/80 p-3 rounded-lg border border-slate-700/50 shadow-lg overflow-x-auto hide-scrollbar">
                         <div class="flex flex-col gap-2">
-                            <!-- Original 20 Themes -->
+                            <!-- 20 Classic Themes -->
                             <div class="flex items-center gap-2 min-w-max">
                                 <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mr-2 sticky left-0 bg-slate-900/80 px-2 py-1"><i class="fa-solid fa-palette mr-1"></i> 20 Classic Themes:</span>
                                 <button onclick="window.setTheme('t-survival', this)" class="theme-select-btn px-3 py-1.5 bg-[#ea580c] text-white text-[10px] font-bold rounded ring-2 ring-white opacity-100 shadow-[0_0_10px_#ea580c]">1. Survival</button>
@@ -464,13 +480,13 @@
                             <table class="pt-table">
                                 <thead>
                                     <tr>
-                                        <th class="w-12 text-center">#</th>
-                                        <th class="text-left">TEAM</th>
-                                        <th class="w-12 text-center">M</th>
-                                        <th class="w-16 text-center">WWCD</th>
-                                        <th class="w-16 text-center">P.PTS</th>
-                                        <th class="w-16 text-center">ELIMS</th>
-                                        <th class="w-24 text-center">TOTAL</th>
+                                        <th>#</th>
+                                        <th>TEAM</th>
+                                        <th>M</th>
+                                        <th>WWCD</th>
+                                        <th>P.PTS</th>
+                                        <th>ELIMS</th>
+                                        <th>TOTAL</th>
                                     </tr>
                                 </thead>
                                 <tbody id="finalTbody">
@@ -523,7 +539,6 @@
         const state = { tournaments: [], matches: [], activeTId: null, activeMId: null, editingTId: null, timerInterval: null, timerSeconds: 0, saveTimeout: null };
         const DEFAULT_POINTS = [12, 9, 7, 7, 6, 5, 4, 3, 2, 1, 0, 0];
 
-        // --- Core Application Logic Bound to Window ---
         window.showToast = (msg, isErr=false) => {
             const t=document.getElementById('toast'); document.getElementById('toastMsg').innerText=msg;
             t.classList.toggle('error', isErr); t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000);
@@ -636,7 +651,6 @@
             const t = state.tournaments.find(x=>x.id===state.activeTId); 
             const m = state.matches.find(x=>x.id===state.activeMId);
             
-            // Build Special Options from GLOBAL Tournament Data
             const champSelect = document.getElementById('championTeamSelect');
             const rushDiv = document.getElementById('championRushCheckboxes');
             
@@ -650,7 +664,6 @@
                 const s=(m&&m.teamStats&&m.teamStats[i])?m.teamStats[i]:{sl:i+1,elims:0,pos:''}; 
                 const tName=(t&&t.teams&&t.teams[i])?t.teams[i]:`Team ${i+1}`;
                 
-                // Add to Special Selectors (Using Tournament Data to Sync Everywhere)
                 if(champSelect && rushDiv) {
                     let isChampSel = (t && t.championTeam === i.toString()) ? "selected" : "";
                     champSelect.innerHTML += `<option value="${i}" ${isChampSel}>${tName}</option>`;
@@ -683,27 +696,23 @@
             document.getElementById(`live_stat_${i}`).innerHTML=pos===1?'<span class="bg-gradient-to-r from-yellow-500 to-amber-600 text-black px-2 py-1 rounded text-[10px] font-bold shadow-md">BOOYAH</span>':'';
         };
 
-        // --- THE INSTANT SAVE SYSTEM & GLOBAL SYNC ---
         window.forceSaveLiveStats = async () => {
             if(!state.activeMId || !state.activeTId) return;
             
             const champTeam = document.getElementById('championTeamSelect') ? document.getElementById('championTeamSelect').value : "";
             const rushTms = Array.from(document.querySelectorAll('.rush-cb:checked')).map(cb => cb.value);
 
-            // 1. Sync Globally to Tournament Document
             await updateDoc(doc(db,'artifacts',appId,'users',userId,'tournaments',state.activeTId), {
                 championTeam: champTeam,
                 championRushTeams: rushTms
             });
 
-            // Update Local State so UI knows it instantly without re-fetching
             const t = state.tournaments.find(x => x.id === state.activeTId);
             if(t) {
                 t.championTeam = champTeam;
                 t.championRushTeams = rushTms;
             }
 
-            // 2. Save Live Match Stats
             const data = {
                 aliveTeams: document.getElementById('liveAliveTeams').value,
                 aliveEnemies: document.getElementById('liveAliveEnemies').value,
@@ -721,7 +730,6 @@
             await updateDoc(doc(db,'artifacts',appId,'users',userId,'matches',state.activeMId), data);
         };
 
-        // Added wrapper to keep old debounce references safe
         window.autoSaveMatchDebounced = () => { window.forceSaveLiveStats(); };
 
         window.finalizeMatch = async () => { await window.forceSaveLiveStats(); await updateDoc(doc(db,'artifacts',appId,'users',userId,'matches',state.activeMId),{status:'completed'}); window.showToast("Saved!"); if(unsubLive) unsubLive(); window.loadMatches(); window.switchView('matchListView'); };
@@ -756,7 +764,6 @@
             const t = state.tournaments.find(x => x.id === state.activeTId);
             document.getElementById('ptTourName').innerText = t.name.toUpperCase();
             
-            // Global Synchronized Highlights (Directly from Tournament Data)
             let currentChamp = t.championTeam || "";
             let currentRush = t.championRushTeams || [];
 
@@ -783,26 +790,25 @@
             results.forEach((team, idx) => {
                 let rowClass = idx===0?"rank-1":idx===1?"rank-2":idx===2?"rank-3":"";
                 
-                // Highlight Logic Check
                 let isChampion = (team.teamIdx.toString() === currentChamp.toString());
                 let isRush = currentRush.includes(team.teamIdx.toString());
 
-                if (isRush) rowClass += " rush-highlight"; // Attach globally synced highlight
+                if (isRush) rowClass += " rush-highlight"; 
 
                 let displayTeamName = team.name;
                 if (isChampion) {
-                    displayTeamName += ` <i class="fa-solid fa-crown text-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.9)] ml-2 text-[1.2rem]" title="Champion"></i>`;
+                    displayTeamName += ` <i class="fa-solid fa-crown text-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.9)] text-[1.2rem]" title="Champion"></i>`;
                 }
 
                 tbody.innerHTML += `
                     <tr class="${rowClass}">
-                        <td class="pt-rank-col text-center">${String(idx+1).padStart(2, '0')}</td>
+                        <td class="pt-rank-col">${String(idx+1).padStart(2, '0')}</td>
                         <td class="pt-team-col">${displayTeamName}</td>
-                        <td class="pt-stat-col opacity-80 text-center">${team.matches}</td>
-                        <td class="pt-booyah-col text-center">${team.booyahs}</td>
-                        <td class="pt-stat-col opacity-80 text-center">${team.pPts}</td>
-                        <td class="pt-stat-col text-center" style="font-weight:700;">${team.elims}</td>
-                        <td class="text-center"><span class="pt-total-col px-3 py-1">${team.total}</span></td>
+                        <td class="pt-stat-col opacity-80">${team.matches}</td>
+                        <td class="pt-booyah-col">${team.booyahs}</td>
+                        <td class="pt-stat-col opacity-80">${team.pPts}</td>
+                        <td class="pt-stat-col" style="font-weight:700;">${team.elims}</td>
+                        <td><span class="pt-total-col">${team.total}</span></td>
                     </tr>
                 `;
             });
@@ -822,7 +828,6 @@
             }).catch(e => { el.style.width = origWidth || 'auto'; btn.innerHTML = 'Failed'; });
         };
 
-        // App Boot
         async function initApp() {
             window.renderSetupForm(); 
             onAuthStateChanged(auth, async (user) => {
