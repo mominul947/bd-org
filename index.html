@@ -7,7 +7,7 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -22,7 +22,6 @@
                             cardHover: '#1E293B',
                             accent: '#F59E0B',  
                             primary: '#3B82F6', 
-                            glow: '#2563EB'
                         }
                     },
                     fontFamily: {
@@ -68,145 +67,162 @@
         .live-table td { border-bottom: 1px solid rgba(51, 65, 85, 0.5); padding: 10px; text-align: center; }
         
         /* =========================================
-           DYNAMIC THEME ENGINE FOR POINT TABLE
+           ULTRA PREMIUM ESPORTS THEME ENGINE
            ========================================= */
         
-        /* Base Variables (Fallback) */
+        /* Base Architecture */
         .pt-container {
-            background: var(--pt-bg, #0F172A);
-            border: 2px solid var(--pt-border, #3B82F6);
-            border-radius: 8px;
+            background: var(--pt-bg);
+            border: 2px solid var(--pt-border);
+            border-radius: 12px;
             position: relative;
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
-            color: var(--pt-td-color, #FFF);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            color: var(--pt-td-color);
             transition: all 0.4s ease;
+            overflow: hidden;
         }
         .pt-header { 
-            text-align: center; padding: 20px 10px; 
-            border-bottom: 2px solid var(--pt-border, #3B82F6); 
-            background: var(--pt-header-bg, #0F172A); 
+            text-align: center; padding: 25px 10px 20px 10px; 
+            border-bottom: 3px solid var(--pt-border); 
+            background: var(--pt-header-bg); 
+            position: relative;
         }
-        .pt-header h2 { color: var(--pt-title-color, #FFF); font-size: 2.5rem; margin: 0; letter-spacing: 3px; text-shadow: var(--pt-title-shadow, none); }
-        .pt-header p { color: var(--pt-sub-color, #F59E0B); font-size: 1.1rem; letter-spacing: 4px; margin-top: 5px; font-weight: bold; }
+        .pt-header::after { /* Shiny Overlay */
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: skewX(-25deg); animation: shine 6s infinite;
+        }
+        @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
         
-        .pt-table { width: 100%; border-collapse: separate; border-spacing: 0 4px; padding: 10px; }
-        .pt-table th { padding: 10px; font-size: 0.85rem; color: var(--pt-th-color, #94A3B8); background: var(--pt-th-bg, transparent); text-transform: uppercase; letter-spacing: 1px; }
-        .pt-table td { padding: 8px 10px; font-size: 1rem; text-align: center; background: var(--pt-td-bg, rgba(15, 23, 42, 0.6)); border-bottom: 1px solid var(--pt-td-border, transparent); }
+        .pt-header h2 { color: var(--pt-title-color); font-size: 2.8rem; margin: 0; letter-spacing: 2px; text-shadow: var(--pt-title-shadow); font-weight: 700; line-height: 1.1; }
+        .pt-header p { color: var(--pt-sub-color); font-size: 1.2rem; letter-spacing: 5px; margin-top: 8px; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
         
-        /* Dynamic Cells */
-        .pt-total-col { background: var(--pt-total-bg, rgba(37,99,235,0.2)); color: var(--pt-total-color, #3B82F6); border-radius: 0 4px 4px 0; }
-        .pt-booyah-col { color: var(--pt-booyah-color, #FBBF24); }
-        .pt-rank-col { color: var(--pt-rank-text, inherit); }
+        .pt-table { width: 100%; border-collapse: separate; border-spacing: 0 6px; padding: 15px; }
+        .pt-table th { padding: 12px 10px; font-size: 0.9rem; color: var(--pt-th-color); background: var(--pt-th-bg); text-transform: uppercase; letter-spacing: 1.5px; }
+        .pt-table td { padding: 8px 10px; font-size: 1.1rem; text-align: center; background: var(--pt-td-bg); border-bottom: 1px solid var(--pt-td-border); border-top: 1px solid rgba(255,255,255,0.02); transition: 0.3s; }
         
-        /* Dynamic Ranks */
-        .rank-1 td { background: var(--rank1-bg, rgba(245, 158, 11, 0.25)); border-top: 1px solid var(--pt-border); border-bottom: 1px solid var(--pt-border); }
-        .rank-2 td { background: var(--rank2-bg, rgba(148, 163, 184, 0.2)); }
-        .rank-3 td { background: var(--rank3-bg, rgba(180, 83, 9, 0.2)); }
+        /* Cells Styling */
+        .pt-total-col { background: var(--pt-total-bg); color: var(--pt-total-color); border-radius: 0 6px 6px 0; font-size: 1.3rem; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.4); box-shadow: inset 2px 0 0px rgba(0,0,0,0.2); }
+        .pt-booyah-col { color: var(--pt-booyah-color); font-weight: 800; font-size: 1.15rem; }
+        .pt-rank-col { color: var(--pt-rank-text, inherit); border-radius: 6px 0 0 6px; }
+        .pt-team-name { display: flex; align-items: center; justify-content: flex-start; gap: 10px; font-weight: 700; letter-spacing: 0.5px; }
+        .pt-team-name i { color: var(--pt-icon-color); font-size: 1.2rem; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.5)); }
+        
+        /* Ranks Highlighting */
+        .rank-1 td { background: var(--rank1-bg); border-top: 1px solid var(--pt-border); border-bottom: 1px solid var(--pt-border); }
+        .rank-2 td { background: var(--rank2-bg); }
+        .rank-3 td { background: var(--rank3-bg); }
 
-        .pt-footer { padding: 15px; text-align: center; font-size: 0.9rem; border-top: 1px solid var(--pt-border); background: var(--pt-header-bg); display: flex; justify-content: space-between; align-items: center; }
+        .pt-footer { padding: 15px 25px; text-align: center; font-size: 0.9rem; border-top: 2px solid var(--pt-border); background: var(--pt-header-bg); display: flex; justify-content: space-between; align-items: center; font-weight: 600; }
 
-        /* THEME 1: NEON BLUE (Default) */
+        /* THEME 1: NEON BLUE */
         .theme-blue {
-            --pt-bg: linear-gradient(180deg, #0F172A 0%, #050B14 100%);
-            --pt-border: #3B82F6;
-            --pt-header-bg: radial-gradient(circle at center, rgba(30, 64, 175, 0.3) 0%, transparent 100%);
-            --pt-title-color: #FFFFFF;
-            --pt-title-shadow: 0 0 15px #3B82F6;
-            --pt-sub-color: #F59E0B;
-            --pt-th-color: #94A3B8;
-            --pt-td-bg: rgba(15, 23, 42, 0.6);
-            --pt-td-border: rgba(51, 65, 85, 0.5);
-            --pt-total-bg: rgba(37, 99, 235, 0.2);
-            --pt-total-color: #60A5FA;
-            --rank1-bg: linear-gradient(90deg, rgba(245, 158, 11, 0.25) 0%, rgba(15,23,42,0.8) 100%);
-            --rank2-bg: linear-gradient(90deg, rgba(148, 163, 184, 0.2) 0%, rgba(15,23,42,0.8) 100%);
-            --rank3-bg: linear-gradient(90deg, rgba(180, 83, 9, 0.25) 0%, rgba(15,23,42,0.8) 100%);
+            --pt-bg: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+            --pt-border: #0ea5e9;
+            --pt-header-bg: linear-gradient(90deg, #0369a1, #0284c7, #0369a1);
+            --pt-title-color: #ffffff;
+            --pt-title-shadow: 0 0 15px rgba(14, 165, 233, 0.8), 0 4px 10px rgba(0,0,0,0.5);
+            --pt-sub-color: #bae6fd;
+            --pt-th-bg: rgba(14, 165, 233, 0.15);
+            --pt-th-color: #38bdf8;
+            --pt-td-bg: rgba(15, 23, 42, 0.8);
+            --pt-td-color: #f8fafc;
+            --pt-td-border: rgba(14, 165, 233, 0.2);
+            --pt-total-bg: #0ea5e9;
+            --pt-total-color: #ffffff;
+            --pt-booyah-color: #38bdf8;
+            --pt-icon-color: #0ea5e9;
+            --rank1-bg: linear-gradient(90deg, rgba(14, 165, 233, 0.3) 0%, rgba(15,23,42,0.8) 100%);
+            --rank2-bg: linear-gradient(90deg, rgba(14, 165, 233, 0.15) 0%, rgba(15,23,42,0.8) 100%);
+            --rank3-bg: linear-gradient(90deg, rgba(14, 165, 233, 0.05) 0%, rgba(15,23,42,0.8) 100%);
         }
 
-        /* THEME 2: CYBER ORANGE (Survival Stage Style) */
+        /* THEME 2: CYBER ORANGE */
         .theme-orange {
-            --pt-bg: #09090b;
+            --pt-bg: linear-gradient(180deg, #18181b 0%, #09090b 100%);
             --pt-border: #ea580c;
-            --pt-header-bg: #000000;
-            --pt-title-color: #FFFFFF;
-            --pt-title-shadow: 2px 2px 0px #ea580c;
-            --pt-sub-color: #ea580c;
-            --pt-th-color: #ea580c;
+            --pt-header-bg: linear-gradient(90deg, #9a3412, #ea580c, #9a3412);
+            --pt-title-color: #ffffff;
+            --pt-title-shadow: 0 4px 10px rgba(0,0,0,0.8);
+            --pt-sub-color: #ffedd5;
             --pt-th-bg: #171717;
-            --pt-td-bg: #111111;
-            --pt-td-color: #e5e5e5;
-            --pt-td-border: #262626;
+            --pt-th-color: #fdba74;
+            --pt-td-bg: #18181b;
+            --pt-td-color: #f4f4f5;
+            --pt-td-border: #27272a;
             --pt-total-bg: #ea580c;
-            --pt-total-color: #000000;
-            --pt-booyah-color: #ea580c;
-            --pt-rank-text: #ea580c;
-            --rank1-bg: rgba(234, 88, 12, 0.15);
+            --pt-total-color: #ffffff;
+            --pt-booyah-color: #f97316;
+            --pt-icon-color: #ea580c;
+            --rank1-bg: linear-gradient(90deg, rgba(234, 88, 12, 0.25) 0%, rgba(24,24,27,0.9) 100%);
             --rank2-bg: rgba(255, 255, 255, 0.05);
             --rank3-bg: rgba(255, 255, 255, 0.02);
         }
 
-        /* THEME 3: EWC PINK (World Cup Style) */
+        /* THEME 3: EWC PINK */
         .theme-pink {
-            --pt-bg: #000000;
+            --pt-bg: #f8fafc;
             --pt-border: #db2777;
-            --pt-header-bg: #ffffff;
+            --pt-header-bg: linear-gradient(90deg, #ffffff, #f3f4f6);
             --pt-title-color: #000000;
-            --pt-title-shadow: none;
+            --pt-title-shadow: 0 2px 4px rgba(0,0,0,0.1);
             --pt-sub-color: #db2777;
-            --pt-th-color: #db2777;
-            --pt-th-bg: #000000;
-            --pt-td-bg: #171717;
-            --pt-td-color: #ffffff;
-            --pt-td-border: #333333;
-            --pt-total-bg: #ffffff;
-            --pt-total-color: #000000;
-            --pt-booyah-color: #ffffff;
-            --rank1-bg: rgba(219, 39, 119, 0.3);
-            --rank2-bg: transparent;
+            --pt-th-bg: #db2777;
+            --pt-th-color: #ffffff;
+            --pt-td-bg: #ffffff;
+            --pt-td-color: #0f172a;
+            --pt-td-border: #e2e8f0;
+            --pt-total-bg: #fce7f3;
+            --pt-total-color: #be185d;
+            --pt-booyah-color: #db2777;
+            --pt-icon-color: #db2777;
+            --rank1-bg: rgba(219, 39, 119, 0.15);
+            --rank2-bg: rgba(219, 39, 119, 0.05);
             --rank3-bg: transparent;
         }
 
-        /* THEME 4: VOLCANO PURPLE (Gradient Style) */
+        /* THEME 4: VOLCANO PURPLE */
         .theme-purple {
-            --pt-bg: linear-gradient(135deg, #4c1d95, #2e1065);
+            --pt-bg: linear-gradient(135deg, #1e1b4b, #3b0764);
             --pt-border: #a855f7;
-            --pt-header-bg: rgba(0,0,0,0.4);
+            --pt-header-bg: linear-gradient(90deg, #6b21a8, #9333ea, #6b21a8);
             --pt-title-color: #ffffff;
-            --pt-title-shadow: 0 0 15px #a855f7;
-            --pt-sub-color: #d8b4fe;
+            --pt-title-shadow: 0 0 20px rgba(168,85,247,0.6), 0 4px 10px rgba(0,0,0,0.8);
+            --pt-sub-color: #f3e8ff;
+            --pt-th-bg: rgba(168, 85, 247, 0.25);
             --pt-th-color: #e9d5ff;
-            --pt-th-bg: rgba(255,255,255,0.1);
-            --pt-td-bg: rgba(0,0,0,0.3);
+            --pt-td-bg: rgba(0, 0, 0, 0.45);
             --pt-td-color: #ffffff;
-            --pt-td-border: rgba(168, 85, 247, 0.4);
-            --pt-total-bg: rgba(168, 85, 247, 0.5);
+            --pt-td-border: rgba(168, 85, 247, 0.3);
+            --pt-total-bg: #9333ea;
             --pt-total-color: #ffffff;
-            --pt-booyah-color: #fbcfe8;
-            --rank1-bg: rgba(168, 85, 247, 0.4);
-            --rank2-bg: rgba(168, 85, 247, 0.2);
-            --rank3-bg: rgba(168, 85, 247, 0.1);
+            --pt-booyah-color: #c084fc;
+            --pt-icon-color: #a855f7;
+            --rank1-bg: linear-gradient(90deg, rgba(168, 85, 247, 0.4) 0%, transparent 100%);
+            --rank2-bg: linear-gradient(90deg, rgba(168, 85, 247, 0.2) 0%, transparent 100%);
+            --rank3-bg: linear-gradient(90deg, rgba(168, 85, 247, 0.1) 0%, transparent 100%);
         }
 
-        /* THEME 5: LUXRAY GOLD (Aggressive Style) */
+        /* THEME 5: LUXURY GOLD */
         .theme-gold {
-            --pt-bg: #1a1a1a;
-            --pt-border: #f59e0b;
-            --pt-header-bg: #000000;
-            --pt-title-color: #f59e0b;
-            --pt-title-shadow: none;
-            --pt-sub-color: #ffffff;
-            --pt-th-color: #000000;
-            --pt-th-bg: #f59e0b;
-            --pt-td-bg: #d97706;
-            --pt-td-color: #000000;
-            --pt-td-border: #000000;
-            --pt-total-bg: #000000;
-            --pt-total-color: #f59e0b;
-            --pt-booyah-color: #000000;
-            --pt-rank-text: #000000;
-            --rank1-bg: #f59e0b;
-            --rank2-bg: #b45309;
-            --rank3-bg: #78350f;
+            --pt-bg: #111827;
+            --pt-border: #fbbf24;
+            --pt-header-bg: linear-gradient(90deg, #92400e, #d97706, #92400e);
+            --pt-title-color: #ffffff;
+            --pt-title-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            --pt-sub-color: #fef3c7;
+            --pt-th-bg: #d97706;
+            --pt-th-color: #ffffff;
+            --pt-td-bg: #1f2937;
+            --pt-td-color: #f9fafb;
+            --pt-td-border: #374151;
+            --pt-total-bg: #fbbf24;
+            --pt-total-color: #000000;
+            --pt-booyah-color: #fbbf24;
+            --pt-icon-color: #fbbf24;
+            --rank1-bg: rgba(251, 191, 36, 0.15);
+            --rank2-bg: rgba(251, 191, 36, 0.05);
+            --rank3-bg: transparent;
         }
 
         /* Toast */
@@ -276,7 +292,7 @@
             <div class="p-3 md:p-4 border-t border-slate-700/50 flex flex-col gap-3 bg-slate-900/30">
                 <div class="text-center hidden md:block">
                     <div id="authStatus" class="text-xs text-green-500 mb-1"><i class="fa-solid fa-cloud"></i> Connected</div>
-                    <p class="text-[10px] text-slate-500">System v2.0 • WP: 01303482412</p>
+                    <p class="text-[10px] text-slate-500">System v2.5 • WP: 01303482412</p>
                 </div>
                 <button onclick="handleLogout()" class="w-full bg-red-900/40 hover:bg-red-700 border border-red-800 text-red-200 hover:text-white text-xs font-bold py-2 px-4 rounded-lg transition flex items-center justify-center whitespace-nowrap">
                     <i class="fa-solid fa-power-off mr-2"></i> <span class="hidden md:inline">Logout</span>
@@ -411,7 +427,7 @@
                         <table class="w-full live-table min-w-[700px]">
                             <thead>
                                 <tr>
-                                    <th class="w-12">#</th>
+                                    <th class="w-16"># (SORT)</th>
                                     <th class="text-left">TEAM NAME</th>
                                     <th class="w-20">ELIMS</th>
                                     <th class="w-20">RANK</th>
@@ -438,23 +454,23 @@
                     <h2 class="text-2xl md:text-3xl text-white border-l-4 border-esports-accent pl-4 esports-font tracking-wider drop-shadow-md">STANDINGS</h2>
                     
                     <!-- THEME SELECTOR -->
-                    <div class="flex flex-wrap items-center gap-2 bg-slate-900/80 p-2 rounded-lg border border-slate-700/50">
+                    <div class="flex flex-wrap items-center gap-2 bg-slate-900/80 p-2.5 rounded-lg border border-slate-700/50 shadow-lg">
                         <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mr-2"><i class="fa-solid fa-palette mr-1"></i> Theme:</span>
-                        <button onclick="setTheme('theme-blue', this)" class="theme-select-btn w-6 h-6 rounded-full bg-blue-600 ring-2 ring-white transition shadow-lg" title="Neon Blue"></button>
-                        <button onclick="setTheme('theme-orange', this)" class="theme-select-btn w-6 h-6 rounded-full bg-orange-600 transition shadow-lg opacity-60 hover:opacity-100" title="Cyber Orange"></button>
-                        <button onclick="setTheme('theme-pink', this)" class="theme-select-btn w-6 h-6 rounded-full bg-pink-600 transition shadow-lg opacity-60 hover:opacity-100" title="EWC Pink"></button>
-                        <button onclick="setTheme('theme-purple', this)" class="theme-select-btn w-6 h-6 rounded-full bg-purple-600 transition shadow-lg opacity-60 hover:opacity-100" title="Volcano Purple"></button>
-                        <button onclick="setTheme('theme-gold', this)" class="theme-select-btn w-6 h-6 rounded-full bg-yellow-500 transition shadow-lg opacity-60 hover:opacity-100" title="Luxray Gold"></button>
+                        <button onclick="setTheme('theme-blue', this)" class="theme-select-btn w-7 h-7 rounded-full bg-[#0ea5e9] ring-2 ring-white transition shadow-[0_0_10px_#0ea5e9]" title="Neon Blue"></button>
+                        <button onclick="setTheme('theme-orange', this)" class="theme-select-btn w-7 h-7 rounded-full bg-[#ea580c] transition shadow-lg opacity-50 hover:opacity-100" title="Cyber Orange"></button>
+                        <button onclick="setTheme('theme-pink', this)" class="theme-select-btn w-7 h-7 rounded-full bg-[#db2777] transition shadow-lg opacity-50 hover:opacity-100" title="EWC Pink"></button>
+                        <button onclick="setTheme('theme-purple', this)" class="theme-select-btn w-7 h-7 rounded-full bg-[#9333ea] transition shadow-lg opacity-50 hover:opacity-100" title="Volcano Purple"></button>
+                        <button onclick="setTheme('theme-gold', this)" class="theme-select-btn w-7 h-7 rounded-full bg-[#fbbf24] transition shadow-lg opacity-50 hover:opacity-100" title="Luxray Gold"></button>
                     </div>
 
-                    <button id="dwnBtn" onclick="downloadTableImage()" class="btn-accent font-bold px-5 py-2.5 rounded-lg text-sm transition shadow-[0_0_15px_rgba(245,158,11,0.4)]">
-                        <i class="fa-solid fa-download mr-1"></i> Export Image
+                    <button id="dwnBtn" onclick="downloadTableImage()" class="btn-accent font-bold px-5 py-3 rounded-lg text-sm transition shadow-[0_0_15px_rgba(245,158,11,0.4)] esports-font tracking-wider">
+                        <i class="fa-solid fa-download mr-1"></i> EXPORT HD IMAGE
                     </button>
                 </div>
                 
-                <div class="overflow-x-auto hide-scrollbar pb-5">
+                <div class="overflow-x-auto hide-scrollbar pb-10">
                     <!-- Exportable Area -->
-                    <div id="exportTableArea" class="pt-container theme-blue min-w-[700px] mx-auto">
+                    <div id="exportTableArea" class="pt-container theme-blue min-w-[700px] max-w-[900px] mx-auto">
                         <div class="pt-header">
                             <h2 class="esports-font" id="ptMainTitle">BD ORG OVERALL RANKING</h2>
                             <p class="esports-font" id="ptTourName">COMMUNITY CUP</p>
@@ -464,13 +480,13 @@
                             <table class="pt-table">
                                 <thead>
                                     <tr class="esports-font">
-                                        <th class="w-12">#</th>
+                                        <th class="w-14">RANK</th>
                                         <th class="text-left pl-3">TEAM</th>
                                         <th class="w-12">M</th>
                                         <th class="w-16">WWCD</th>
                                         <th class="w-16">P.PTS</th>
                                         <th class="w-16">ELIMS</th>
-                                        <th class="w-20">TOTAL</th>
+                                        <th class="w-24">TOTAL</th>
                                     </tr>
                                 </thead>
                                 <tbody id="finalTbody" class="esports-font tracking-wide">
@@ -482,11 +498,11 @@
                         <div class="pt-footer esports-font">
                             <div class="flex items-center gap-2">
                                 <i class="fa-brands fa-whatsapp text-green-500 text-xl"></i>
-                                <span class="text-[var(--pt-td-color)] font-bold tracking-widest text-lg">01303482412</span>
+                                <span class="text-[var(--pt-td-color)] font-bold tracking-widest text-lg opacity-90">01303482412</span>
                             </div>
-                            <div class="px-4 py-1 rounded-full border border-slate-700/50 bg-black/40">
-                                <span class="text-slate-400 text-xs">POWERED BY</span>
-                                <span class="text-[var(--pt-sub-color)] font-bold ml-1 text-sm tracking-wider">BD ORG</span>
+                            <div class="px-4 py-1.5 rounded-full border border-slate-700/50 bg-black/40 shadow-inner">
+                                <span class="text-slate-400 text-[10px] uppercase">Powered By</span>
+                                <span class="text-[var(--pt-sub-color)] font-bold ml-1 text-sm tracking-widest">BD ORG</span>
                             </div>
                         </div>
                     </div>
@@ -587,7 +603,6 @@
             if(viewId === 'historyView') loadTournaments();
         };
 
-        // ... (Tournament Setup, History, Matches logic remains exactly the same) ...
         window.renderSetupForm = () => {
             const ptsDiv = document.getElementById('setupPoints'); const teamsDiv = document.getElementById('setupTeams');
             ptsDiv.innerHTML = ''; teamsDiv.innerHTML = '';
@@ -643,46 +658,100 @@
         window.createMatch = async () => { const nextNum = state.matches.length > 0 ? Math.max(...state.matches.map(m=>m.matchNum)) + 1 : 1; const tStats = {}; for(let i=0; i<12; i++) tStats[i] = { sl: i+1, elims: 0, pos: '' }; await setDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', `m_${Date.now()}`), { tId: state.activeTId, matchNum: nextNum, status: 'active', aliveTeams: '12/12', aliveEnemies: 48, timerSeconds: 0, teamStats: tStats, createdAt: Date.now() }); showToast(`Match ${nextNum} Created`); loadMatches(); };
         window.deleteMatch = async (mId) => { if(confirm("Delete match?")) { await deleteDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', mId)); showToast("Deleted"); loadMatches(); } };
 
+        /* ------------------------------------------
+           LIVE DASHBOARD & DYNAMIC SORTING
+        ------------------------------------------ */
         let unsubLive = null;
         window.openLiveMatch = (mId) => {
             state.activeMId = mId; const m = state.matches.find(x => x.id === mId);
             document.getElementById('liveMatchTitle').innerHTML = m.status === 'completed' ? `MATCH ${m.matchNum} - <span class="text-green-500">FINISHED</span>` : `<i class="fa-solid fa-satellite-dish text-red-500 mr-2 animate-pulse"></i> MATCH ${m.matchNum} LIVE`;
             document.getElementById('liveAliveTeams').value = m.aliveTeams || '12/12'; document.getElementById('liveAliveEnemies').value = m.aliveEnemies || 48; state.timerSeconds = m.timerSeconds || 0; updateTimerUI();
+            
             buildLiveTable(); switchView('liveDashboardView');
+            
             if(unsubLive) unsubLive();
             unsubLive = onSnapshot(doc(db, 'artifacts', appId, 'users', userId, 'matches', mId), (snap) => {
                 const data = snap.data(); if(!data) return;
                 if(document.activeElement.id !== 'liveAliveTeams') document.getElementById('liveAliveTeams').value = data.aliveTeams;
                 if(document.activeElement.id !== 'liveAliveEnemies') document.getElementById('liveAliveEnemies').value = data.aliveEnemies;
+                
+                let needsSort = false;
                 for(let i=0; i<12; i++){
                     if(data.teamStats && data.teamStats[i]){
                         if(document.activeElement.id !== `live_elim_${i}`) document.getElementById(`live_elim_${i}`).value = data.teamStats[i].elims;
                         if(document.activeElement.id !== `live_pos_${i}`) document.getElementById(`live_pos_${i}`).value = data.teamStats[i].pos;
-                        calcLiveRow(i);
+                        if(document.activeElement.id !== `live_sl_${i}`) {
+                            document.getElementById(`live_sl_${i}`).value = data.teamStats[i].sl;
+                            needsSort = true;
+                        }
+                        calcLiveRow(i, false);
                     }
+                }
+                // Auto sort if a remote change updated the SL number, but don't interrupt active typing
+                if(needsSort && (!document.activeElement || !document.activeElement.id.startsWith('live_sl_'))) {
+                    sortLiveTable();
                 }
             });
         };
+
         function buildLiveTable() {
             const t = state.tournaments.find(x => x.id === state.activeTId); const m = state.matches.find(x => x.id === state.activeMId);
             const tbody = document.getElementById('liveTableBody'); tbody.innerHTML = '';
             for(let i=0; i<12; i++) {
                 const s = m.teamStats[i] || {sl: i+1, elims: 0, pos: ''};
-                tbody.innerHTML += `<tr class="hover:bg-slate-800/80 transition group"><td><input type="number" id="live_sl_${i}" value="${s.sl}" class="w-10 bg-transparent text-center text-slate-500 text-xs outline-none" oninput="autoSaveMatchDebounced()"></td><td class="text-left font-bold text-white uppercase text-sm tracking-wide group-hover:text-esports-primary transition">${t.teams[i] || `Team ${i+1}`}</td><td><input type="number" id="live_elim_${i}" value="${s.elims}" min="0" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-blue-500" oninput="calcLiveRow(${i}); autoSaveMatchDebounced()"></td><td><input type="number" id="live_pos_${i}" value="${s.pos}" min="1" max="12" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-yellow-500" oninput="calcLiveRow(${i}); autoSaveMatchDebounced()"></td><td id="live_pts_${i}" class="text-slate-400 font-mono font-bold">0</td><td id="live_tot_${i}" class="text-esports-primary font-bold text-xl drop-shadow-[0_0_5px_rgba(59,130,246,0.5)]">0</td><td id="live_stat_${i}"></td></tr>`;
-                calcLiveRow(i);
+                tbody.innerHTML += `
+                    <tr id="live_row_${i}" class="hover:bg-slate-800/80 transition group">
+                        <td><input type="number" id="live_sl_${i}" value="${s.sl}" class="w-14 bg-slate-900 border border-slate-600 rounded p-1.5 text-center text-white text-sm font-bold outline-none focus:border-blue-500" oninput="sortLiveTable(); autoSaveMatchDebounced()"></td>
+                        <td class="text-left font-bold text-white uppercase text-sm tracking-wide group-hover:text-esports-primary transition"><i class="fa-solid fa-shield-halved mr-2 text-slate-500"></i>${t.teams[i] || `Team ${i+1}`}</td>
+                        <td><input type="number" id="live_elim_${i}" value="${s.elims}" min="0" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-blue-500" oninput="calcLiveRow(${i}); autoSaveMatchDebounced()"></td>
+                        <td><input type="number" id="live_pos_${i}" value="${s.pos}" min="1" max="12" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-yellow-500" oninput="calcLiveRow(${i}); autoSaveMatchDebounced()"></td>
+                        <td id="live_pts_${i}" class="text-slate-400 font-mono font-bold">0</td>
+                        <td id="live_tot_${i}" class="text-esports-primary font-bold text-xl drop-shadow-[0_0_5px_rgba(59,130,246,0.5)]">0</td>
+                        <td id="live_stat_${i}"></td>
+                    </tr>
+                `;
+                calcLiveRow(i, false);
             }
+            sortLiveTable(); // Initial Sort
         }
-        window.calcLiveRow = (i) => {
+
+        // Real-time Sorting Logic for Live Table
+        window.sortLiveTable = () => {
+            const tbody = document.getElementById('liveTableBody');
+            const rows = Array.from(tbody.querySelectorAll('tr[id^="live_row_"]'));
+            const activeId = document.activeElement ? document.activeElement.id : null;
+
+            rows.sort((a, b) => {
+                const inputA = a.querySelector('input[id^="live_sl_"]');
+                const inputB = b.querySelector('input[id^="live_sl_"]');
+                const slA = parseInt(inputA.value) || 999; 
+                const slB = parseInt(inputB.value) || 999;
+                return slA - slB;
+            });
+
+            // Re-append in sorted order
+            rows.forEach(row => tbody.appendChild(row));
+
+            // Restore focus if user is currently typing
+            if (activeId) {
+                const el = document.getElementById(activeId);
+                if (el) { el.focus(); }
+            }
+        };
+
+        window.calcLiveRow = (i, sortAfter = true) => {
             const t = state.tournaments.find(x => x.id === state.activeTId); const pos = parseInt(document.getElementById(`live_pos_${i}`).value) || 0;
             const pPts = (pos >= 1 && pos <= 12) ? t.points[pos-1] : 0; const elims = parseInt(document.getElementById(`live_elim_${i}`).value) || 0;
             document.getElementById(`live_pts_${i}`).innerText = pPts; document.getElementById(`live_tot_${i}`).innerText = elims + pPts;
-            document.getElementById(`live_stat_${i}`).innerHTML = pos === 1 ? '<span class="bg-yellow-500 text-black px-3 py-1 rounded text-[10px] font-bold shadow-[0_0_15px_rgba(234,179,8,0.8)] tracking-widest uppercase">BOOYAH</span>' : '';
+            document.getElementById(`live_stat_${i}`).innerHTML = pos === 1 ? '<span class="bg-yellow-500 text-black px-3 py-1.5 rounded text-[10px] font-bold shadow-[0_0_15px_rgba(234,179,8,0.8)] tracking-widest uppercase"><i class="fa-solid fa-trophy mr-1"></i>BOOYAH</span>' : '';
         };
+
         window.autoSaveMatchDebounced = () => { clearTimeout(state.saveTimeout); state.saveTimeout = setTimeout(async () => {
             const data = { aliveTeams: document.getElementById('liveAliveTeams').value, aliveEnemies: document.getElementById('liveAliveEnemies').value, timerSeconds: state.timerSeconds, teamStats: {} };
-            for(let i=0; i<12; i++) data.teamStats[i] = { sl: parseInt(document.getElementById(`live_sl_${i}`).value)||i+1, elims: parseInt(document.getElementById(`live_elim_${i}`).value)||0, pos: document.getElementById(`live_pos_${i}`).value };
+            for(let i=0; i<12; i++) data.teamStats[i] = { sl: parseInt(document.getElementById(`live_sl_${i}`).value)||99, elims: parseInt(document.getElementById(`live_elim_${i}`).value)||0, pos: document.getElementById(`live_pos_${i}`).value };
             await updateDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', state.activeMId), data);
         }, 600); };
+
         window.finalizeMatch = async () => { await autoSaveMatchDebounced(); await updateDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', state.activeMId), { status: 'completed' }); showToast("Match Saved!"); if(unsubLive) unsubLive(); loadMatches(); switchView('matchListView'); };
         
         // Timer
@@ -691,17 +760,19 @@
         function updateTimerUI() { document.getElementById('liveTimerDisplay').innerText = `${String(Math.floor(state.timerSeconds/60)).padStart(2,'0')}:${String(state.timerSeconds%60).padStart(2,'0')}`; }
 
 
-        // --- 5. Final Table (Updated for Themes) ---
+        /* ------------------------------------------
+           FINAL TABLE & THEME GENERATOR
+        ------------------------------------------ */
         
-        // Theme Selector Function
         window.setTheme = (themeName, btnElement) => {
-            document.getElementById('exportTableArea').className = `pt-container min-w-[700px] mx-auto ${themeName}`;
+            document.getElementById('exportTableArea').className = `pt-container min-w-[700px] max-w-[900px] mx-auto ${themeName}`;
             document.querySelectorAll('.theme-select-btn').forEach(b => {
-                b.classList.remove('ring-2', 'ring-white', 'opacity-100');
-                b.classList.add('opacity-60');
+                b.classList.remove('ring-2', 'ring-white', 'opacity-100', 'shadow-[0_0_10px_#0ea5e9]');
+                b.classList.add('opacity-50');
             });
-            btnElement.classList.remove('opacity-60');
+            btnElement.classList.remove('opacity-50');
             btnElement.classList.add('ring-2', 'ring-white', 'opacity-100');
+            if(themeName === 'theme-blue') btnElement.classList.add('shadow-[0_0_10px_#0ea5e9]');
         };
 
         window.generateFinalTable = () => {
@@ -726,17 +797,20 @@
             const tbody = document.getElementById('finalTbody'); tbody.innerHTML = '';
             results.forEach((team, idx) => {
                 let rowClass = "";
-                if(idx === 0) rowClass = "rank-1"; else if(idx === 1) rowClass = "rank-2"; else if(idx === 2) rowClass = "rank-3";
+                let rankIcon = "";
+                if(idx === 0) { rowClass = "rank-1"; rankIcon = '<i class="fa-solid fa-trophy text-yellow-400 mr-2 drop-shadow-md"></i>'; }
+                else if(idx === 1) { rowClass = "rank-2"; rankIcon = '<i class="fa-solid fa-medal text-slate-300 mr-2 drop-shadow-md"></i>'; }
+                else if(idx === 2) { rowClass = "rank-3"; rankIcon = '<i class="fa-solid fa-medal text-orange-400 mr-2 drop-shadow-md"></i>'; }
                 
                 tbody.innerHTML += `
                     <tr class="${rowClass}">
-                        <td class="font-bold text-lg pt-rank-col">#${idx+1}</td>
-                        <td class="text-left pl-3 font-bold uppercase text-[15px] tracking-wide pt-rank-col">${team.name}</td>
-                        <td class="font-mono opacity-80">${team.matches}</td>
-                        <td class="font-mono font-bold pt-booyah-col drop-shadow-md">${team.booyahs}</td>
-                        <td class="font-mono opacity-80">${team.pPts}</td>
+                        <td class="font-bold text-lg pt-rank-col">${rankIcon}#${String(idx+1).padStart(2, '0')}</td>
+                        <td class="text-left pl-3 pt-team-name"><i class="fa-solid fa-shield-halved"></i> ${team.name.toUpperCase()}</td>
+                        <td class="font-mono font-semibold opacity-80">${team.matches}</td>
+                        <td class="font-mono pt-booyah-col drop-shadow-md">${team.booyahs}</td>
+                        <td class="font-mono font-semibold opacity-80">${team.pPts}</td>
                         <td class="font-bold font-mono">${team.elims}</td>
-                        <td class="font-bold text-xl pt-total-col tracking-wider">${team.total}</td>
+                        <td class="pt-total-col font-mono">${team.total}</td>
                     </tr>
                 `;
             });
@@ -747,14 +821,14 @@
             const btn = document.getElementById('dwnBtn');
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Processing...';
             const el = document.getElementById('exportTableArea');
-            el.style.width = '800px'; // Force fixed width for perfect render
+            el.style.width = '900px'; // Set fixed optimal width for HD Export
             
-            html2canvas(el, { backgroundColor: null, scale: 2, useCORS: true }).then(canvas => {
-                el.style.width = 'auto'; 
+            html2canvas(el, { backgroundColor: null, scale: 2.5, useCORS: true }).then(canvas => {
+                el.style.width = 'auto'; // Revert back to auto
                 const link = document.createElement('a');
                 link.download = `BD_ORG_${document.getElementById('ptTourName').innerText.replace(/\s+/g, '_')}_Standings.png`;
                 link.href = canvas.toDataURL('image/png'); link.click();
-                btn.innerHTML = '<i class="fa-solid fa-download mr-1"></i> Export Image';
+                btn.innerHTML = '<i class="fa-solid fa-download mr-1"></i> EXPORT HD IMAGE';
                 showToast("High Quality Image Downloaded!");
             }).catch(e => {
                 el.style.width = 'auto'; console.error(e);
