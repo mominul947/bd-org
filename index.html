@@ -6,7 +6,7 @@
     <title>Cloud-Powered Free Fire Esports Admin Dashboard</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Oswald for bold headers, Rajdhani for numbers/tech look, Inter for readability -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;500;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -47,9 +47,21 @@
         .live-table th { background: rgba(15, 23, 42, 0.9); color: #94A3B8; font-size: 0.85rem; text-transform: uppercase; border-bottom: 2px solid #3B82F6; padding: 12px; }
         .live-table td { border-bottom: 1px solid rgba(51, 65, 85, 0.5); padding: 10px; text-align: center; }
 
-        /* =========================================
-           20 PRO ESPORTS STANDINGS THEMES ENGINE
-           ========================================= */
+        /* Custom Checkbox for Rush Teams */
+        .rush-cb { accent-color: #F59E0B; width: 14px; height: 14px; cursor: pointer; }
+        
+        /* Champion Rush Table Highlight CSS */
+        .rush-highlight td {
+            background-color: rgba(245, 158, 11, 0.25) !important;
+            border-top: 1px solid #f59e0b !important;
+            border-bottom: 1px solid #f59e0b !important;
+        }
+        .rush-highlight .pt-team-col {
+            color: #fcd34d !important;
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.8) !important;
+        }
+
+        /* 20 PRO ESPORTS STANDINGS THEMES ENGINE */
         .pt-container {
             background-color: var(--pt-bg); background-image: var(--pt-bg-image, none); background-size: cover; background-position: center;
             border: var(--pt-border-size, 0px) solid var(--pt-border-color, transparent); border-radius: var(--pt-radius, 0px); box-shadow: var(--pt-box-shadow, 0 15px 40px rgba(0,0,0,0.8));
@@ -76,89 +88,51 @@
         .pt-table th { padding: var(--pt-th-padding, 12px 10px); font-size: var(--pt-th-size, 0.95rem); color: var(--pt-th-color); background: var(--pt-th-bg, transparent); text-transform: uppercase; letter-spacing: 1.5px; border-bottom: var(--pt-th-border, none); font-weight: 700; }
         .pt-table td { padding: var(--pt-td-padding, 10px 10px); font-size: 1.1rem; text-align: center; background: var(--pt-td-bg, transparent); border-bottom: var(--pt-td-border, none); border-top: var(--pt-td-border-top, none); transition: 0.3s; }
         .pt-rank-col { font-family: 'Rajdhani', sans-serif; font-size: var(--pt-rank-size, 1.5rem); font-weight: 700; color: var(--pt-rank-color); background: var(--pt-rank-bg, transparent); border-radius: var(--pt-rank-radius, 0); }
-        .pt-team-col { text-align: left !important; font-weight: 800; font-size: var(--pt-team-size, 1.15rem); letter-spacing: 0.5px; color: var(--pt-team-color); padding-left: var(--pt-team-pl, 15px) !important; }
+        .pt-team-col { text-align: left !important; font-weight: 800; font-size: var(--pt-team-size, 1.15rem); letter-spacing: 0.5px; color: var(--pt-team-color); padding-left: var(--pt-team-pl, 15px) !important; display: flex; align-items: center; }
         .pt-stat-col { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: var(--pt-stat-size, 1.3rem); color: var(--pt-stat-color); background: var(--pt-stat-bg, transparent); }
         .pt-booyah-col { color: var(--pt-booyah-color); font-weight: 700; font-family: 'Rajdhani', sans-serif; font-size: var(--pt-booyah-size, 1.3rem); }
         .pt-total-col { background: var(--pt-total-bg, transparent); color: var(--pt-total-color); font-weight: 800; font-size: var(--pt-total-size, 1.6rem); font-family: 'Rajdhani', sans-serif; border: var(--pt-total-border, none); border-radius: var(--pt-total-radius, 0); box-shadow: var(--pt-total-box-shadow, none); text-shadow: var(--pt-total-shadow, none); }
         .pt-footer { padding: var(--pt-footer-padding, 15px 25px); text-align: center; font-size: 0.9rem; border-top: var(--pt-footer-border, none); background: var(--pt-footer-bg, transparent); display: flex; justify-content: space-between; align-items: center; font-weight: 600; }
 
-        /* --- THEME 1: SURVIVAL (Orange/Dark) --- */
+        /* THEMES 1 to 20 */
         .t-survival { --pt-bg:#09090b; --pt-header-bg:#000; --pt-header-border-bottom:2px solid #ea580c; --pt-title-color:#fff; --pt-title-shadow:2px 2px 0px #ea580c; --pt-sub-color:#ea580c; --pt-sub-bg:#171717; --pt-sub-padding:2px 15px; --pt-wrap-padding:20px 30px; --pt-th-bg:#171717; --pt-th-color:#fdba74; --pt-td-bg:#18181b; --pt-rank-color:#ea580c; --pt-rank-bg:#111; --pt-team-color:#fff; --pt-stat-color:#d4d4d8; --pt-booyah-color:#f97316; --pt-total-bg:#ea580c; --pt-total-color:#fff; --pt-footer-bg:#000; --pt-footer-border:1px solid #27272a; }
         .t-survival .rank-1 .pt-rank-col { background:#ea580c; color:#fff; } .t-survival .rank-2 .pt-rank-col { background:#94a3b8; color:#fff; } .t-survival .rank-3 .pt-rank-col { background:#b45309; color:#fff; }
-
-        /* --- THEME 2: WORLD CUP (White/Magenta) --- */
         .t-worldcup { --pt-bg:#fff; --pt-border-size:1px; --pt-border-color:#e5e7eb; --pt-radius:8px; --pt-text-color:#111827; --pt-header-bg:#f3f4f6; --pt-header-border-bottom:3px solid #db2777; --pt-title-color:#111827; --pt-sub-color:#db2777; --pt-table-collapse:collapse; --pt-row-gap:0px; --pt-wrap-padding:0px; --pt-th-bg:#f9fafb; --pt-th-color:#111827; --pt-th-border:1px solid #e5e7eb; --pt-td-bg:#fff; --pt-td-border:1px solid #e5e7eb; --pt-rank-color:#111827; --pt-rank-bg:#f3f4f6; --pt-team-color:#111827; --pt-stat-color:#374151; --pt-booyah-color:#db2777; --pt-total-bg:#db2777; --pt-total-color:#fff; --pt-footer-bg:#f9fafb; --pt-footer-border:1px solid #e5e7eb; }
         .t-worldcup .rank-1 td { background:#fdf2f8; } .t-worldcup .rank-1 .pt-rank-col { background:#fbcfe8; color:#db2777; } .t-worldcup .rank-2 td { background:#f3f4f6; } .t-worldcup .rank-3 td { background:#fef3c7; }
-
-        /* --- THEME 3: VOLCANO (Purple Glow) --- */
         .t-volcano { --pt-bg:linear-gradient(180deg,#1e1b4b 0%,#0f172a 100%); --pt-border-size:2px; --pt-border-color:#8b5cf6; --pt-radius:12px; --pt-box-shadow:0 0 40px rgba(139,92,246,0.3); --pt-header-bg:rgba(0,0,0,0.5); --pt-header-border-bottom:2px solid #8b5cf6; --pt-title-color:#fff; --pt-title-shadow:0 0 20px #8b5cf6; --pt-sub-color:#c4b5fd; --pt-th-bg:rgba(139,92,246,0.2); --pt-th-color:#ddd6fe; --pt-td-bg:rgba(0,0,0,0.4); --pt-td-border:1px solid rgba(139,92,246,0.3); --pt-rank-color:#8b5cf6; --pt-team-color:#fff; --pt-stat-color:#e2e8f0; --pt-booyah-color:#c4b5fd; --pt-total-bg:#8b5cf6; --pt-total-color:#fff; --pt-total-radius:6px; --pt-footer-bg:rgba(0,0,0,0.6); --pt-footer-border:1px solid #8b5cf6; }
         .t-volcano .rank-1 td { background:rgba(139,92,246,0.4); border-color:#a78bfa; } .t-volcano .rank-1 .pt-total-col { background:#fff; color:#8b5cf6; }
-
-        /* --- THEME 4: LUXRAY (Skewed Orange) --- */
         .t-luxray { --pt-bg:#111; --pt-title-color:#f97316; --pt-sub-color:#fff; --pt-header-bg:#000; --pt-wrap-padding:0 10px 20px 10px; --pt-th-bg:#000; --pt-th-color:#f97316; --pt-td-bg:#f97316; --pt-rank-color:#000; --pt-team-color:#000; --pt-stat-color:#000; --pt-booyah-color:#fff; --pt-total-bg:#000; --pt-total-color:#f97316; --pt-footer-bg:#000; }
         .t-luxray td { transform:skewX(-10deg); border-radius:2px; } .t-luxray td > * { transform:skewX(10deg); display:block; } .t-luxray th { transform:skewX(-10deg); } .t-luxray th > * { transform:skewX(10deg); display:block; } .t-luxray .rank-1 td { background:#fbbf24; }
-
-        /* --- THEME 5: TECH BLUE --- */
         .t-tech { --pt-bg:#0a1128; --pt-border-size:1px; --pt-border-color:#1e3a8a; --pt-radius:16px; --pt-header-align:left; --pt-title-color:#60a5fa; --pt-sub-color:#fff; --pt-header-padding:30px 30px 10px 30px; --pt-wrap-padding:20px 30px; --pt-th-color:#60a5fa; --pt-td-bg:linear-gradient(90deg,#1e3a8a 0%,#172554 100%); --pt-rank-color:#fff; --pt-rank-bg:#1d4ed8; --pt-rank-radius:8px 0 0 8px; --pt-team-color:#fff; --pt-stat-color:#93c5fd; --pt-booyah-color:#fff; --pt-total-bg:#eff6ff; --pt-total-color:#1e3a8a; --pt-total-radius:0 8px 8px 0; }
         .t-tech .rank-1 td { background:linear-gradient(90deg,#2563eb 0%,#1d4ed8 100%); }
-
-        /* --- THEME 6: MATRIX (Dark Grid) --- */
         .t-matrix { --pt-bg:#080c16; --pt-border-size:1px; --pt-border-color:#1e3a8a; --pt-header-bg:#040811; --pt-header-border-bottom:2px solid #2563eb; --pt-title-color:#fff; --pt-sub-color:#3b82f6; --pt-header-align:left; --pt-table-collapse:collapse; --pt-row-gap:0px; --pt-wrap-padding:0px; --pt-th-bg:#080c16; --pt-th-color:#60a5fa; --pt-th-border:1px solid #1e293b; --pt-td-bg:#0b1120; --pt-td-border:1px solid #1e293b; --pt-rank-color:#94a3b8; --pt-team-color:#fff; --pt-stat-color:#94a3b8; --pt-booyah-color:#3b82f6; --pt-total-color:#3b82f6; --pt-footer-bg:#040811; }
         .t-matrix .pt-stat-col, .t-matrix .pt-total-col { border-left:1px solid #1e293b; } .t-matrix .rank-1 td { background:#172554; } .t-matrix .rank-1 .pt-total-col { background:#2563eb; color:#fff; }
-
-        /* --- THEME 7: CYBERPUNK (Neon Yellow/Pink) --- */
         .t-cyber { --pt-bg:#09090b; --pt-border-size:2px; --pt-border-color:#eab308; --pt-header-bg:linear-gradient(90deg,#4a044e,#000); --pt-header-border-bottom:4px solid #db2777; --pt-title-color:#fef08a; --pt-title-shadow:3px 3px 0px #db2777; --pt-sub-color:#22d3ee; --pt-th-bg:#eab308; --pt-th-color:#000; --pt-td-bg:#18181b; --pt-td-border:1px solid #27272a; --pt-rank-color:#eab308; --pt-team-color:#fff; --pt-stat-color:#a1a1aa; --pt-booyah-color:#22d3ee; --pt-total-bg:#db2777; --pt-total-color:#fff; --pt-footer-bg:#09090b; --pt-footer-border:2px solid #eab308; }
         .t-cyber .rank-1 td { background:rgba(234,179,8,0.15); border-left:4px solid #eab308; }
-
-        /* --- THEME 8: ICE WIND (Frost Blue) --- */
         .t-ice { --pt-bg:linear-gradient(180deg,#082f49 0%,#0f172a 100%); --pt-border-size:1px; --pt-border-color:#38bdf8; --pt-radius:10px; --pt-header-bg:rgba(2,132,199,0.3); --pt-header-border-bottom:2px solid #7dd3fc; --pt-title-color:#f0f9ff; --pt-title-shadow:0 0 10px #38bdf8; --pt-sub-color:#bae6fd; --pt-th-bg:rgba(56,189,248,0.1); --pt-th-color:#e0f2fe; --pt-td-bg:rgba(15,23,42,0.6); --pt-td-border:1px solid rgba(56,189,248,0.2); --pt-rank-color:#7dd3fc; --pt-team-color:#fff; --pt-stat-color:#cbd5e1; --pt-booyah-color:#38bdf8; --pt-total-bg:#0284c7; --pt-total-color:#fff; --pt-total-radius:4px; --pt-footer-bg:rgba(8,47,73,0.8); }
         .t-ice .rank-1 td { background:rgba(56,189,248,0.25); border-color:#7dd3fc; }
-
-        /* --- THEME 9: BLOOD STRIKE (Deep Crimson) --- */
         .t-blood { --pt-bg:#000; --pt-header-bg:linear-gradient(180deg,#7f1d1d 0%,#000 100%); --pt-title-color:#fca5a5; --pt-sub-color:#ef4444; --pt-th-bg:#dc2626; --pt-th-color:#fff; --pt-td-bg:#111; --pt-td-border:1px solid #333; --pt-rank-color:#dc2626; --pt-team-color:#fff; --pt-stat-color:#9ca3af; --pt-booyah-color:#f87171; --pt-total-bg:#dc2626; --pt-total-color:#fff; --pt-footer-bg:#000; --pt-footer-border:1px solid #dc2626; }
         .t-blood .rank-1 td { background:rgba(220,38,38,0.2); border-left:4px solid #ef4444; }
-
-        /* --- THEME 10: GOLDEN ERA (Luxury Gold) --- */
         .t-gold { --pt-bg:#171717; --pt-border-size:2px; --pt-border-color:#d4af37; --pt-header-bg:#000; --pt-header-border-bottom:1px solid #d4af37; --pt-title-color:#d4af37; --pt-title-shadow:0 4px 10px rgba(0,0,0,0.9); --pt-sub-color:#fff; --pt-th-bg:linear-gradient(90deg,#996515,#d4af37,#996515); --pt-th-color:#000; --pt-td-bg:#262626; --pt-td-border:1px solid #404040; --pt-rank-color:#d4af37; --pt-team-color:#fff; --pt-stat-color:#a3a3a3; --pt-booyah-color:#fef08a; --pt-total-bg:#000; --pt-total-color:#d4af37; --pt-total-border:1px solid #d4af37; --pt-footer-bg:#000; --pt-footer-border:1px solid #d4af37; }
         .t-gold .rank-1 td { background:linear-gradient(90deg,rgba(212,175,55,0.2),transparent); }
-
-        /* --- THEME 11: TOXIC BIO (Neon Green) --- */
         .t-toxic { --pt-bg:#022c22; --pt-border-size:2px; --pt-border-color:#10b981; --pt-header-bg:#064e3b; --pt-header-border-bottom:2px dashed #34d399; --pt-title-color:#6ee7b7; --pt-title-shadow:0 0 15px #10b981; --pt-sub-color:#fff; --pt-th-bg:#047857; --pt-th-color:#fff; --pt-td-bg:rgba(6,78,59,0.5); --pt-td-border:1px solid #065f46; --pt-rank-color:#34d399; --pt-team-color:#fff; --pt-stat-color:#a7f3d0; --pt-booyah-color:#6ee7b7; --pt-total-bg:transparent; --pt-total-color:#10b981; --pt-total-shadow:0 0 10px #10b981; --pt-footer-bg:#064e3b; --pt-footer-border:2px solid #10b981; }
         .t-toxic .rank-1 td { background:rgba(16,185,129,0.3); border-color:#34d399; }
-
-        /* --- THEME 12: DESERT STORM (Military Khaki) --- */
         .t-desert { --pt-bg:#27272a; --pt-header-bg:linear-gradient(90deg,#451a03,#713f12); --pt-header-border-bottom:3px solid #eab308; --pt-title-color:#fef08a; --pt-sub-color:#fcd34d; --pt-th-bg:#422006; --pt-th-color:#fde047; --pt-td-bg:#3f3f46; --pt-td-border:1px solid #52525b; --pt-rank-color:#eab308; --pt-team-color:#fff; --pt-stat-color:#d4d4d8; --pt-booyah-color:#fbbf24; --pt-total-bg:#ca8a04; --pt-total-color:#000; --pt-footer-bg:#18181b; --pt-footer-border:2px solid #713f12; }
         .t-desert .rank-1 td { background:#52525b; border-left:4px solid #eab308; }
-
-        /* --- THEME 13: GALAXY (Deep Purple/Starry) --- */
         .t-galaxy { --pt-bg:linear-gradient(135deg,#2e1065,#0f172a); --pt-border-size:1px; --pt-border-color:#d946ef; --pt-radius:15px; --pt-header-bg:rgba(0,0,0,0.6); --pt-header-border-bottom:1px solid #c026d3; --pt-title-color:#fdf4ff; --pt-title-shadow:0 0 20px #d946ef; --pt-sub-color:#f0abfc; --pt-th-bg:rgba(192,38,211,0.2); --pt-th-color:#fbcfe8; --pt-td-bg:rgba(0,0,0,0.4); --pt-td-border:1px solid rgba(217,70,239,0.3); --pt-rank-color:#e879f9; --pt-team-color:#fff; --pt-stat-color:#e2e8f0; --pt-booyah-color:#d946ef; --pt-total-bg:#a21caf; --pt-total-color:#fff; --pt-total-radius:8px; --pt-footer-bg:rgba(0,0,0,0.8); }
         .t-galaxy .rank-1 td { background:rgba(217,70,239,0.25); box-shadow:inset 0 0 10px #d946ef; }
-
-        /* --- THEME 14: PHANTOM (Teal/Ghostly) --- */
         .t-phantom { --pt-bg:#0f172a; --pt-header-bg:linear-gradient(180deg,#134e4a,#0f172a); --pt-title-color:#ccfbf1; --pt-sub-color:#5eead4; --pt-th-bg:#0f766e; --pt-th-color:#fff; --pt-td-bg:#1e293b; --pt-td-border:1px solid #334155; --pt-rank-color:#2dd4bf; --pt-team-color:#f8fafc; --pt-stat-color:#94a3b8; --pt-booyah-color:#5eead4; --pt-total-bg:#0f766e; --pt-total-color:#fff; --pt-footer-bg:#0f172a; --pt-footer-border:1px solid #134e4a; }
         .t-phantom .rank-1 td { background:rgba(45,212,191,0.15); border-left:3px solid #2dd4bf; }
-
-        /* --- THEME 15: ROYAL (Navy & Gold) --- */
         .t-royal { --pt-bg:#1e3a8a; --pt-border-size:4px; --pt-border-color:#fbbf24; --pt-header-bg:#172554; --pt-header-border-bottom:2px solid #f59e0b; --pt-title-color:#fbbf24; --pt-sub-color:#fff; --pt-th-bg:#fbbf24; --pt-th-color:#172554; --pt-td-bg:#1e40af; --pt-td-border:1px solid #2563eb; --pt-rank-color:#fcd34d; --pt-team-color:#fff; --pt-stat-color:#bfdbfe; --pt-booyah-color:#fbbf24; --pt-total-bg:#172554; --pt-total-color:#fbbf24; --pt-total-border:1px solid #fbbf24; --pt-footer-bg:#172554; --pt-footer-border:2px solid #fbbf24; }
         .t-royal .rank-1 td { background:#2563eb; }
-
-        /* --- THEME 16: INFERNO (Fire Red) --- */
         .t-inferno { --pt-bg:#2c0606; --pt-header-bg:linear-gradient(0deg,#450a0a,#991b1b); --pt-title-color:#fef08a; --pt-sub-color:#fb923c; --pt-th-bg:#7f1d1d; --pt-th-color:#fcd34d; --pt-td-bg:#3f0f0f; --pt-td-border:1px solid #5c1414; --pt-rank-color:#f97316; --pt-team-color:#fff; --pt-stat-color:#fca5a5; --pt-booyah-color:#fef08a; --pt-total-bg:#ea580c; --pt-total-color:#fff; --pt-footer-bg:#2c0606; --pt-footer-border:1px solid #991b1b; }
         .t-inferno .rank-1 td { background:rgba(234,88,12,0.3); border-color:#f97316; }
-
-        /* --- THEME 17: STEALTH (Monochrome Ash) --- */
         .t-stealth { --pt-bg:#18181b; --pt-border-size:1px; --pt-border-color:#52525b; --pt-header-bg:#09090b; --pt-header-border-bottom:1px solid #71717a; --pt-title-color:#fff; --pt-sub-color:#a1a1aa; --pt-table-collapse:collapse; --pt-row-gap:0px; --pt-th-bg:#27272a; --pt-th-color:#d4d4d8; --pt-th-border:1px solid #3f3f46; --pt-td-bg:#18181b; --pt-td-border:1px solid #3f3f46; --pt-rank-color:#e4e4e7; --pt-team-color:#fff; --pt-stat-color:#71717a; --pt-booyah-color:#fff; --pt-total-bg:#52525b; --pt-total-color:#fff; --pt-footer-bg:#09090b; --pt-footer-border:1px solid #3f3f46; }
         .t-stealth .rank-1 td { background:#27272a; border-left:4px solid #fff; }
-
-        /* --- THEME 18: SUNSET (Orange/Pink Gradient) --- */
         .t-sunset { --pt-bg:linear-gradient(135deg,#be123c,#c2410c); --pt-radius:10px; --pt-header-bg:rgba(0,0,0,0.3); --pt-title-color:#fff; --pt-sub-color:#fde047; --pt-th-bg:rgba(255,255,255,0.2); --pt-th-color:#fff; --pt-td-bg:rgba(0,0,0,0.2); --pt-td-border:1px solid rgba(255,255,255,0.1); --pt-rank-color:#fde047; --pt-team-color:#fff; --pt-stat-color:#fecdd3; --pt-booyah-color:#fff; --pt-total-bg:#fff; --pt-total-color:#be123c; --pt-total-radius:20px; --pt-footer-bg:rgba(0,0,0,0.4); }
         .t-sunset .rank-1 td { background:rgba(255,255,255,0.2); }
-
-        /* --- THEME 19: GLITCH (Cyan/Magenta) --- */
         .t-glitch { --pt-bg:#000; --pt-header-bg:#000; --pt-title-color:#fff; --pt-title-shadow:2px 0 0 #06b6d4, -2px 0 0 #db2777; --pt-sub-color:#06b6d4; --pt-th-bg:#111; --pt-th-color:#fff; --pt-th-border:1px solid #333; --pt-td-bg:#0a0a0a; --pt-td-border:1px dashed #333; --pt-rank-color:#db2777; --pt-team-color:#fff; --pt-stat-color:#a3a3a3; --pt-booyah-color:#06b6d4; --pt-total-bg:transparent; --pt-total-color:#fff; --pt-total-shadow:2px 2px 0 #db2777; --pt-footer-bg:#000; --pt-footer-border:1px solid #333; }
         .t-glitch .rank-1 td { border:1px solid #06b6d4; box-shadow:inset 0 0 10px rgba(6,182,212,0.3); }
-
-        /* --- THEME 20: CHAMPION (Silver & Pure Blue) --- */
         .t-champion { --pt-bg:#f1f5f9; --pt-border-size:2px; --pt-border-color:#cbd5e1; --pt-header-bg:linear-gradient(90deg,#1e3a8a,#2563eb); --pt-title-color:#fff; --pt-sub-color:#bfdbfe; --pt-table-collapse:collapse; --pt-row-gap:0px; --pt-th-bg:#e2e8f0; --pt-th-color:#1e293b; --pt-th-border:1px solid #cbd5e1; --pt-td-bg:#fff; --pt-td-border:1px solid #cbd5e1; --pt-rank-color:#2563eb; --pt-team-color:#0f172a; --pt-stat-color:#475569; --pt-booyah-color:#ea580c; --pt-total-bg:#2563eb; --pt-total-color:#fff; --pt-footer-bg:#e2e8f0; --pt-footer-border:1px solid #cbd5e1; }
         .t-champion .rank-1 td { background:#eff6ff; border-left:4px solid #2563eb; }
 
@@ -227,7 +201,7 @@
             <div class="p-3 md:p-4 border-t border-slate-700/50 flex flex-col gap-3 bg-slate-900/30">
                 <div class="text-center hidden md:block">
                     <div id="authStatus" class="text-xs text-green-500 mb-1"><i class="fa-solid fa-cloud"></i> Connected</div>
-                    <p class="text-[10px] text-slate-500">System v5.0 (20 Themes) • WP: 01303482412</p>
+                    <p class="text-[10px] text-slate-500">System v5.5 (Pro) • WP: 01303482412</p>
                 </div>
                 <button onclick="window.handleLogout()" class="w-full bg-red-900/40 hover:bg-red-700 border border-red-800 text-red-200 hover:text-white text-xs font-bold py-2 px-4 rounded-lg transition flex items-center justify-center whitespace-nowrap">
                     <i class="fa-solid fa-power-off mr-2"></i> <span class="hidden md:inline">Logout</span>
@@ -315,22 +289,22 @@
             <div id="liveDashboardView" class="view-section max-w-6xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-center mb-6 bg-slate-900/50 p-4 rounded-xl border border-slate-700/50">
                     <h2 class="text-2xl text-white esports-font tracking-wider mb-2 md:mb-0" id="liveMatchTitle">LIVE CONTROL</h2>
-                    <div class="text-green-400 text-xs font-bold bg-green-900/30 px-3 py-1 rounded-full border border-green-500/30"><i class="fa-solid fa-circle fa-beat text-[8px] mr-1"></i> SYNC ACTIVE</div>
+                    <div class="text-green-400 text-xs font-bold bg-green-900/30 px-3 py-1 rounded-full border border-green-500/30"><i class="fa-solid fa-bolt text-yellow-500 mr-1"></i> INSTANT SYNC ACTIVE</div>
                 </div>
 
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 mb-6">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 mb-4">
                     <div class="glass-panel p-4 rounded-xl flex justify-between items-center relative overflow-hidden">
                         <div class="absolute w-1 h-full bg-blue-500 left-0 top-0"></div>
                         <div>
                             <p class="text-slate-400 text-[10px] font-bold uppercase">Alive Teams</p>
-                            <input type="text" id="liveAliveTeams" class="w-20 bg-transparent text-2xl md:text-3xl font-bold text-white border-b border-slate-600 mt-1 outline-none focus:border-blue-500" oninput="window.autoSaveMatchDebounced()">
+                            <input type="text" id="liveAliveTeams" class="w-20 bg-transparent text-2xl md:text-3xl font-bold text-white border-b border-slate-600 mt-1 outline-none focus:border-blue-500" oninput="window.forceSaveLiveStats()">
                         </div>
                     </div>
                     <div class="glass-panel p-4 rounded-xl flex justify-between items-center relative overflow-hidden">
                         <div class="absolute w-1 h-full bg-red-500 left-0 top-0"></div>
                         <div>
                             <p class="text-slate-400 text-[10px] font-bold uppercase">Alive Enemies</p>
-                            <input type="number" id="liveAliveEnemies" class="w-20 bg-transparent text-2xl md:text-3xl font-bold text-white border-b border-slate-600 mt-1 outline-none focus:border-red-500" oninput="window.autoSaveMatchDebounced()">
+                            <input type="number" id="liveAliveEnemies" class="w-20 bg-transparent text-2xl md:text-3xl font-bold text-white border-b border-slate-600 mt-1 outline-none focus:border-red-500" oninput="window.forceSaveLiveStats()">
                         </div>
                     </div>
                     <div class="glass-panel p-4 rounded-xl flex justify-between items-center col-span-2 md:col-span-1 relative overflow-hidden">
@@ -340,8 +314,32 @@
                             <div id="liveTimerDisplay" class="text-3xl font-bold text-esports-accent esports-font mt-1">00:00</div>
                         </div>
                         <div class="flex gap-2">
-                            <button onclick="window.toggleTimer()" id="timerToggleBtn" class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center"><i class="fa-solid fa-play"></i></button>
-                            <button onclick="window.resetTimer()" class="bg-slate-700 text-white w-10 h-10 rounded-full flex items-center justify-center"><i class="fa-solid fa-rotate-right"></i></button>
+                            <button onclick="window.toggleTimer()" id="timerToggleBtn" class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center transition hover:bg-blue-500"><i class="fa-solid fa-play"></i></button>
+                            <button onclick="window.resetTimer()" class="bg-slate-700 text-white w-10 h-10 rounded-full flex items-center justify-center transition hover:bg-slate-600"><i class="fa-solid fa-rotate-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SPECIAL MATCH MODIFIERS (Champion & Rush) -->
+                <div class="glass-panel p-4 rounded-xl mb-6 relative overflow-hidden">
+                    <div class="absolute w-1 h-full bg-purple-500 left-0 top-0"></div>
+                    <h3 class="text-sm text-purple-400 mb-3 esports-font tracking-widest pl-2"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i>SPECIAL HIGHLIGHTS & EFFECTS</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pl-2">
+                        <!-- Champion Select -->
+                        <div>
+                            <label class="block text-[10px] text-slate-400 font-bold uppercase mb-2"><i class="fa-solid fa-crown text-yellow-500 mr-1"></i> Champion Team (Crown Logo)</label>
+                            <select id="championTeamSelect" class="w-full p-2.5 rounded bg-slate-900 border border-slate-700 text-white text-sm outline-none focus:border-purple-500 font-bold" onchange="window.forceSaveLiveStats()">
+                                <option value="">-- No Champion Selected --</option>
+                            </select>
+                            <p class="text-[9px] text-slate-500 mt-1">Select a team to display the champion crown next to their name.</p>
+                        </div>
+                        <!-- Champion Rush Select -->
+                        <div>
+                            <label class="block text-[10px] text-slate-400 font-bold uppercase mb-2"><i class="fa-solid fa-fire text-orange-500 mr-1"></i> Champion Rush (Highlight Row)</label>
+                            <div id="championRushCheckboxes" class="grid grid-cols-2 md:grid-cols-3 gap-2 bg-slate-900/50 p-2 rounded-lg border border-slate-700 max-h-32 overflow-y-auto hide-scrollbar">
+                                <!-- Generated by JS -->
+                            </div>
+                            <p class="text-[9px] text-slate-500 mt-1">Check boxes to unlock champion rush highlight for these teams.</p>
                         </div>
                     </div>
                 </div>
@@ -365,7 +363,7 @@
                     </div>
                 </div>
 
-                <button onclick="window.finalizeMatch()" class="w-full bg-gradient-to-r from-green-600 to-emerald-500 text-white font-bold py-4 rounded-xl shadow-lg text-lg esports-font tracking-wider">
+                <button onclick="window.finalizeMatch()" class="w-full bg-gradient-to-r from-green-600 to-emerald-500 text-white font-bold py-4 rounded-xl shadow-lg text-lg esports-font tracking-wider mb-4 transition hover:scale-[1.01]">
                     <i class="fa-solid fa-flag-checkered mr-2"></i> FINALIZE & SAVE MATCH
                 </button>
             </div>
@@ -555,7 +553,10 @@
         };
         window.createMatch = async () => {
             const nextNum=state.matches.length>0 ? Math.max(...state.matches.map(m=>m.matchNum))+1 : 1; const tStats={}; for(let i=0;i<12;i++) tStats[i]={sl:i+1,elims:0,pos:''};
-            await setDoc(doc(db,'artifacts',appId,'users',userId,'matches',`m_${Date.now()}`), {tId:state.activeTId, matchNum:nextNum, status:'active', aliveTeams:'12/12', aliveEnemies:48, timerSeconds:0, teamStats:tStats, createdAt:Date.now()});
+            await setDoc(doc(db,'artifacts',appId,'users',userId,'matches',`m_${Date.now()}`), {
+                tId:state.activeTId, matchNum:nextNum, status:'active', aliveTeams:'12/12', aliveEnemies:48, timerSeconds:0, 
+                championTeam: "", championRushTeams: [], teamStats:tStats, createdAt:Date.now()
+            });
             window.showToast(`Match Created`); window.loadMatches();
         };
         window.deleteMatch = async (mId) => { if(confirm("Delete match?")){ await deleteDoc(doc(db,'artifacts',appId,'users',userId,'matches',mId)); window.loadMatches(); } };
@@ -564,12 +565,16 @@
             state.activeMId=mId; const m=state.matches.find(x=>x.id===mId); if(!m) return;
             document.getElementById('liveMatchTitle').innerHTML=m.status==='completed'?`MATCH ${m.matchNum} <span class="text-green-500">DONE</span>`:`MATCH ${m.matchNum} LIVE`;
             document.getElementById('liveAliveTeams').value=m.aliveTeams||'12/12'; document.getElementById('liveAliveEnemies').value=m.aliveEnemies||48; state.timerSeconds=m.timerSeconds||0; window.updateTimerUI();
-            window.buildLiveTable(); window.switchView('liveDashboardView');
+            
+            window.buildLiveTable(); 
+            window.switchView('liveDashboardView');
+            
             if(unsubLive) unsubLive();
             unsubLive = onSnapshot(doc(db,'artifacts',appId,'users',userId,'matches',mId), (snap)=>{
                 const data=snap.data(); if(!data) return;
                 if(document.activeElement.id!=='liveAliveTeams') document.getElementById('liveAliveTeams').value=data.aliveTeams;
                 if(document.activeElement.id!=='liveAliveEnemies') document.getElementById('liveAliveEnemies').value=data.aliveEnemies;
+                
                 let needsSort=false;
                 for(let i=0;i<12;i++){
                     if(data.teamStats && data.teamStats[i]){
@@ -585,10 +590,36 @@
 
         window.buildLiveTable = () => {
             const t=state.tournaments.find(x=>x.id===state.activeTId); const m=state.matches.find(x=>x.id===state.activeMId);
+            
+            // Build Champion Options
+            const champSelect = document.getElementById('championTeamSelect');
+            const rushDiv = document.getElementById('championRushCheckboxes');
+            
+            if(champSelect && rushDiv) {
+                champSelect.innerHTML = '<option value="">-- No Champion Selected --</option>';
+                rushDiv.innerHTML = '';
+            }
+
             const tbody=document.getElementById('liveTableBody'); tbody.innerHTML='';
             for(let i=0;i<12;i++){
-                const s=(m&&m.teamStats&&m.teamStats[i])?m.teamStats[i]:{sl:i+1,elims:0,pos:''}; const tName=(t&&t.teams&&t.teams[i])?t.teams[i]:`Team ${i+1}`;
-                tbody.innerHTML+=`<tr id="live_row_${i}" class="border-b border-slate-800"><td class="p-2"><input type="number" id="live_sl_${i}" value="${s.sl}" class="w-14 bg-slate-900 border border-slate-600 rounded p-1.5 text-center text-white text-sm font-bold outline-none" oninput="window.sortLiveTable(); window.autoSaveMatchDebounced()"></td><td class="text-left font-bold text-white uppercase text-sm">${tName}</td><td><input type="number" id="live_elim_${i}" value="${s.elims}" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none" oninput="window.calcLiveRow(${i}); window.autoSaveMatchDebounced()"></td><td><input type="number" id="live_pos_${i}" value="${s.pos}" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none" oninput="window.calcLiveRow(${i}); window.autoSaveMatchDebounced()"></td><td id="live_pts_${i}" class="text-slate-400 font-mono font-bold">0</td><td id="live_tot_${i}" class="text-blue-400 font-bold text-xl">0</td><td id="live_stat_${i}"></td></tr>`;
+                const s=(m&&m.teamStats&&m.teamStats[i])?m.teamStats[i]:{sl:i+1,elims:0,pos:''}; 
+                const tName=(t&&t.teams&&t.teams[i])?t.teams[i]:`Team ${i+1}`;
+                
+                // Add to Special Selectors
+                if(champSelect && rushDiv) {
+                    let isChampSel = (m && m.championTeam === i.toString()) ? "selected" : "";
+                    champSelect.innerHTML += `<option value="${i}" ${isChampSel}>${tName}</option>`;
+                    
+                    let isRushChkd = (m && m.championRushTeams && m.championRushTeams.includes(i.toString())) ? "checked" : "";
+                    rushDiv.innerHTML += `
+                        <label class="flex items-center space-x-2 p-1.5 bg-slate-800 rounded border border-slate-700 text-[11px] text-white cursor-pointer hover:bg-slate-700 transition">
+                            <input type="checkbox" value="${i}" class="rush-cb" onchange="window.forceSaveLiveStats()" ${isRushChkd}> 
+                            <span class="truncate font-bold">${tName}</span>
+                        </label>
+                    `;
+                }
+
+                tbody.innerHTML+=`<tr id="live_row_${i}" class="border-b border-slate-800 hover:bg-slate-800/30"><td class="p-2"><input type="number" id="live_sl_${i}" value="${s.sl}" class="w-14 bg-slate-900 border border-slate-600 rounded p-1.5 text-center text-white text-sm font-bold outline-none focus:border-blue-500" oninput="window.sortLiveTable(); window.forceSaveLiveStats()"></td><td class="text-left font-bold text-white uppercase text-sm">${tName}</td><td><input type="number" id="live_elim_${i}" value="${s.elims}" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-blue-500" oninput="window.calcLiveRow(${i}); window.forceSaveLiveStats()"></td><td><input type="number" id="live_pos_${i}" value="${s.pos}" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-blue-500" oninput="window.calcLiveRow(${i}); window.forceSaveLiveStats()"></td><td id="live_pts_${i}" class="text-slate-400 font-mono font-bold">0</td><td id="live_tot_${i}" class="text-blue-400 font-bold text-xl drop-shadow">0</td><td id="live_stat_${i}"></td></tr>`;
                 window.calcLiveRow(i);
             }
             window.sortLiveTable();
@@ -604,24 +635,55 @@
             const t=state.tournaments.find(x=>x.id===state.activeTId); const pos=parseInt(document.getElementById(`live_pos_${i}`).value)||0;
             const pPts=(t&&pos>=1&&pos<=12)?t.points[pos-1]:0; const elims=parseInt(document.getElementById(`live_elim_${i}`).value)||0;
             document.getElementById(`live_pts_${i}`).innerText=pPts; document.getElementById(`live_tot_${i}`).innerText=elims+pPts;
-            document.getElementById(`live_stat_${i}`).innerHTML=pos===1?'<span class="bg-yellow-500 text-black px-2 py-1 rounded text-[10px] font-bold">BOOYAH</span>':'';
+            document.getElementById(`live_stat_${i}`).innerHTML=pos===1?'<span class="bg-gradient-to-r from-yellow-500 to-amber-600 text-black px-2 py-1 rounded text-[10px] font-bold shadow-md">BOOYAH</span>':'';
         };
 
-       window.autoSaveMatchDebounced = () => { clearTimeout(state.saveTimeout); state.saveTimeout=setTimeout(async ()=>{
-            const data={
-                aliveTeams:document.getElementById('liveAliveTeams').value, 
-                aliveEnemies:document.getElementById('liveAliveEnemies').value, 
-                timerSeconds:state.timerSeconds, 
-                isTimerRunning: state.timerInterval !== null, 
-                teamStats:{}
-            };
-            for(let i=0;i<12;i++) data.teamStats[i]={sl:parseInt(document.getElementById(`live_sl_${i}`).value)||99, elims:parseInt(document.getElementById(`live_elim_${i}`).value)||0, pos:document.getElementById(`live_pos_${i}`).value};
-            await updateDoc(doc(db,'artifacts',appId,'users',userId,'matches',state.activeMId),data);
-        }, 600); };
+        // --- THE INSTANT SAVE FIX ---
+        window.forceSaveLiveStats = async () => {
+            if(!state.activeMId) return;
+            const champTeam = document.getElementById('championTeamSelect') ? document.getElementById('championTeamSelect').value : "";
+            const rushTms = Array.from(document.querySelectorAll('.rush-cb:checked')).map(cb => cb.value);
 
-        window.finalizeMatch = async () => { await window.autoSaveMatchDebounced(); await updateDoc(doc(db,'artifacts',appId,'users',userId,'matches',state.activeMId),{status:'completed'}); window.showToast("Saved!"); if(unsubLive) unsubLive(); window.loadMatches(); window.switchView('matchListView'); };
-        window.toggleTimer = () => { const b=document.getElementById('timerToggleBtn'); if(state.timerInterval){ clearInterval(state.timerInterval); state.timerInterval=null; b.innerHTML='<i class="fa-solid fa-play"></i>'; }else{ state.timerInterval=setInterval(()=>{state.timerSeconds++; window.updateTimerUI();},1000); b.innerHTML='<i class="fa-solid fa-pause"></i>'; } window.autoSaveMatchDebounced(); };
-        window.resetTimer = () => { clearInterval(state.timerInterval); state.timerInterval=null; state.timerSeconds=0; window.updateTimerUI(); document.getElementById('timerToggleBtn').innerHTML='<i class="fa-solid fa-play"></i>'; window.autoSaveMatchDebounced(); };
+            const data = {
+                aliveTeams: document.getElementById('liveAliveTeams').value,
+                aliveEnemies: document.getElementById('liveAliveEnemies').value,
+                timerSeconds: state.timerSeconds,
+                isTimerRunning: state.timerInterval !== null,
+                championTeam: champTeam,
+                championRushTeams: rushTms,
+                teamStats: {}
+            };
+            for(let i=0; i<12; i++){
+                data.teamStats[i] = {
+                    sl: parseInt(document.getElementById(`live_sl_${i}`).value) || 99,
+                    elims: parseInt(document.getElementById(`live_elim_${i}`).value) || 0,
+                    pos: document.getElementById(`live_pos_${i}`).value
+                };
+            }
+            await updateDoc(doc(db,'artifacts',appId,'users',userId,'matches',state.activeMId), data);
+        };
+
+        // Added wrapper to keep old debounce references safe
+        window.autoSaveMatchDebounced = () => { window.forceSaveLiveStats(); };
+
+        window.finalizeMatch = async () => { await window.forceSaveLiveStats(); await updateDoc(doc(db,'artifacts',appId,'users',userId,'matches',state.activeMId),{status:'completed'}); window.showToast("Saved!"); if(unsubLive) unsubLive(); window.loadMatches(); window.switchView('matchListView'); };
+        
+        window.toggleTimer = () => { 
+            const b=document.getElementById('timerToggleBtn'); 
+            if(state.timerInterval){ 
+                clearInterval(state.timerInterval); state.timerInterval=null; b.innerHTML='<i class="fa-solid fa-play"></i>'; 
+            }else{ 
+                state.timerInterval=setInterval(()=>{state.timerSeconds++; window.updateTimerUI();},1000); b.innerHTML='<i class="fa-solid fa-pause"></i>'; 
+            } 
+            window.forceSaveLiveStats(); 
+        };
+        
+        window.resetTimer = () => { 
+            clearInterval(state.timerInterval); state.timerInterval=null; state.timerSeconds=0; 
+            window.updateTimerUI(); document.getElementById('timerToggleBtn').innerHTML='<i class="fa-solid fa-play"></i>'; 
+            window.forceSaveLiveStats(); 
+        };
+        
         window.updateTimerUI = () => { document.getElementById('liveTimerDisplay').innerText=`${String(Math.floor(state.timerSeconds/60)).padStart(2,'0')}:${String(state.timerSeconds%60).padStart(2,'0')}`; };
 
         window.setTheme = (themeName, btnElement) => {
@@ -636,7 +698,20 @@
             const t = state.tournaments.find(x => x.id === state.activeTId);
             document.getElementById('ptTourName').innerText = t.name.toUpperCase();
             
-            const results = Array.from({length:12}, (_,i) => ({ name: (t.teams && t.teams[i]) ? t.teams[i] : `Team ${i+1}`, matches: 0, booyahs: 0, pPts: 0, elims: 0, total: 0 }));
+            // Fetch the special highlights from the latest match
+            let currentChamp = "";
+            let currentRush = [];
+            state.matches.forEach(m => {
+                if(m.championTeam !== undefined) currentChamp = m.championTeam;
+                if(m.championRushTeams !== undefined) currentRush = m.championRushTeams;
+            });
+
+            const results = Array.from({length:12}, (_,i) => ({ 
+                teamIdx: i, // Kept to map special highlights
+                name: (t.teams && t.teams[i]) ? t.teams[i] : `Team ${i+1}`, 
+                matches: 0, booyahs: 0, pPts: 0, elims: 0, total: 0 
+            }));
+            
             state.matches.filter(m => m.status === 'completed').forEach(m => {
                 for(let i=0; i<12; i++){
                     if(m.teamStats && m.teamStats[i]){
@@ -653,10 +728,22 @@
             const tbody = document.getElementById('finalTbody'); tbody.innerHTML = '';
             results.forEach((team, idx) => {
                 let rowClass = idx===0?"rank-1":idx===1?"rank-2":idx===2?"rank-3":"";
+                
+                // Highlight Logic Check
+                let isChampion = (team.teamIdx.toString() === currentChamp.toString());
+                let isRush = currentRush.includes(team.teamIdx.toString());
+
+                if (isRush) rowClass += " rush-highlight"; // Attach highlight CSS
+
+                let displayTeamName = team.name;
+                if (isChampion) {
+                    displayTeamName += ` <i class="fa-solid fa-crown text-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.9)] ml-2 text-[1.2rem]" title="Champion"></i>`;
+                }
+
                 tbody.innerHTML += `
                     <tr class="${rowClass}">
                         <td class="pt-rank-col text-center">${String(idx+1).padStart(2, '0')}</td>
-                        <td class="pt-team-col">${team.name}</td>
+                        <td class="pt-team-col">${displayTeamName}</td>
                         <td class="pt-stat-col opacity-80 text-center">${team.matches}</td>
                         <td class="pt-booyah-col text-center">${team.booyahs}</td>
                         <td class="pt-stat-col opacity-80 text-center">${team.pPts}</td>
