@@ -6,8 +6,8 @@
     <title>Cloud-Powered Free Fire Esports Admin Dashboard</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Oswald for bold headers, Rajdhani for numbers/tech look, Inter for readability -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;500;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -43,22 +43,20 @@
         ::-webkit-scrollbar-thumb { background: #3B82F6; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #F59E0B; }
 
-        /* View Management Animations */
+        /* View Management */
         .view-section { display: none; animation: fadeInUp 0.4s ease-out forwards; opacity: 0; transform: translateY(15px); }
         .view-section.active { display: block; }
         @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-        /* Premium Inputs & Glass Panels */
+        /* Dashboard UI Elements */
         .glass-panel { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(59, 130, 246, 0.2); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); }
         .neon-input { background-color: rgba(15, 23, 42, 0.8); border: 1px solid #334155; color: white; transition: all 0.3s ease; }
         .neon-input:focus { border-color: #3B82F6; box-shadow: 0 0 10px rgba(59, 130, 246, 0.5); outline: none; }
         
-        /* Nav Buttons */
         .nav-btn { position: relative; overflow: hidden; transition: all 0.3s ease; border: 1px solid transparent; }
         .nav-btn:hover { background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.4); box-shadow: 0 0 15px rgba(59, 130, 246, 0.2); }
         .nav-btn.active-nav { background: linear-gradient(90deg, #1D4ED8 0%, #3B82F6 100%); border-color: #60A5FA; box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); color: white; }
 
-        /* Action Buttons */
         .btn-primary { background: linear-gradient(45deg, #2563EB, #3B82F6); box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); transition: 0.3s; }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6); }
         .btn-accent { background: linear-gradient(45deg, #D97706, #F59E0B); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4); transition: 0.3s; color: black; }
@@ -68,132 +66,419 @@
         .live-table td { border-bottom: 1px solid rgba(51, 65, 85, 0.5); padding: 10px; text-align: center; }
         
         /* =========================================
-           PRO ESPORTS STANDINGS ENGINE
+           PRO ESPORTS STANDINGS ENGINE (BROADCAST QUALITY)
            ========================================= */
         
         .pt-container {
-            background: var(--pt-bg); border: var(--pt-border-size) solid var(--pt-border);
-            border-radius: var(--pt-radius); position: relative; box-shadow: 0 15px 40px rgba(0,0,0,0.8);
-            color: var(--pt-td-color); transition: all 0.4s ease; overflow: hidden;
+            background-color: var(--pt-bg);
+            background-image: var(--pt-bg-image, none);
+            background-size: cover;
+            background-position: center;
+            border: var(--pt-border-size) solid var(--pt-border-color);
+            border-radius: var(--pt-radius);
+            box-shadow: var(--pt-box-shadow);
+            color: var(--pt-text-color);
+            position: relative;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
         }
+
         .pt-header { 
-            text-align: center; padding: 25px 10px 20px 10px; 
-            border-bottom: var(--pt-border-size) solid var(--pt-border); 
-            background: var(--pt-header-bg); position: relative;
+            text-align: var(--pt-header-align, center); 
+            padding: var(--pt-header-padding, 25px 20px); 
+            border-bottom: var(--pt-header-border-bottom); 
+            background: var(--pt-header-bg); 
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
-        .pt-header h2 { color: var(--pt-title-color); font-size: 3rem; margin: 0; letter-spacing: 2px; text-shadow: var(--pt-title-shadow); font-weight: 700; line-height: 1.1; }
-        .pt-header p { color: var(--pt-sub-color); font-size: 1.2rem; letter-spacing: 6px; margin-top: 5px; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.5); background: var(--pt-sub-bg, transparent); display: inline-block; padding: 2px 15px; border-radius: 20px; }
+
+        .pt-header-title { 
+            color: var(--pt-title-color); 
+            font-size: var(--pt-title-size, 3.2rem); 
+            margin: 0; 
+            letter-spacing: var(--pt-title-spacing, 2px); 
+            text-shadow: var(--pt-title-shadow); 
+            font-weight: 700; 
+            line-height: 1.1; 
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .pt-header-sub { 
+            color: var(--pt-sub-color); 
+            font-size: var(--pt-sub-size, 1.2rem); 
+            letter-spacing: var(--pt-sub-spacing, 6px); 
+            margin-top: 5px; 
+            font-weight: 700; 
+            background: var(--pt-sub-bg, transparent); 
+            display: inline-block; 
+            padding: var(--pt-sub-padding, 0); 
+            border-radius: var(--pt-sub-radius, 0);
+            text-transform: uppercase;
+            font-family: 'Oswald', sans-serif;
+        }
         
-        .pt-table { width: 100%; border-collapse: separate; border-spacing: 0 var(--pt-row-gap, 4px); padding: 15px; }
-        .pt-table th { padding: 12px 10px; font-size: 0.95rem; color: var(--pt-th-color); background: var(--pt-th-bg); text-transform: uppercase; letter-spacing: 1.5px; border-bottom: var(--pt-th-border, none); }
-        .pt-table td { padding: 10px 10px; font-size: 1.1rem; text-align: center; background: var(--pt-td-bg); border-bottom: var(--pt-td-border, none); transition: 0.3s; }
+        .pt-table-wrap { padding: var(--pt-wrap-padding, 20px); }
+
+        .pt-table { 
+            width: 100%; 
+            border-collapse: var(--pt-table-collapse, separate); 
+            border-spacing: 0 var(--pt-row-gap, 4px); 
+        }
+
+        .pt-table th { 
+            padding: var(--pt-th-padding, 12px 10px); 
+            font-size: var(--pt-th-size, 0.95rem); 
+            color: var(--pt-th-color); 
+            background: var(--pt-th-bg); 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px; 
+            border-bottom: var(--pt-th-border); 
+            font-weight: 700;
+        }
+
+        .pt-table td { 
+            padding: var(--pt-td-padding, 10px 10px); 
+            font-size: 1.1rem; 
+            text-align: center; 
+            background: var(--pt-td-bg); 
+            border-bottom: var(--pt-td-border); 
+            border-top: var(--pt-td-border-top, none);
+            transition: 0.3s; 
+        }
+
+        /* Specific Cell Styles */
+        .pt-rank-col { 
+            font-family: 'Rajdhani', sans-serif; 
+            font-size: var(--pt-rank-size, 1.5rem); 
+            font-weight: 700; 
+            color: var(--pt-rank-color); 
+            background: var(--pt-rank-bg, transparent);
+            border-right: var(--pt-rank-border-right, none);
+            border-radius: var(--pt-rank-radius, 0);
+        }
+
+        .pt-team-col { 
+            text-align: left !important;
+            font-weight: 800; 
+            font-size: var(--pt-team-size, 1.15rem); 
+            letter-spacing: 0.5px; 
+            color: var(--pt-team-color); 
+            padding-left: var(--pt-team-pl, 15px) !important;
+        }
+
+        .pt-stat-col { 
+            font-family: 'Rajdhani', sans-serif; 
+            font-weight: 600; 
+            font-size: var(--pt-stat-size, 1.3rem); 
+            color: var(--pt-stat-color); 
+            background: var(--pt-stat-bg, transparent);
+            border-left: var(--pt-stat-border-left, none);
+        }
+
+        .pt-booyah-col { 
+            color: var(--pt-booyah-color); 
+            font-weight: 700; 
+            font-family: 'Rajdhani', sans-serif;
+            font-size: var(--pt-booyah-size, 1.3rem); 
+        }
         
-        .pt-rank-col { font-family: 'Rajdhani', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--pt-rank-color); }
-        .pt-team-name { font-weight: 800; font-size: 1.15rem; letter-spacing: 0.5px; color: var(--pt-team-color); display: flex; align-items: center; justify-content: flex-start; gap: 8px; }
-        .pt-team-name i { font-size: 1.1rem; color: var(--pt-icon-color); }
-        
-        .pt-stat-col { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 1.2rem; color: var(--pt-stat-color); }
-        .pt-booyah-col { color: var(--pt-booyah-color); font-weight: 700; font-size: 1.3rem; }
-        
-        .pt-total-wrap {
-            background: var(--pt-total-bg); color: var(--pt-total-color); padding: 6px 15px;
-            border-radius: var(--pt-total-radius); font-weight: 800; font-size: 1.4rem;
-            display: inline-block; min-width: 60px; text-shadow: var(--pt-total-shadow, none);
-            font-family: 'Rajdhani', sans-serif; border: var(--pt-total-border, none);
+        .pt-total-col {
+            background: var(--pt-total-bg); 
+            color: var(--pt-total-color); 
+            font-weight: 800; 
+            font-size: var(--pt-total-size, 1.6rem);
+            font-family: 'Rajdhani', sans-serif; 
+            border: var(--pt-total-border, none);
+            border-radius: var(--pt-total-radius, 0);
             box-shadow: var(--pt-total-box-shadow, none);
         }
 
-        .pt-footer { padding: 15px 25px; text-align: center; font-size: 0.9rem; border-top: var(--pt-border-size) solid var(--pt-border); background: var(--pt-header-bg); display: flex; justify-content: space-between; align-items: center; font-weight: 600; }
-
-        /* THEME 1: NEON BLUE (Default) */
-        .theme-blue {
-            --pt-bg: linear-gradient(180deg, #020617 0%, #0f172a 100%);
-            --pt-border: #0ea5e9; --pt-border-size: 2px; --pt-radius: 12px;
-            --pt-header-bg: radial-gradient(circle at top, #0284c7 0%, #0f172a 80%);
-            --pt-title-color: #ffffff; --pt-title-shadow: 0 0 15px #0ea5e9;
-            --pt-sub-color: #bae6fd; --pt-th-bg: rgba(14, 165, 233, 0.2);
-            --pt-th-color: #7dd3fc; --pt-td-bg: rgba(15, 23, 42, 0.8);
-            --pt-td-border: 1px solid rgba(14, 165, 233, 0.2);
-            --pt-rank-color: #38bdf8; --pt-team-color: #f8fafc;
-            --pt-icon-color: #0ea5e9; --pt-stat-color: #cbd5e1;
-            --pt-booyah-color: #38bdf8; --pt-total-bg: #0ea5e9;
-            --pt-total-color: #ffffff; --pt-total-radius: 6px;
+        .pt-footer { 
+            padding: var(--pt-footer-padding, 15px 25px); 
+            text-align: center; 
+            font-size: 0.9rem; 
+            border-top: var(--pt-footer-border); 
+            background: var(--pt-footer-bg); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            font-weight: 600; 
         }
 
-        /* THEME 2: BLOOD STRIKE (Aggressive Red/Black) */
-        .theme-blood {
-            --pt-bg: #000000;
-            --pt-border: #dc2626; --pt-border-size: 2px; --pt-radius: 0px;
-            --pt-header-bg: linear-gradient(180deg, #7f1d1d 0%, #000000 100%);
-            --pt-title-color: #ffffff; --pt-title-shadow: 2px 2px 0 #dc2626;
-            --pt-sub-color: #ffffff; --pt-sub-bg: #dc2626;
-            --pt-th-bg: #dc2626; --pt-th-color: #ffffff;
-            --pt-td-bg: #111111; --pt-td-border: 1px solid #333333;
-            --pt-rank-color: #dc2626; --pt-team-color: #ffffff;
-            --pt-icon-color: #dc2626; --pt-stat-color: #9ca3af;
-            --pt-booyah-color: #fca5a5; --pt-total-bg: #dc2626;
-            --pt-total-color: #ffffff; --pt-total-radius: 0px;
-        }
+        /* ---------------------------------------------------
+           THEMES (Inspired by the provided screenshots)
+        --------------------------------------------------- */
 
-        /* THEME 3: APEX GOLD (Luxury Tournament) */
-        .theme-gold {
-            --pt-bg: #18181b;
-            --pt-border: #f59e0b; --pt-border-size: 1px; --pt-radius: 0px;
-            --pt-header-bg: #09090b;
-            --pt-title-color: #fbbf24; --pt-title-shadow: none;
-            --pt-sub-color: #ffffff; --pt-th-bg: #f59e0b;
-            --pt-th-color: #000000; --pt-td-bg: #27272a;
-            --pt-td-border: none; --pt-row-gap: 6px;
-            --pt-rank-color: #fbbf24; --pt-team-color: #ffffff;
-            --pt-icon-color: #f59e0b; --pt-stat-color: #e4e4e7;
-            --pt-booyah-color: #fcd34d; --pt-total-bg: #000000;
-            --pt-total-color: #fbbf24; --pt-total-radius: 0px;
-            --pt-total-border: 1px solid #f59e0b;
+        /* 1. THEME: SURVIVAL STAGE (Screenshot 1 & 5) - Dark/Orange */
+        .theme-survival {
+            --pt-bg: #09090b; /* Very dark zinc */
+            --pt-border-size: 0px;
+            --pt-radius: 0px;
+            --pt-box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+            --pt-text-color: #f4f4f5;
+            
+            --pt-header-bg: #000000;
+            --pt-header-border-bottom: 2px solid #ea580c;
+            --pt-title-color: #ffffff;
+            --pt-title-shadow: 2px 2px 0px #ea580c;
+            --pt-sub-color: #ea580c;
+            --pt-sub-bg: #171717;
+            --pt-sub-padding: 2px 15px;
+            
+            --pt-table-collapse: separate;
+            --pt-row-gap: 4px;
+            --pt-wrap-padding: 20px 30px;
+            
+            --pt-th-bg: #171717;
+            --pt-th-color: #fdba74;
+            --pt-th-border: none;
+            
+            --pt-td-bg: #18181b; /* Row background */
+            --pt-td-border: none;
+            
+            --pt-rank-color: #ea580c;
+            --pt-rank-bg: #111111;
+            
+            --pt-team-color: #ffffff;
+            --pt-stat-color: #d4d4d8;
+            --pt-booyah-color: #f97316;
+            
+            --pt-total-bg: #ea580c;
+            --pt-total-color: #ffffff;
+            
+            --pt-footer-bg: #000000;
+            --pt-footer-border: 1px solid #27272a;
         }
+        .theme-survival .rank-1 .pt-rank-col { background: #ea580c; color: white; }
+        .theme-survival .rank-2 .pt-rank-col { background: #94a3b8; color: white; }
+        .theme-survival .rank-3 .pt-rank-col { background: #b45309; color: white; }
 
-        /* THEME 4: TOXIC GREEN (Cyberpunk) */
-        .theme-toxic {
-            --pt-bg: #022c22;
-            --pt-border: #10b981; --pt-border-size: 1px; --pt-radius: 8px;
-            --pt-header-bg: #064e3b;
-            --pt-title-color: #34d399; --pt-title-shadow: 0 0 10px rgba(52,211,153,0.5);
-            --pt-sub-color: #a7f3d0; --pt-th-bg: #047857;
-            --pt-th-color: #ecfdf5; --pt-td-bg: rgba(6, 78, 59, 0.4);
-            --pt-td-border: 1px solid #065f46;
-            --pt-rank-color: #6ee7b7; --pt-team-color: #ffffff;
-            --pt-icon-color: #10b981; --pt-stat-color: #a7f3d0;
-            --pt-booyah-color: #34d399; --pt-total-bg: transparent;
-            --pt-total-color: #34d399; --pt-total-radius: 0px;
-            --pt-total-shadow: 0 0 10px rgba(52,211,153,0.8);
+        /* 2. THEME: WORLD CUP (Screenshot 2 & 6) - White/Magenta */
+        .theme-worldcup {
+            --pt-bg: #ffffff; 
+            --pt-border-size: 1px;
+            --pt-border-color: #e5e7eb;
+            --pt-radius: 8px;
+            --pt-box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --pt-text-color: #111827;
+            
+            --pt-header-bg: #f3f4f6;
+            --pt-header-border-bottom: 3px solid #db2777; /* Pink line */
+            --pt-title-color: #111827;
+            --pt-title-shadow: none;
+            --pt-sub-color: #db2777;
+            
+            --pt-table-collapse: collapse; /* Solid table */
+            --pt-row-gap: 0px;
+            --pt-wrap-padding: 0px;
+            
+            --pt-th-bg: #f9fafb;
+            --pt-th-color: #111827;
+            --pt-th-border: 1px solid #e5e7eb;
+            --pt-th-padding: 15px 10px;
+            
+            --pt-td-bg: #ffffff;
+            --pt-td-border: 1px solid #e5e7eb;
+            
+            --pt-rank-color: #111827;
+            --pt-rank-bg: #f3f4f6;
+            
+            --pt-team-color: #111827;
+            --pt-stat-color: #374151;
+            --pt-booyah-color: #db2777;
+            
+            --pt-total-bg: #db2777;
+            --pt-total-color: #ffffff;
+            
+            --pt-footer-bg: #f9fafb;
+            --pt-footer-border: 1px solid #e5e7eb;
         }
+        .theme-worldcup .rank-1 td { background: #fdf2f8; } /* Light pink row for 1st */
+        .theme-worldcup .rank-1 .pt-rank-col { background: #fbcfe8; color: #db2777; }
+        .theme-worldcup .rank-2 td { background: #f3f4f6; }
+        .theme-worldcup .rank-3 td { background: #fef3c7; }
 
-        /* THEME 5: WHITE MINIMAL (Global Style) */
-        .theme-white {
-            --pt-bg: #f8fafc;
-            --pt-border: #cbd5e1; --pt-border-size: 1px; --pt-radius: 12px;
-            --pt-header-bg: #ffffff;
-            --pt-title-color: #0f172a; --pt-title-shadow: none;
-            --pt-sub-color: #64748b; --pt-th-bg: #f1f5f9;
-            --pt-th-color: #475569; --pt-td-bg: #ffffff;
-            --pt-td-border: 1px solid #e2e8f0; --pt-row-gap: 0px;
-            --pt-rank-color: #0f172a; --pt-team-color: #0f172a;
-            --pt-icon-color: #64748b; --pt-stat-color: #334155;
-            --pt-booyah-color: #0f172a; --pt-total-bg: #0f172a;
-            --pt-total-color: #ffffff; --pt-total-radius: 6px;
+        /* 3. THEME: VOLCANO (Screenshot 3) - Purple Glow */
+        .theme-volcano {
+            --pt-bg: linear-gradient(180deg, #1e1b4b 0%, #0f172a 100%);
+            --pt-border-size: 2px;
+            --pt-border-color: #8b5cf6;
+            --pt-radius: 12px;
+            --pt-box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
+            --pt-text-color: #ffffff;
+            
+            --pt-header-bg: rgba(0,0,0,0.5);
+            --pt-header-border-bottom: 2px solid #8b5cf6;
+            --pt-title-color: #ffffff;
+            --pt-title-shadow: 0 0 20px #8b5cf6;
+            --pt-sub-color: #c4b5fd;
+            
+            --pt-table-collapse: separate;
+            --pt-row-gap: 5px;
+            --pt-wrap-padding: 20px;
+            
+            --pt-th-bg: rgba(139, 92, 246, 0.2);
+            --pt-th-color: #ddd6fe;
+            --pt-th-border: none;
+            
+            --pt-td-bg: rgba(0, 0, 0, 0.4);
+            --pt-td-border: 1px solid rgba(139, 92, 246, 0.3);
+            
+            --pt-rank-color: #8b5cf6;
+            --pt-team-color: #ffffff;
+            --pt-stat-color: #e2e8f0;
+            --pt-booyah-color: #c4b5fd;
+            
+            --pt-total-bg: #8b5cf6;
+            --pt-total-color: #ffffff;
+            --pt-total-radius: 6px;
+            
+            --pt-footer-bg: rgba(0,0,0,0.6);
+            --pt-footer-border: 1px solid #8b5cf6;
         }
+        .theme-volcano .rank-1 td { background: rgba(139, 92, 246, 0.4); border-color: #a78bfa; }
+        .theme-volcano .rank-1 .pt-total-col { background: #ffffff; color: #8b5cf6; }
 
-        /* Top 3 Highlighting dynamically handles background */
-        .rank-1 td { background-image: linear-gradient(90deg, rgba(255, 215, 0, 0.15) 0%, transparent 100%); border-left: 3px solid #fbbf24; }
-        .rank-2 td { background-image: linear-gradient(90deg, rgba(192, 192, 192, 0.15) 0%, transparent 100%); border-left: 3px solid #94a3b8; }
-        .rank-3 td { background-image: linear-gradient(90deg, rgba(205, 127, 50, 0.15) 0%, transparent 100%); border-left: 3px solid #d97706; }
+        /* 4. THEME: LUXRAY (Screenshot 4) - Solid Orange Block */
+        .theme-luxray {
+            --pt-bg: #111111;
+            --pt-border-size: 0px;
+            --pt-radius: 0px;
+            --pt-box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            --pt-text-color: #000000;
+            
+            --pt-header-bg: #000000;
+            --pt-header-border-bottom: none;
+            --pt-title-color: #f97316;
+            --pt-title-shadow: none;
+            --pt-sub-color: #ffffff;
+            
+            --pt-table-collapse: separate;
+            --pt-row-gap: 4px;
+            --pt-wrap-padding: 0px 10px 20px 10px;
+            
+            --pt-th-bg: #000000;
+            --pt-th-color: #f97316;
+            --pt-th-border: none;
+            
+            --pt-td-bg: #f97316;
+            --pt-td-border: none;
+            
+            --pt-rank-color: #000000;
+            --pt-team-color: #000000;
+            --pt-stat-color: #000000;
+            --pt-booyah-color: #ffffff;
+            
+            --pt-total-bg: #000000;
+            --pt-total-color: #f97316;
+            
+            --pt-footer-bg: #000000;
+            --pt-footer-border: none;
+        }
+        .theme-luxray td { transform: skewX(-10deg); border-radius: 2px; } /* Skewed look */
+        .theme-luxray td > * { transform: skewX(10deg); display: block; } /* Unskew content */
+        .theme-luxray th { transform: skewX(-10deg); }
+        .theme-luxray th > * { transform: skewX(10deg); display: block; }
+        .theme-luxray .rank-1 td { background: #fbbf24; }
+        .theme-luxray .pt-footer { color: #f97316; }
+
+        /* 5. THEME: POINTCALC (Screenshot 7) - Clean Tech/Blue */
+        .theme-tech {
+            --pt-bg: #0a1128;
+            --pt-border-size: 1px;
+            --pt-border-color: #1e3a8a;
+            --pt-radius: 16px;
+            --pt-box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            --pt-text-color: #ffffff;
+            
+            --pt-header-bg: transparent;
+            --pt-header-border-bottom: none;
+            --pt-title-color: #60a5fa;
+            --pt-title-shadow: none;
+            --pt-sub-color: #ffffff;
+            --pt-header-align: left;
+            --pt-header-padding: 30px 30px 10px 30px;
+            
+            --pt-table-collapse: separate;
+            --pt-row-gap: 6px;
+            --pt-wrap-padding: 20px 30px;
+            
+            --pt-th-bg: transparent;
+            --pt-th-color: #60a5fa;
+            --pt-th-border: none;
+            
+            --pt-td-bg: linear-gradient(90deg, #1e3a8a 0%, #172554 100%);
+            --pt-td-border: none;
+            
+            --pt-rank-color: #ffffff;
+            --pt-rank-bg: #1d4ed8;
+            --pt-rank-radius: 8px 0 0 8px;
+            
+            --pt-team-color: #ffffff;
+            --pt-stat-color: #93c5fd;
+            --pt-booyah-color: #ffffff;
+            
+            --pt-total-bg: #eff6ff;
+            --pt-total-color: #1e3a8a;
+            --pt-total-radius: 0 8px 8px 0;
+            
+            --pt-footer-bg: transparent;
+            --pt-footer-border: none;
+        }
+        .theme-tech td:nth-child(2) { border-radius: 0; } /* Team name col */
+
+        /* 6. THEME: ROCHET MATRIX (Screenshot 1) - Deep Blue Grid */
+        .theme-matrix {
+            --pt-bg: #080c16;
+            --pt-border-size: 1px;
+            --pt-border-color: #1e3a8a;
+            --pt-radius: 0px;
+            --pt-box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            --pt-text-color: #ffffff;
+            
+            --pt-header-bg: #040811;
+            --pt-header-border-bottom: 2px solid #2563eb;
+            --pt-title-color: #ffffff;
+            --pt-title-size: 2.5rem;
+            --pt-title-shadow: none;
+            --pt-sub-color: #3b82f6;
+            --pt-header-align: left;
+            
+            --pt-table-collapse: collapse;
+            --pt-row-gap: 0px;
+            --pt-wrap-padding: 0px;
+            
+            --pt-th-bg: #080c16;
+            --pt-th-color: #60a5fa;
+            --pt-th-border: 1px solid #1e293b;
+            
+            --pt-td-bg: #0b1120;
+            --pt-td-border: 1px solid #1e293b;
+            
+            --pt-rank-color: #94a3b8;
+            --pt-team-color: #ffffff;
+            --pt-stat-color: #94a3b8;
+            --pt-booyah-color: #3b82f6;
+            
+            --pt-total-bg: transparent;
+            --pt-total-color: #3b82f6;
+            
+            --pt-footer-bg: #040811;
+            --pt-footer-border: none;
+        }
+        /* Specific borders for matrix theme to look like the image */
+        .theme-matrix .pt-stat-col, .theme-matrix .pt-total-col { border-left: 1px solid #1e293b; }
+        .theme-matrix .rank-1 td { background: #172554; }
+        .theme-matrix .rank-1 .pt-total-col { background: #2563eb; color: white; }
 
         /* Toast */
         .toast { position: fixed; top: 20px; right: 20px; background: rgba(16, 185, 129, 0.9); backdrop-filter: blur(5px); color: white; padding: 12px 24px; border-radius: 8px; font-weight: bold; transform: translateX(150%); opacity: 0; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 9999; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
         .toast.show { transform: translateX(0); opacity: 1; }
         .toast.error { background: rgba(239, 68, 68, 0.9); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); }
     </style>
-    <!-- html2canvas -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 
@@ -254,7 +539,7 @@
             <div class="p-3 md:p-4 border-t border-slate-700/50 flex flex-col gap-3 bg-slate-900/30">
                 <div class="text-center hidden md:block">
                     <div id="authStatus" class="text-xs text-green-500 mb-1"><i class="fa-solid fa-cloud"></i> Connected</div>
-                    <p class="text-[10px] text-slate-500">System v3.0 • WP: 01303482412</p>
+                    <p class="text-[10px] text-slate-500">System v4.0 • WP: 01303482412</p>
                 </div>
                 <button onclick="window.handleLogout()" class="w-full bg-red-900/40 hover:bg-red-700 border border-red-800 text-red-200 hover:text-white text-xs font-bold py-2 px-4 rounded-lg transition flex items-center justify-center whitespace-nowrap">
                     <i class="fa-solid fa-power-off mr-2"></i> <span class="hidden md:inline">Logout</span>
@@ -410,61 +695,61 @@
                 </button>
             </div>
 
-            <!-- 5. Final Table View -->
-            <div id="finalTableView" class="view-section max-w-5xl mx-auto">
+            <!-- 5. Final Table View (PRO ESPORTS DESIGNS) -->
+            <div id="finalTableView" class="view-section max-w-6xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
                     <h2 class="text-2xl md:text-3xl text-white border-l-4 border-esports-accent pl-4 esports-font tracking-wider drop-shadow-md">STANDINGS</h2>
                     
                     <!-- THEME SELECTOR -->
                     <div class="flex flex-wrap items-center gap-2 bg-slate-900/80 p-2.5 rounded-lg border border-slate-700/50 shadow-lg">
                         <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mr-2"><i class="fa-solid fa-palette mr-1"></i> Theme:</span>
-                        <button onclick="window.setTheme('theme-blue', this)" class="theme-select-btn px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded ring-2 ring-white transition shadow-[0_0_10px_#0ea5e9]">Neon</button>
-                        <button onclick="window.setTheme('theme-blood', this)" class="theme-select-btn px-3 py-1 bg-red-600 text-white text-xs font-bold rounded opacity-50 hover:opacity-100 transition">Blood</button>
-                        <button onclick="window.setTheme('theme-gold', this)" class="theme-select-btn px-3 py-1 bg-yellow-600 text-white text-xs font-bold rounded opacity-50 hover:opacity-100 transition">Apex</button>
-                        <button onclick="window.setTheme('theme-toxic', this)" class="theme-select-btn px-3 py-1 bg-emerald-600 text-white text-xs font-bold rounded opacity-50 hover:opacity-100 transition">Toxic</button>
-                        <button onclick="window.setTheme('theme-white', this)" class="theme-select-btn px-3 py-1 bg-white text-black text-xs font-bold rounded opacity-50 hover:opacity-100 transition">Light</button>
+                        <button onclick="window.setTheme('theme-survival', this)" class="theme-select-btn px-3 py-1.5 bg-[#ea580c] text-white text-xs font-bold rounded ring-2 ring-white transition shadow-[0_0_10px_#ea580c]">Survival</button>
+                        <button onclick="window.setTheme('theme-worldcup', this)" class="theme-select-btn px-3 py-1.5 bg-[#db2777] text-white text-xs font-bold rounded opacity-50 hover:opacity-100 transition">WorldCup</button>
+                        <button onclick="window.setTheme('theme-volcano', this)" class="theme-select-btn px-3 py-1.5 bg-[#8b5cf6] text-white text-xs font-bold rounded opacity-50 hover:opacity-100 transition">Volcano</button>
+                        <button onclick="window.setTheme('theme-luxray', this)" class="theme-select-btn px-3 py-1.5 bg-[#f97316] text-white text-xs font-bold rounded opacity-50 hover:opacity-100 transition">Luxray</button>
+                        <button onclick="window.setTheme('theme-tech', this)" class="theme-select-btn px-3 py-1.5 bg-[#1d4ed8] text-white text-xs font-bold rounded opacity-50 hover:opacity-100 transition">Tech Blue</button>
+                        <button onclick="window.setTheme('theme-matrix', this)" class="theme-select-btn px-3 py-1.5 bg-[#080c16] border border-blue-500 text-blue-400 text-xs font-bold rounded opacity-50 hover:opacity-100 transition">Matrix</button>
                     </div>
 
                     <button id="dwnBtn" onclick="window.downloadTableImage()" class="btn-accent font-bold px-5 py-3 rounded-lg text-sm transition shadow-[0_0_15px_rgba(245,158,11,0.4)] esports-font tracking-wider">
-                        <i class="fa-solid fa-download mr-1"></i> EXPORT HD IMAGE
+                        <i class="fa-solid fa-download mr-1"></i> EXPORT HD
                     </button>
                 </div>
                 
                 <div class="overflow-x-auto hide-scrollbar pb-10">
                     <!-- Exportable Area -->
-                    <div id="exportTableArea" class="pt-container theme-blue min-w-[700px] max-w-[900px] mx-auto">
+                    <div id="exportTableArea" class="pt-container theme-survival min-w-[750px] max-w-[900px] mx-auto">
                         <div class="pt-header">
-                            <h2 class="esports-font" id="ptMainTitle">BD ORG OVERALL RANKING</h2>
-                            <p class="esports-font" id="ptTourName">COMMUNITY CUP</p>
+                            <h2 class="pt-header-title" id="ptMainTitle">OVERALL STANDINGS</h2>
+                            <p class="pt-header-sub" id="ptTourName">COMMUNITY CUP</p>
                         </div>
                         
-                        <div class="p-4 md:p-6">
+                        <div class="pt-table-wrap">
                             <table class="pt-table">
                                 <thead>
-                                    <tr class="esports-font">
-                                        <th class="w-14">#</th>
-                                        <th class="text-left pl-3">TEAM</th>
-                                        <th class="w-12">M</th>
-                                        <th class="w-16">WWCD</th>
-                                        <th class="w-16">P.PTS</th>
-                                        <th class="w-16">ELIMS</th>
-                                        <th class="w-24">TOTAL</th>
+                                    <tr>
+                                        <th class="w-12 text-center">#</th>
+                                        <th class="text-left">TEAM</th>
+                                        <th class="w-12 text-center">M</th>
+                                        <th class="w-16 text-center">WWCD</th>
+                                        <th class="w-16 text-center">P.PTS</th>
+                                        <th class="w-16 text-center">ELIMS</th>
+                                        <th class="w-24 text-center">TOTAL</th>
                                     </tr>
                                 </thead>
-                                <tbody id="finalTbody" class="esports-font tracking-wide">
+                                <tbody id="finalTbody">
                                     <!-- Generated by JS -->
                                 </tbody>
                             </table>
                         </div>
 
-                        <div class="pt-footer esports-font">
+                        <div class="pt-footer">
                             <div class="flex items-center gap-2">
                                 <i class="fa-brands fa-whatsapp text-green-500 text-xl"></i>
-                                <span class="text-[var(--pt-td-color)] font-bold tracking-widest text-lg opacity-90">01303482412</span>
+                                <span style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;">01303482412</span>
                             </div>
-                            <div class="px-4 py-1.5 rounded-full border border-slate-700/50 bg-black/40 shadow-inner">
-                                <span class="text-slate-400 text-[10px] uppercase">Powered By</span>
-                                <span class="text-[var(--pt-sub-color)] font-bold ml-1 text-sm tracking-widest">BD ORG</span>
+                            <div style="font-size:0.75rem;letter-spacing:1px;text-transform:uppercase;">
+                                ORGANIZED BY <strong style="font-size:1rem;margin-left:5px;">BD ORG</strong>
                             </div>
                         </div>
                     </div>
@@ -476,6 +761,9 @@
 
     <!-- Toast Component -->
     <div id="toast" class="toast"><i class="fa-solid fa-circle-check mr-2"></i> <span id="toastMsg">Success!</span></div>
+
+    <!-- html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <!-- MAIN JAVASCRIPT -->
     <script type="module">
@@ -493,7 +781,6 @@
             measurementId: "G-1MKDRB4P79"
         };
         const appId = 'bd-org-esports';
-        
         const app = initializeApp(envConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
@@ -736,14 +1023,21 @@
         window.resetTimer = () => { clearInterval(state.timerInterval); state.timerInterval = null; state.timerSeconds = 0; window.updateTimerUI(); const btn = document.getElementById('timerToggleBtn'); btn.innerHTML = '<i class="fa-solid fa-play"></i>'; btn.classList.replace('bg-yellow-600', 'bg-blue-600'); window.autoSaveMatchDebounced(); };
         window.updateTimerUI = () => { document.getElementById('liveTimerDisplay').innerText = `${String(Math.floor(state.timerSeconds/60)).padStart(2,'0')}:${String(state.timerSeconds%60).padStart(2,'0')}`; };
 
+        /* ------------------------------------------
+           FINAL TABLE GENERATOR (PRO THEMES)
+        ------------------------------------------ */
+        
         window.setTheme = (themeName, btnElement) => {
-            document.getElementById('exportTableArea').className = `pt-container min-w-[700px] max-w-[900px] mx-auto ${themeName}`;
+            document.getElementById('exportTableArea').className = `pt-container ${themeName} min-w-[750px] max-w-[900px] mx-auto`;
             document.querySelectorAll('.theme-select-btn').forEach(b => {
-                b.classList.remove('ring-2', 'ring-white', 'opacity-100');
+                b.classList.remove('ring-2', 'ring-white', 'opacity-100', 'shadow-[0_0_10px_#ea580c]');
                 b.classList.add('opacity-50');
             });
             btnElement.classList.remove('opacity-50');
             btnElement.classList.add('ring-2', 'ring-white', 'opacity-100');
+            
+            // Add custom shadow based on active button
+            if(themeName === 'theme-survival') btnElement.classList.add('shadow-[0_0_10px_#ea580c]');
         };
 
         window.generateFinalTable = () => {
@@ -768,19 +1062,19 @@
             const tbody = document.getElementById('finalTbody'); tbody.innerHTML = '';
             results.forEach((team, idx) => {
                 let rowClass = "";
-                if(idx === 0) { rowClass = "rank-1"; }
-                else if(idx === 1) { rowClass = "rank-2"; }
-                else if(idx === 2) { rowClass = "rank-3"; }
+                if(idx === 0) rowClass = "rank-1"; 
+                else if(idx === 1) rowClass = "rank-2"; 
+                else if(idx === 2) rowClass = "rank-3"; 
                 
                 tbody.innerHTML += `
                     <tr class="${rowClass}">
-                        <td class="pt-rank-col text-center">0${idx+1}</td>
-                        <td class="text-left pl-3 pt-team-name"><i class="fa-solid fa-shield-halved"></i> ${team.name.toUpperCase()}</td>
-                        <td class="pt-stat-col opacity-80">${team.matches}</td>
-                        <td class="pt-booyah-col drop-shadow-md">${team.booyahs}</td>
-                        <td class="pt-stat-col opacity-80">${team.pPts}</td>
-                        <td class="pt-stat-col" style="color: var(--pt-td-color); font-weight: 700;">${team.elims}</td>
-                        <td class="text-center"><span class="pt-total-wrap">${team.total}</span></td>
+                        <td class="pt-rank-col text-center">${String(idx+1).padStart(2, '0')}</td>
+                        <td class="pt-team-col"><i class="fa-solid fa-shield-halved"></i> ${team.name}</td>
+                        <td class="pt-stat-col opacity-80 text-center">${team.matches}</td>
+                        <td class="pt-booyah-col text-center drop-shadow-md">${team.booyahs}</td>
+                        <td class="pt-stat-col opacity-80 text-center">${team.pPts}</td>
+                        <td class="pt-stat-col text-center" style="font-weight: 700;">${team.elims}</td>
+                        <td class="text-center"><span class="pt-total-col px-3 py-1">${team.total}</span></td>
                     </tr>
                 `;
             });
@@ -789,17 +1083,20 @@
 
         window.downloadTableImage = () => {
             const btn = document.getElementById('dwnBtn');
+            const originalHtml = btn.innerHTML;
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Processing...';
             const el = document.getElementById('exportTableArea');
-            el.style.width = '900px'; 
+            
+            // Set fixed width for perfect HD rendering
+            el.style.width = '1000px'; 
             
             html2canvas(el, { backgroundColor: null, scale: 2.5, useCORS: true }).then(canvas => {
                 el.style.width = 'auto'; 
                 const link = document.createElement('a');
                 link.download = `BD_ORG_${document.getElementById('ptTourName').innerText.replace(/\s+/g, '_')}_Standings.png`;
                 link.href = canvas.toDataURL('image/png'); link.click();
-                btn.innerHTML = '<i class="fa-solid fa-download mr-1"></i> EXPORT HD IMAGE';
-                window.showToast("High Quality Image Downloaded!");
+                btn.innerHTML = originalHtml;
+                window.showToast("HD Image Downloaded!");
             }).catch(e => {
                 el.style.width = 'auto'; console.error(e);
                 btn.innerHTML = 'Export Failed'; window.showToast("Failed to generate image", true);
