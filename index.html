@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cloud-Powered Free Fire Esports Admin Dashboard</title>
-    <!-- Tailwind CSS for utility styling -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
@@ -15,11 +17,12 @@
                 extend: {
                     colors: {
                         esports: {
-                            bg: '#0f172a',
-                            card: '#1e293b',
-                            accent: '#f59e0b', /* Yellow/Orange Esports Accent */
-                            accentHover: '#d97706',
-                            primary: '#3b82f6'
+                            bg: '#050B14',      /* Deep Dark Blue */
+                            card: '#0F172A',    /* Slate 900 */
+                            cardHover: '#1E293B',
+                            accent: '#F59E0B',  /* Amber / Gold */
+                            primary: '#3B82F6', /* Neon Blue */
+                            glow: '#2563EB'
                         }
                     },
                     fontFamily: {
@@ -31,289 +34,314 @@
         }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; background-color: #050B14; color: #F8FAFC; overflow-x: hidden; }
         .esports-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
         
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
+        ::-webkit-scrollbar-track { background: #050B14; }
+        ::-webkit-scrollbar-thumb { background: #3B82F6; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #F59E0B; }
 
-        /* View Management */
-        .view-section { display: none; animation: fadeIn 0.3s ease-in-out; }
+        /* View Management Animations */
+        .view-section { display: none; animation: fadeInUp 0.4s ease-out forwards; opacity: 0; transform: translateY(15px); }
         .view-section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-        /* Inputs */
-        input[type="text"], input[type="number"], input[type="date"], input[type="time"] {
-            background-color: #0f172a; border: 1px solid #334155; color: white; outline: none; transition: 0.2s;
-        }
-        input:focus { border-color: #f59e0b; box-shadow: 0 0 5px rgba(245, 158, 11, 0.3); }
+        /* Inputs & Glass Panels */
+        .glass-panel { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(59, 130, 246, 0.2); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); }
+        .neon-input { background-color: rgba(15, 23, 42, 0.8); border: 1px solid #334155; color: white; transition: all 0.3s ease; }
+        .neon-input:focus { border-color: #3B82F6; box-shadow: 0 0 10px rgba(59, 130, 246, 0.5); outline: none; }
+        
+        /* Nav Buttons */
+        .nav-btn { position: relative; overflow: hidden; transition: all 0.3s ease; border: 1px solid transparent; }
+        .nav-btn:hover { background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.4); box-shadow: 0 0 15px rgba(59, 130, 246, 0.2); }
+        .nav-btn.active-nav { background: linear-gradient(90deg, #1D4ED8 0%, #3B82F6 100%); border-color: #60A5FA; box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); color: white; }
+
+        /* Action Buttons */
+        .btn-primary { background: linear-gradient(45deg, #2563EB, #3B82F6); box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); transition: 0.3s; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6); }
+        .btn-accent { background: linear-gradient(45deg, #D97706, #F59E0B); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4); transition: 0.3s; color: black; }
+        .btn-accent:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245, 158, 11, 0.6); }
 
         /* Table Styling */
-        .live-table th, .live-table td { border-bottom: 1px solid #334155; padding: 10px; text-align: center; }
-        .live-table th { background-color: #0f172a; color: #94a3b8; font-size: 0.85rem; text-transform: uppercase; }
+        .live-table th { background: rgba(15, 23, 42, 0.9); color: #94A3B8; font-size: 0.85rem; text-transform: uppercase; border-bottom: 2px solid #3B82F6; padding: 12px; }
+        .live-table td { border-bottom: 1px solid rgba(51, 65, 85, 0.5); padding: 10px; text-align: center; }
         
-        /* Final Point Table - Compact & Premium */
+        /* Final Point Table - Premium Esports Look */
         .pt-container {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 2px solid #f59e0b;
-            border-radius: 8px;
+            background: linear-gradient(180deg, #0F172A 0%, #050B14 100%);
+            border: 1px solid #3B82F6;
+            border-radius: 12px;
             position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.15), inset 0 0 20px rgba(0,0,0,0.8);
         }
         .pt-header {
-            text-align: center; padding: 15px 10px; border-bottom: 2px solid rgba(245, 158, 11, 0.3);
-            background: rgba(0,0,0,0.4);
+            text-align: center; padding: 20px 10px; 
+            border-bottom: 2px solid rgba(59, 130, 246, 0.5);
+            background: radial-gradient(circle at center, rgba(30, 64, 175, 0.3) 0%, transparent 100%);
         }
-        .pt-header h2 { color: #f59e0b; font-size: 2.2rem; margin: 0; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-        .pt-header p { color: #cbd5e1; font-size: 1rem; letter-spacing: 3px; margin-top: 2px; font-weight: bold; }
+        .pt-header h2 { color: #FFFFFF; font-size: 2.5rem; margin: 0; letter-spacing: 3px; text-shadow: 0 0 10px rgba(255,255,255,0.3), 0 0 20px #3B82F6; }
+        .pt-header p { color: #F59E0B; font-size: 1.1rem; letter-spacing: 4px; margin-top: 5px; font-weight: bold; text-shadow: 0 0 5px rgba(245, 158, 11, 0.5); }
         
-        .pt-table { width: 100%; border-collapse: collapse; }
-        .pt-table th, .pt-table td { padding: 6px 10px; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: center; }
-        .pt-table th { background: rgba(0,0,0,0.3); color: #f59e0b; text-transform: uppercase; font-size: 0.8rem; font-weight: bold; letter-spacing: 1px; }
-        .pt-table tr:hover { background: rgba(255,255,255,0.02); }
+        .pt-table { width: 100%; border-collapse: separate; border-spacing: 0 4px; padding: 10px; }
+        .pt-table th { padding: 10px; font-size: 0.85rem; color: #94A3B8; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .pt-table td { padding: 8px 10px; font-size: 1rem; text-align: center; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(5px); }
         
-        /* Top 3 Ranks Styling */
-        .rank-1 td { background: linear-gradient(90deg, rgba(245, 158, 11, 0.15) 0%, transparent 100%); font-weight: bold; }
-        .rank-1 .rank-num { color: #fbbf24; font-size: 1.2rem; text-shadow: 0 0 5px rgba(251, 191, 36, 0.5); }
-        .rank-2 td { background: linear-gradient(90deg, rgba(148, 163, 184, 0.1) 0%, transparent 100%); font-weight: bold; }
-        .rank-2 .rank-num { color: #cbd5e1; font-size: 1.1rem; }
-        .rank-3 td { background: linear-gradient(90deg, rgba(180, 83, 9, 0.1) 0%, transparent 100%); font-weight: bold; }
-        .rank-3 .rank-num { color: #d97706; font-size: 1.1rem; }
+        /* Dynamic Ranks */
+        .rank-row { transition: 0.3s; }
+        .rank-1 td { background: linear-gradient(90deg, rgba(245, 158, 11, 0.25) 0%, rgba(15,23,42,0.8) 100%); border-top: 1px solid rgba(245, 158, 11, 0.5); border-bottom: 1px solid rgba(245, 158, 11, 0.5); }
+        .rank-1 .rank-num { color: #FBBF24; font-size: 1.5rem; text-shadow: 0 0 10px rgba(251, 191, 36, 0.8); font-weight: bold; }
+        
+        .rank-2 td { background: linear-gradient(90deg, rgba(148, 163, 184, 0.2) 0%, rgba(15,23,42,0.8) 100%); border-top: 1px solid rgba(148, 163, 184, 0.4); border-bottom: 1px solid rgba(148, 163, 184, 0.4); }
+        .rank-2 .rank-num { color: #E2E8F0; font-size: 1.3rem; text-shadow: 0 0 8px rgba(226, 232, 240, 0.6); font-weight: bold; }
+        
+        .rank-3 td { background: linear-gradient(90deg, rgba(180, 83, 9, 0.25) 0%, rgba(15,23,42,0.8) 100%); border-top: 1px solid rgba(180, 83, 9, 0.4); border-bottom: 1px solid rgba(180, 83, 9, 0.4); }
+        .rank-3 .rank-num { color: #F59E0B; font-size: 1.2rem; font-weight: bold; }
 
         .pt-footer {
-            padding: 10px; text-align: center; font-size: 0.85rem; color: #94a3b8;
-            border-top: 1px solid rgba(245, 158, 11, 0.3); background: rgba(0,0,0,0.4);
-            display: flex; justify-content: space-between; align-items: center; px: 20px;
+            padding: 15px; text-align: center; font-size: 0.9rem; color: #94A3B8;
+            border-top: 1px solid rgba(59, 130, 246, 0.3); background: rgba(0,0,0,0.6);
+            display: flex; justify-content: space-between; align-items: center;
         }
 
         /* Toast */
-        .toast {
-            position: fixed; bottom: 20px; right: 20px; background: #10b981; color: white;
-            padding: 12px 24px; border-radius: 4px; font-weight: bold;
-            transform: translateY(100px); opacity: 0; transition: all 0.3s ease; z-index: 1000;
-        }
-        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast { position: fixed; top: 20px; right: 20px; background: rgba(16, 185, 129, 0.9); backdrop-filter: blur(5px); color: white; padding: 12px 24px; border-radius: 8px; font-weight: bold; transform: translateX(150%); opacity: 0; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 9999; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
+        .toast.show { transform: translateX(0); opacity: 1; }
+        .toast.error { background: rgba(239, 68, 68, 0.9); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); }
     </style>
-    <!-- html2canvas for Image Download -->
+    <!-- html2canvas -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body class="flex flex-col md:flex-row h-screen">
 
-    <!-- Sidebar Navigation -->
-    <nav class="bg-esports-card w-full md:w-64 flex-shrink-0 md:h-screen border-b md:border-b-0 md:border-r border-slate-700 flex flex-col z-50">
-        <div class="p-6 text-center border-b border-slate-700">
-            <h1 class="text-3xl text-esports-accent font-bold tracking-wider esports-font">BD ORG</h1>
-            <p class="text-xs text-slate-400 mt-1 uppercase">Admin Control</p>
+    <!-- Sidebar / Top Navbar (Mobile responsive) -->
+    <nav class="bg-esports-card w-full md:w-64 flex-shrink-0 border-b md:border-b-0 md:border-r border-slate-700/50 flex flex-col z-50 shadow-2xl">
+        <div class="p-4 md:p-6 text-center border-b border-slate-700/50 bg-slate-900/50">
+            <h1 class="text-2xl md:text-3xl text-white font-bold tracking-wider esports-font drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]">BD ORG <span class="text-esports-accent">ESP</span></h1>
+            <p class="text-[10px] md:text-xs text-blue-400 mt-1 uppercase tracking-widest font-bold">Admin Portal</p>
         </div>
-        <div class="flex-grow flex flex-row md:flex-col p-4 gap-2 overflow-x-auto md:overflow-x-visible">
-            <button onclick="switchView('setupView')" class="nav-btn w-full text-left px-4 py-3 rounded bg-slate-700 text-white transition whitespace-nowrap hover:bg-esports-primary" id="btn-setupView">
-                <i class="fa-solid fa-plus-circle mr-2"></i> 1. Create Setup
+        
+        <!-- Mobile Horizontal Scroll / Desktop Vertical -->
+        <div class="flex-grow flex flex-row md:flex-col p-3 gap-2 overflow-x-auto md:overflow-x-visible md:overflow-y-auto hide-scrollbar">
+            <button onclick="switchView('setupView')" class="nav-btn w-auto md:w-full text-left px-4 py-3 rounded-lg bg-slate-800 text-slate-300 text-sm md:text-base font-semibold whitespace-nowrap active-nav" id="btn-setupView">
+                <i class="fa-solid fa-square-plus md:mr-2"></i> <span class="hidden md:inline">1. Create Setup</span>
             </button>
-            <button onclick="switchView('historyView')" class="nav-btn w-full text-left px-4 py-3 rounded bg-slate-700 text-white transition whitespace-nowrap hover:bg-esports-primary" id="btn-historyView">
-                <i class="fa-solid fa-clock-rotate-left mr-2"></i> 2. Tournaments
+            <button onclick="switchView('historyView')" class="nav-btn w-auto md:w-full text-left px-4 py-3 rounded-lg bg-slate-800 text-slate-300 text-sm md:text-base font-semibold whitespace-nowrap" id="btn-historyView">
+                <i class="fa-solid fa-clock-rotate-left md:mr-2"></i> <span class="hidden md:inline">2. Tournaments</span>
             </button>
             
-            <div id="tournamentContextNav" class="hidden mt-4 pt-4 border-t border-slate-700">
-                <p class="text-xs text-esports-accent mb-2 px-2 uppercase font-bold truncate" id="navActiveTName">Current</p>
-                <button onclick="switchView('matchListView')" class="nav-btn w-full text-left px-4 py-2 mb-2 rounded bg-slate-800 text-white text-sm transition hover:bg-slate-600" id="btn-matchListView">
-                    <i class="fa-solid fa-list mr-2 text-esports-primary"></i> 3. Match List
+            <div id="tournamentContextNav" class="hidden md:block flex-row md:flex-col gap-2 mt-0 md:mt-4 md:pt-4 md:border-t border-slate-700/50">
+                <p class="hidden md:block text-xs text-esports-primary mb-2 px-2 uppercase font-bold tracking-wider" id="navActiveTName">Current</p>
+                <button onclick="switchView('matchListView')" class="nav-btn w-auto md:w-full text-left px-4 py-3 md:py-2 rounded-lg bg-slate-800/80 text-white text-sm whitespace-nowrap" id="btn-matchListView">
+                    <i class="fa-solid fa-list text-esports-primary md:mr-2"></i> <span class="hidden md:inline">3. Match List</span>
                 </button>
-                <button onclick="generateFinalTable()" class="nav-btn w-full text-left px-4 py-2 rounded bg-slate-800 text-white text-sm transition hover:bg-slate-600" id="btn-finalTableView">
-                    <i class="fa-solid fa-trophy mr-2 text-yellow-500"></i> 4. Final Table
+                <button onclick="generateFinalTable()" class="nav-btn w-auto md:w-full text-left px-4 py-3 md:py-2 rounded-lg bg-slate-800/80 text-white text-sm whitespace-nowrap" id="btn-finalTableView">
+                    <i class="fa-solid fa-trophy text-esports-accent md:mr-2"></i> <span class="hidden md:inline">4. Final Table</span>
                 </button>
             </div>
         </div>
-        <div class="p-4 border-t border-slate-700 text-center">
-            <div id="authStatus" class="text-xs text-yellow-500 mb-2"><i class="fa-solid fa-spinner fa-spin"></i> Connecting Cloud...</div>
-            <p class="text-xs text-slate-500">WP: 01303482412</p>
+        <div class="p-3 md:p-4 border-t border-slate-700/50 text-center bg-slate-900/30 hidden md:block">
+            <div id="authStatus" class="text-xs text-yellow-500 mb-2"><i class="fa-solid fa-spinner fa-spin"></i> Cloud Syncing...</div>
+            <p class="text-[10px] text-slate-500">System v2.0 • WP: 01303482412</p>
         </div>
     </nav>
 
-    <!-- Main Content Area -->
-    <main class="flex-grow p-4 md:p-6 overflow-y-auto w-full relative">
+    <!-- Main Content -->
+    <main class="flex-grow p-4 md:p-8 overflow-y-auto w-full relative bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
         
-        <!-- 1. Tournament Setup View -->
-        <div id="setupView" class="view-section max-w-5xl mx-auto">
-            <div class="bg-esports-card p-6 rounded-lg shadow-lg border border-slate-700">
-                <h2 class="text-2xl text-white border-l-4 border-esports-primary pl-3 mb-6 esports-font tracking-wide" id="setupFormTitle">Create New Tournament</h2>
+        <!-- 1. Setup View -->
+        <div id="setupView" class="view-section active max-w-5xl mx-auto">
+            <div class="glass-panel p-5 md:p-8 rounded-xl relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-1 h-full bg-esports-primary shadow-[0_0_15px_#3B82F6]"></div>
+                <h2 class="text-2xl md:text-3xl text-white pl-4 mb-6 esports-font tracking-wider" id="setupFormTitle">CREATE NEW TOURNAMENT</h2>
                 
                 <form id="setupForm" onsubmit="event.preventDefault(); saveTournament();">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
                         <div>
-                            <label class="block text-sm text-slate-400 mb-1">Tournament Name</label>
-                            <input type="text" id="tourName" class="w-full p-2 rounded" required>
+                            <label class="block text-xs text-slate-400 mb-1 uppercase font-bold tracking-wider">Tournament Name</label>
+                            <input type="text" id="tourName" class="w-full p-3 rounded-lg neon-input text-lg font-bold" placeholder="e.g. BD Cup S1" required>
                         </div>
                         <div>
-                            <label class="block text-sm text-slate-400 mb-1">Date</label>
-                            <input type="date" id="tourDate" class="w-full p-2 rounded" required>
+                            <label class="block text-xs text-slate-400 mb-1 uppercase font-bold tracking-wider">Date</label>
+                            <input type="date" id="tourDate" class="w-full p-3 rounded-lg neon-input" required>
                         </div>
                         <div>
-                            <label class="block text-sm text-slate-400 mb-1">Time</label>
-                            <input type="time" id="tourTime" class="w-full p-2 rounded" required>
+                            <label class="block text-xs text-slate-400 mb-1 uppercase font-bold tracking-wider">Time</label>
+                            <input type="time" id="tourTime" class="w-full p-3 rounded-lg neon-input" required>
                         </div>
                     </div>
 
-                    <h3 class="text-lg text-esports-accent mb-3 esports-font border-b border-slate-700 pb-1">Point Distribution (1-12)</h3>
-                    <div class="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-2 mb-6" id="setupPoints">
-                        <!-- Generated by JS -->
+                    <div class="bg-slate-900/50 p-4 rounded-lg mb-8 border border-slate-700/50">
+                        <h3 class="text-sm text-esports-primary mb-4 esports-font tracking-widest"><i class="fa-solid fa-crosshairs mr-2"></i>Point Distribution (Rank 1-12)</h3>
+                        <div class="grid grid-cols-6 md:grid-cols-12 gap-2" id="setupPoints">
+                            <!-- Generated by JS -->
+                        </div>
                     </div>
 
-                    <h3 class="text-lg text-esports-accent mb-3 esports-font border-b border-slate-700 pb-1">Team Names (Slots 1-12)</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-6" id="setupTeams">
-                        <!-- Generated by JS -->
+                    <div class="bg-slate-900/50 p-4 rounded-lg mb-8 border border-slate-700/50">
+                        <h3 class="text-sm text-esports-accent mb-4 esports-font tracking-widest"><i class="fa-solid fa-users mr-2"></i>Team Slots (1-12)</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3" id="setupTeams">
+                            <!-- Generated by JS -->
+                        </div>
                     </div>
 
-                    <button type="submit" class="w-full bg-esports-primary hover:bg-blue-600 text-white font-bold py-3 rounded shadow-lg transition text-lg" id="setupSaveBtn">
-                        <i class="fa-solid fa-save mr-2"></i> Save Tournament
+                    <button type="submit" class="w-full btn-primary text-white font-bold py-4 rounded-lg text-lg esports-font tracking-wider" id="setupSaveBtn">
+                        <i class="fa-solid fa-save mr-2"></i> SAVE TOURNAMENT
                     </button>
-                    <button type="button" id="setupCancelBtn" onclick="resetSetupForm()" class="hidden w-full mt-2 bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded transition">Cancel Edit</button>
+                    <button type="button" id="setupCancelBtn" onclick="resetSetupForm()" class="hidden w-full mt-3 bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-lg transition border border-slate-600 text-sm">CANCEL EDIT</button>
                 </form>
             </div>
         </div>
 
-        <!-- 2. Tournaments History View -->
+        <!-- 2. History View -->
         <div id="historyView" class="view-section max-w-5xl mx-auto">
-            <h2 class="text-2xl text-white border-l-4 border-esports-accent pl-3 mb-6 esports-font tracking-wide">Tournament History</h2>
-            <div id="tourList" class="grid gap-4">
+            <h2 class="text-2xl md:text-3xl text-white border-l-4 border-esports-accent pl-4 mb-6 esports-font tracking-wider drop-shadow-md">TOURNAMENT HISTORY</h2>
+            <div id="tourList" class="grid gap-5">
                 <!-- Generated by JS -->
             </div>
         </div>
 
         <!-- 3. Matches List View -->
         <div id="matchListView" class="view-section max-w-5xl mx-auto">
-            <div class="flex justify-between items-center mb-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
                 <div>
-                    <h2 class="text-2xl text-white border-l-4 border-esports-primary pl-3 esports-font" id="matchListTourName">Matches</h2>
-                    <p class="text-slate-400 text-sm mt-1 ml-4">Manage matches for this tournament</p>
+                    <h2 class="text-2xl md:text-3xl text-white border-l-4 border-esports-primary pl-4 esports-font tracking-wider drop-shadow-md" id="matchListTourName">MATCHES</h2>
+                    <p class="text-slate-400 text-sm mt-1 ml-5">Manage schedule & live panels</p>
                 </div>
-                <button onclick="createMatch()" class="bg-esports-accent hover:bg-esports-accentHover text-black font-bold px-4 py-2 rounded shadow transition">
-                    <i class="fa-solid fa-plus mr-1"></i> Add Match
+                <button onclick="createMatch()" class="btn-accent font-bold px-5 py-3 rounded-lg w-full md:w-auto text-sm esports-font tracking-wider">
+                    <i class="fa-solid fa-plus mr-2"></i> ADD MATCH
                 </button>
             </div>
             
-            <div class="bg-esports-card rounded-lg border border-slate-700 overflow-hidden">
-                <table class="w-full text-left">
-                    <thead class="bg-slate-900 border-b border-slate-700">
-                        <tr>
-                            <th class="p-4 text-slate-300">Match Info</th>
-                            <th class="p-4 text-slate-300">Status</th>
-                            <th class="p-4 text-slate-300 text-right">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="matchesListBody">
-                        <!-- Generated by JS -->
-                    </tbody>
-                </table>
+            <div class="glass-panel rounded-xl overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left min-w-[500px]">
+                        <thead class="bg-slate-900/80 border-b border-slate-700/50">
+                            <tr>
+                                <th class="p-4 text-slate-300 text-xs font-bold uppercase tracking-wider">Match Info</th>
+                                <th class="p-4 text-slate-300 text-xs font-bold uppercase tracking-wider">Status</th>
+                                <th class="p-4 text-slate-300 text-xs font-bold uppercase tracking-wider text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="matchesListBody">
+                            <!-- Generated by JS -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
-        <!-- 4. Live Match Dashboard -->
+        <!-- 4. Live Dashboard -->
         <div id="liveDashboardView" class="view-section max-w-6xl mx-auto">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl text-white border-l-4 border-red-500 pl-3 esports-font tracking-wide" id="liveMatchTitle">Live Control Panel</h2>
-                <div class="text-green-400 text-sm font-bold"><i class="fa-solid fa-circle fa-beat text-[10px] mr-1"></i> Auto-Syncing</div>
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6 bg-slate-900/50 p-4 rounded-xl border border-slate-700/50">
+                <h2 class="text-2xl text-white esports-font tracking-wider mb-2 md:mb-0" id="liveMatchTitle"><i class="fa-solid fa-satellite-dish text-red-500 mr-2 animate-pulse"></i> LIVE CONTROL</h2>
+                <div class="text-green-400 text-xs font-bold bg-green-900/30 px-3 py-1 rounded-full border border-green-500/30"><i class="fa-solid fa-circle fa-beat text-[8px] mr-1"></i> CLOUD SYNC ACTIVE</div>
             </div>
 
             <!-- Top Widgets -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                <div class="bg-esports-card p-4 rounded border border-slate-700 flex justify-between items-center shadow-lg">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 mb-6">
+                <div class="glass-panel p-4 rounded-xl flex justify-between items-center relative overflow-hidden">
+                    <div class="absolute w-1 h-full bg-blue-500 left-0 top-0"></div>
                     <div>
-                        <p class="text-slate-400 text-xs font-bold uppercase">Alive Teams</p>
-                        <input type="text" id="liveAliveTeams" class="w-24 bg-transparent text-3xl font-bold text-white border-b border-slate-600 mt-1" oninput="autoSaveMatchDebounced()">
+                        <p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Alive Teams</p>
+                        <input type="text" id="liveAliveTeams" class="w-20 bg-transparent text-2xl md:text-3xl font-bold text-white border-b border-slate-600 mt-1 outline-none focus:border-blue-500 transition" oninput="autoSaveMatchDebounced()">
                     </div>
-                    <i class="fa-solid fa-users text-3xl text-slate-600"></i>
+                    <i class="fa-solid fa-shield-halved text-2xl md:text-3xl text-slate-600 opacity-50"></i>
                 </div>
-                <div class="bg-esports-card p-4 rounded border border-slate-700 flex justify-between items-center shadow-lg">
+                <div class="glass-panel p-4 rounded-xl flex justify-between items-center relative overflow-hidden">
+                    <div class="absolute w-1 h-full bg-red-500 left-0 top-0"></div>
                     <div>
-                        <p class="text-slate-400 text-xs font-bold uppercase">Alive Enemies</p>
-                        <input type="number" id="liveAliveEnemies" class="w-24 bg-transparent text-3xl font-bold text-white border-b border-slate-600 mt-1" oninput="autoSaveMatchDebounced()">
+                        <p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Alive Enemies</p>
+                        <input type="number" id="liveAliveEnemies" class="w-20 bg-transparent text-2xl md:text-3xl font-bold text-white border-b border-slate-600 mt-1 outline-none focus:border-red-500 transition" oninput="autoSaveMatchDebounced()">
                     </div>
-                    <i class="fa-solid fa-skull text-3xl text-slate-600"></i>
+                    <i class="fa-solid fa-skull text-2xl md:text-3xl text-slate-600 opacity-50"></i>
                 </div>
-                <div class="bg-esports-card p-4 rounded border border-slate-700 flex justify-between items-center shadow-lg">
+                <div class="glass-panel p-4 rounded-xl flex justify-between items-center col-span-2 md:col-span-1 relative overflow-hidden">
+                    <div class="absolute w-1 h-full bg-yellow-500 left-0 top-0"></div>
                     <div>
-                        <p class="text-slate-400 text-xs font-bold uppercase">Timer</p>
-                        <div id="liveTimerDisplay" class="text-3xl font-bold text-esports-primary esports-font mt-1">00:00</div>
+                        <p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Match Timer</p>
+                        <div id="liveTimerDisplay" class="text-3xl font-bold text-esports-accent esports-font mt-1">00:00</div>
                     </div>
-                    <div class="flex flex-col gap-1">
-                        <button onclick="toggleTimer()" id="timerToggleBtn" class="bg-esports-primary hover:bg-blue-600 text-white px-3 py-1 rounded text-xs font-bold"><i class="fa-solid fa-play mr-1"></i> Start</button>
-                        <button onclick="resetTimer()" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs font-bold"><i class="fa-solid fa-rotate-right mr-1"></i> Reset</button>
+                    <div class="flex gap-2">
+                        <button onclick="toggleTimer()" id="timerToggleBtn" class="bg-blue-600 hover:bg-blue-500 text-white w-10 h-10 rounded-full flex items-center justify-center transition shadow-[0_0_10px_rgba(37,99,235,0.5)]"><i class="fa-solid fa-play"></i></button>
+                        <button onclick="resetTimer()" class="bg-slate-700 hover:bg-slate-600 text-white w-10 h-10 rounded-full flex items-center justify-center transition"><i class="fa-solid fa-rotate-right"></i></button>
                     </div>
                 </div>
             </div>
 
             <!-- Live Points Table -->
-            <div class="bg-esports-card rounded-lg border border-slate-700 overflow-x-auto shadow-lg mb-6">
-                <table class="w-full live-table min-w-[700px]">
-                    <thead>
-                        <tr>
-                            <th class="w-16">Slot</th>
-                            <th class="text-left pl-4">Team Name</th>
-                            <th class="w-24">Elims</th>
-                            <th class="w-24">Position</th>
-                            <th class="w-20">Pts</th>
-                            <th class="w-24 text-esports-accent font-bold">Total</th>
-                            <th class="w-32">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="liveTableBody">
-                        <!-- Generated by JS -->
-                    </tbody>
-                </table>
-            </div>
-
-            <button onclick="finalizeMatch()" class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-3 rounded shadow-lg transition text-lg">
-                <i class="fa-solid fa-flag-checkered mr-2"></i> Finalize & Save Match Data
-            </button>
-        </div>
-
-        <!-- 5. Final Point Table View -->
-        <div id="finalTableView" class="view-section max-w-4xl mx-auto">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl text-white border-l-4 border-yellow-500 pl-3 esports-font tracking-wide">Tournament Standings</h2>
-                <button id="dwnBtn" onclick="downloadTableImage()" class="bg-esports-accent hover:bg-esports-accentHover text-black font-bold px-4 py-2 rounded shadow transition">
-                    <i class="fa-solid fa-image mr-1"></i> Download Image
-                </button>
-            </div>
-            
-            <!-- Exportable Area (Compact & Beautiful) -->
-            <div id="exportTableArea" class="pt-container">
-                <div class="pt-header">
-                    <h2 class="esports-font">BD ORG OVERALL RANKING</h2>
-                    <p class="esports-font" id="ptTourName">COMMUNITY CUP</p>
-                </div>
-                
-                <div class="p-2">
-                    <table class="pt-table">
+            <div class="glass-panel rounded-xl overflow-hidden mb-6">
+                <div class="overflow-x-auto">
+                    <table class="w-full live-table min-w-[700px]">
                         <thead>
                             <tr>
-                                <th class="w-12">Rank</th>
-                                <th class="text-left pl-2">Team</th>
-                                <th class="w-12">M</th>
-                                <th class="w-16">Booyah</th>
-                                <th class="w-16">P. Pts</th>
-                                <th class="w-16">Elims</th>
-                                <th class="w-20 text-esports-accent text-sm">Total</th>
+                                <th class="w-12">#</th>
+                                <th class="text-left">TEAM NAME</th>
+                                <th class="w-20">ELIMS</th>
+                                <th class="w-20">RANK</th>
+                                <th class="w-16">P.PTS</th>
+                                <th class="w-20 text-esports-primary">TOTAL</th>
+                                <th class="w-24">BOOYAH</th>
                             </tr>
                         </thead>
-                        <tbody id="finalTbody" class="esports-font tracking-wide">
+                        <tbody id="liveTableBody">
                             <!-- Generated by JS -->
                         </tbody>
                     </table>
                 </div>
+            </div>
 
-                <div class="pt-footer esports-font">
-                    <div class="flex items-center gap-2">
-                        <i class="fa-brands fa-whatsapp text-green-500 text-lg"></i>
-                        <span class="text-white font-bold tracking-widest">01303482412</span>
+            <button onclick="finalizeMatch()" class="w-full bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400 text-white font-bold py-4 rounded-xl shadow-[0_0_15px_rgba(16,185,129,0.4)] transition text-lg esports-font tracking-wider">
+                <i class="fa-solid fa-flag-checkered mr-2"></i> FINALIZE & SAVE MATCH DATA
+            </button>
+        </div>
+
+        <!-- 5. Final Table View -->
+        <div id="finalTableView" class="view-section max-w-4xl mx-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl md:text-3xl text-white border-l-4 border-esports-accent pl-4 esports-font tracking-wider drop-shadow-md">STANDINGS</h2>
+                <button id="dwnBtn" onclick="downloadTableImage()" class="btn-accent font-bold px-4 py-2 rounded-lg text-sm transition">
+                    <i class="fa-solid fa-download mr-1"></i> <span class="hidden md:inline">Export Image</span>
+                </button>
+            </div>
+            
+            <!-- Exportable Area (High Quality Design) -->
+            <div class="overflow-x-auto hide-scrollbar pb-5">
+                <div id="exportTableArea" class="pt-container min-w-[700px] mx-auto">
+                    <div class="pt-header">
+                        <h2 class="esports-font" id="ptMainTitle">BD ORG OVERALL RANKING</h2>
+                        <p class="esports-font" id="ptTourName">COMMUNITY CUP</p>
                     </div>
-                    <div>
-                        <span class="text-slate-400">ORGANIZED BY</span>
-                        <span class="text-esports-accent font-bold ml-1">BD ORG</span>
+                    
+                    <div class="p-4">
+                        <table class="pt-table">
+                            <thead>
+                                <tr>
+                                    <th class="w-12">RANK</th>
+                                    <th class="text-left pl-3">TEAM</th>
+                                    <th class="w-12">M</th>
+                                    <th class="w-16">WWCD</th>
+                                    <th class="w-16">P.PTS</th>
+                                    <th class="w-16">ELIMS</th>
+                                    <th class="w-20 text-white font-bold bg-blue-600/20 rounded-t-lg">TOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody id="finalTbody" class="esports-font tracking-wide">
+                                <!-- Generated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="pt-footer esports-font">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-green-500 text-xl"></i>
+                            <span class="text-white font-bold tracking-widest text-lg drop-shadow-[0_0_5px_#22c55e]">01303482412</span>
+                        </div>
+                        <div class="bg-slate-900/80 px-4 py-1 rounded-full border border-slate-700">
+                            <span class="text-slate-400 text-xs">POWERED BY</span>
+                            <span class="text-esports-primary font-bold ml-1 text-sm tracking-wider">BD ORG</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -322,15 +350,16 @@
     </main>
 
     <!-- Toast Component -->
-    <div id="toast" class="toast">Success!</div>
+    <div id="toast" class="toast"><i class="fa-solid fa-circle-check mr-2"></i> <span id="toastMsg">Success!</span></div>
 
+    <!-- MAIN JAVASCRIPT -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, getDoc, getDocs, collection, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Strict Configuration
-        const userProvidedConfig = {
+        // Configuration
+        const envConfig = {
             apiKey: "AIzaSyCghsS37q-hk21jJfR1_XBlzelMv85ocGc",
             authDomain: "modhu-5e3e9.firebaseapp.com",
             projectId: "modhu-5e3e9",
@@ -339,31 +368,22 @@
             appId: "1:1068529992737:web:9b13c43eff8f7515e88f60",
             measurementId: "G-1MKDRB4P79"
         };
-        
-        const envConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : userProvidedConfig;
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'bd-org-esports';
+        const appId = 'bd-org-esports';
         
         const app = initializeApp(envConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
         
-        // App State
         let userId = null;
-        const state = {
-            tournaments: [],
-            matches: [],
-            activeTId: null,
-            activeMId: null,
-            editingTId: null,
-            timerInterval: null,
-            timerSeconds: 0,
-            saveTimeout: null
-        };
-
+        const state = { tournaments: [], matches: [], activeTId: null, activeMId: null, editingTId: null, timerInterval: null, timerSeconds: 0, saveTimeout: null };
         const DEFAULT_POINTS = [12, 9, 7, 7, 6, 5, 4, 3, 2, 1, 0, 0];
 
-        // --- Initialization ---
+        // --- Initialization Fixed ---
         async function initApp() {
+            // UI Render Immediately (No blank page)
+            renderSetupForm(); 
+            switchView('setupView');
+
             try {
                 if (typeof __initial_auth_token !== 'undefined') {
                     await signInWithCustomToken(auth, __initial_auth_token);
@@ -375,17 +395,26 @@
                     if (user) {
                         userId = user.uid;
                         document.getElementById('authStatus').innerHTML = '<i class="fa-solid fa-cloud text-green-500"></i> Connected';
-                        await loadTournaments();
-                        renderSetupForm(); // Initialize form UI
-                        switchView('setupView');
+                        try {
+                            await loadTournaments();
+                        } catch (err) {
+                            console.error("DB Error:", err);
+                            showToast("Database Permission Denied! Check Firebase Rules.", true);
+                        }
+                    } else {
+                        document.getElementById('authStatus').innerHTML = '<i class="fa-solid fa-circle-xmark text-red-500"></i> Auth Failed';
                     }
                 });
-            } catch (e) { console.error("Auth error:", e); }
+            } catch (e) { 
+                console.error("Auth error:", e); 
+                showToast("Please Enable Anonymous Auth in Firebase", true);
+            }
         }
 
-        window.showToast = (msg) => {
+        window.showToast = (msg, isError = false) => {
             const t = document.getElementById('toast');
-            t.textContent = msg;
+            document.getElementById('toastMsg').innerText = msg;
+            if(isError) t.classList.add('error'); else t.classList.remove('error');
             t.classList.add('show');
             setTimeout(() => t.classList.remove('show'), 3000);
         };
@@ -395,23 +424,20 @@
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
             
-            // Sidebar active state
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('bg-esports-primary', 'bg-blue-600');
-            });
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active-nav'));
             const btn = document.getElementById(`btn-${viewId}`);
-            if(btn) btn.classList.add('bg-esports-primary');
+            if(btn) btn.classList.add('active-nav');
 
-            // Manage Context Menu
             const ctxNav = document.getElementById('tournamentContextNav');
             if(state.activeTId) {
                 const t = state.tournaments.find(x => x.id === state.activeTId);
                 document.getElementById('navActiveTName').innerText = t ? t.name : 'Selected';
                 ctxNav.classList.remove('hidden');
+                ctxNav.classList.add('md:block', 'flex'); // mobile flex
             } else {
                 ctxNav.classList.add('hidden');
+                ctxNav.classList.remove('md:block', 'flex');
             }
-            
             if(viewId === 'historyView') loadTournaments();
         };
 
@@ -424,28 +450,26 @@
             for(let i=0; i<12; i++) {
                 ptsDiv.innerHTML += `
                     <div>
-                        <label class="block text-[10px] text-slate-400">#${i+1}</label>
-                        <input type="number" id="setup_pt_${i}" value="${DEFAULT_POINTS[i]}" class="w-full p-1 rounded text-center text-sm bg-slate-900 border border-slate-700">
+                        <label class="block text-[9px] text-slate-500 font-bold text-center">#${i+1}</label>
+                        <input type="number" id="setup_pt_${i}" value="${DEFAULT_POINTS[i]}" class="w-full p-2 rounded bg-slate-800 border border-slate-600 text-center text-sm font-bold text-esports-primary focus:border-blue-500 outline-none transition">
                     </div>
                 `;
                 teamsDiv.innerHTML += `
                     <div>
-                        <label class="block text-xs text-esports-accent">Slot ${i+1}</label>
-                        <input type="text" id="setup_tm_${i}" placeholder="Team ${i+1}" class="w-full p-2 rounded text-sm bg-slate-900 border border-slate-700">
+                        <label class="block text-[10px] text-esports-accent font-bold uppercase mb-1">Slot ${i+1}</label>
+                        <input type="text" id="setup_tm_${i}" placeholder="Team ${i+1}" class="w-full p-2 rounded-lg neon-input text-sm font-semibold">
                     </div>
                 `;
             }
         };
 
         window.saveTournament = async () => {
-            if(!userId) return;
+            if(!userId) return showToast("Not connected to cloud", true);
             const data = {
                 name: document.getElementById('tourName').value,
                 date: document.getElementById('tourDate').value,
                 time: document.getElementById('tourTime').value,
-                points: [],
-                teams: [],
-                updatedAt: Date.now()
+                points: [], teams: [], updatedAt: Date.now()
             };
 
             for(let i=0; i<12; i++) {
@@ -455,11 +479,9 @@
 
             try {
                 if(state.editingTId) {
-                    // Update existing
                     await updateDoc(doc(db, 'artifacts', appId, 'users', userId, 'tournaments', state.editingTId), data);
                     showToast("Tournament Updated!");
                 } else {
-                    // Create new
                     const newId = 'tour_' + Date.now();
                     data.createdAt = Date.now();
                     await setDoc(doc(db, 'artifacts', appId, 'users', userId, 'tournaments', newId), data);
@@ -467,26 +489,22 @@
                 }
                 resetSetupForm();
                 switchView('historyView');
-            } catch(e) { console.error(e); }
+            } catch(e) { console.error(e); showToast("Failed to save", true); }
         };
 
-        window.editTournament = async (tId) => {
-            // FIX: Load existing data into setup form accurately
+        window.editTournament = (tId) => {
             const t = state.tournaments.find(x => x.id === tId);
             if(!t) return;
-            
             state.editingTId = tId;
-            document.getElementById('setupFormTitle').innerText = "Edit Tournament Setup";
+            document.getElementById('setupFormTitle').innerText = "EDIT TOURNAMENT SETUP";
             document.getElementById('tourName').value = t.name;
             document.getElementById('tourDate').value = t.date;
             document.getElementById('tourTime').value = t.time;
-            
             for(let i=0; i<12; i++) {
                 document.getElementById(`setup_pt_${i}`).value = t.points[i];
                 document.getElementById(`setup_tm_${i}`).value = t.teams[i];
             }
-            
-            document.getElementById('setupSaveBtn').innerHTML = '<i class="fa-solid fa-pen mr-2"></i> Update Tournament';
+            document.getElementById('setupSaveBtn').innerHTML = '<i class="fa-solid fa-pen mr-2"></i> UPDATE TOURNAMENT';
             document.getElementById('setupCancelBtn').classList.remove('hidden');
             switchView('setupView');
         };
@@ -494,10 +512,10 @@
         window.resetSetupForm = () => {
             state.editingTId = null;
             document.getElementById('setupForm').reset();
-            document.getElementById('setupFormTitle').innerText = "Create New Tournament";
-            document.getElementById('setupSaveBtn').innerHTML = '<i class="fa-solid fa-save mr-2"></i> Save Tournament';
+            document.getElementById('setupFormTitle').innerText = "CREATE NEW TOURNAMENT";
+            document.getElementById('setupSaveBtn').innerHTML = '<i class="fa-solid fa-save mr-2"></i> SAVE TOURNAMENT';
             document.getElementById('setupCancelBtn').classList.add('hidden');
-            renderSetupForm(); // Reset to defaults
+            renderSetupForm();
         };
 
         // --- 2. History ---
@@ -511,21 +529,19 @@
             
             const list = document.getElementById('tourList');
             list.innerHTML = '';
-            if(state.tournaments.length === 0) {
-                list.innerHTML = '<p class="text-slate-400 text-center p-4">No tournaments created yet.</p>';
-            }
+            if(state.tournaments.length === 0) list.innerHTML = '<p class="text-slate-500 text-center p-8 bg-slate-900/50 rounded-xl border border-dashed border-slate-700">No tournaments created yet.</p>';
             
             state.tournaments.forEach(t => {
                 list.innerHTML += `
-                    <div class="bg-esports-card p-4 rounded border border-slate-700 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:border-esports-primary transition">
+                    <div class="glass-panel p-5 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:border-esports-primary transition duration-300">
                         <div>
-                            <h3 class="text-xl font-bold esports-font text-white">${t.name}</h3>
-                            <p class="text-xs text-slate-400 mt-1"><i class="fa-regular fa-calendar mr-1"></i> ${t.date} | <i class="fa-regular fa-clock mr-1"></i> ${t.time}</p>
+                            <h3 class="text-xl md:text-2xl font-bold esports-font text-white drop-shadow-md">${t.name}</h3>
+                            <p class="text-xs text-slate-400 mt-2 font-mono bg-slate-900/80 inline-block px-2 py-1 rounded"><i class="fa-regular fa-calendar text-esports-primary mr-1"></i> ${t.date} &nbsp;|&nbsp; <i class="fa-regular fa-clock text-esports-accent mr-1"></i> ${t.time}</p>
                         </div>
-                        <div class="flex gap-2">
-                            <button onclick="openTournament('${t.id}')" class="bg-esports-primary hover:bg-blue-600 text-white px-3 py-2 rounded text-sm font-bold shadow"><i class="fa-solid fa-list mr-1"></i> Manage</button>
-                            <button onclick="editTournament('${t.id}')" class="bg-slate-700 hover:bg-slate-600 text-white px-3 py-2 rounded text-sm"><i class="fa-solid fa-pen"></i></button>
-                            <button onclick="deleteTournament('${t.id}')" class="bg-red-800 hover:bg-red-700 text-white px-3 py-2 rounded text-sm"><i class="fa-solid fa-trash"></i></button>
+                        <div class="flex flex-wrap gap-2 w-full md:w-auto">
+                            <button onclick="openTournament('${t.id}')" class="flex-1 md:flex-none btn-primary text-white px-4 py-2 rounded-lg text-sm font-bold"><i class="fa-solid fa-folder-open mr-1"></i> Manage</button>
+                            <button onclick="editTournament('${t.id}')" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg transition"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="deleteTournament('${t.id}')" class="bg-red-900/80 hover:bg-red-700 text-white px-4 py-2 rounded-lg border border-red-800 transition"><i class="fa-solid fa-trash"></i></button>
                         </div>
                     </div>
                 `;
@@ -534,20 +550,17 @@
 
         window.openTournament = (tId) => {
             state.activeTId = tId;
-            const t = state.tournaments.find(x => x.id === tId);
-            document.getElementById('matchListTourName').innerText = t.name;
+            document.getElementById('matchListTourName').innerText = state.tournaments.find(x => x.id === tId).name.toUpperCase();
             loadMatches();
             switchView('matchListView');
         };
 
         window.deleteTournament = async (tId) => {
-            if(!userId) return;
-            try {
-                await deleteDoc(doc(db, 'artifacts', appId, 'users', userId, 'tournaments', tId));
-                showToast("Tournament Deleted");
-                if(state.activeTId === tId) state.activeTId = null;
-                loadTournaments();
-            } catch(e) { console.error(e); }
+            if(!confirm("Delete this tournament forever?")) return;
+            await deleteDoc(doc(db, 'artifacts', appId, 'users', userId, 'tournaments', tId));
+            showToast("Tournament Deleted");
+            if(state.activeTId === tId) state.activeTId = null;
+            loadTournaments();
         };
 
         // --- 3. Matches ---
@@ -556,33 +569,28 @@
             const ref = collection(db, 'artifacts', appId, 'users', userId, 'matches');
             const snap = await getDocs(ref);
             state.matches = [];
-            
-            // Filter in JS as per rules
-            snap.forEach(d => {
-                const data = d.data();
-                if(data.tId === state.activeTId) state.matches.push({ id: d.id, ...data });
-            });
+            snap.forEach(d => { if(d.data().tId === state.activeTId) state.matches.push({ id: d.id, ...d.data() }); });
             state.matches.sort((a,b) => a.matchNum - b.matchNum);
 
             const tbody = document.getElementById('matchesListBody');
             tbody.innerHTML = '';
-            if(state.matches.length===0){
-                tbody.innerHTML = '<tr><td colspan="3" class="p-6 text-center text-slate-500">No matches found.</td></tr>';
-            }
+            if(state.matches.length===0) tbody.innerHTML = '<tr><td colspan="3" class="p-8 text-center text-slate-500">No matches found. Create one above.</td></tr>';
             
             state.matches.forEach(m => {
                 const isComp = m.status === 'completed';
                 tbody.innerHTML += `
-                    <tr class="border-b border-slate-700 hover:bg-slate-800 transition">
-                        <td class="p-4 font-bold esports-font text-lg text-white">Match ${m.matchNum}</td>
+                    <tr class="border-b border-slate-700/50 hover:bg-slate-800/50 transition">
+                        <td class="p-4 font-bold esports-font text-lg md:text-xl text-white">MATCH ${m.matchNum}</td>
                         <td class="p-4">
-                            <span class="px-2 py-1 rounded text-xs font-bold uppercase ${isComp ? 'bg-green-900 text-green-300' : 'bg-yellow-900 text-yellow-300'}">${m.status}</span>
+                            <span class="px-3 py-1 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-wider border ${isComp ? 'bg-green-900/30 text-green-400 border-green-500/50 shadow-[0_0_10px_rgba(34,197,94,0.2)]' : 'bg-yellow-900/30 text-yellow-400 border-yellow-500/50 shadow-[0_0_10px_rgba(234,179,8,0.2)]'}">
+                                ${isComp ? '<i class="fa-solid fa-check mr-1"></i> Finished' : '<i class="fa-solid fa-circle-dot fa-fade mr-1"></i> Active'}
+                            </span>
                         </td>
-                        <td class="p-4 text-right">
-                            <button onclick="openLiveMatch('${m.id}')" class="${isComp ? 'bg-slate-700' : 'bg-esports-accent text-black'} px-4 py-2 rounded text-sm font-bold shadow transition mr-2">
-                                ${isComp ? 'View Data' : 'Live Panel'}
+                        <td class="p-4 text-right flex justify-end gap-2">
+                            <button onclick="openLiveMatch('${m.id}')" class="${isComp ? 'bg-slate-700 hover:bg-slate-600 text-white' : 'btn-accent'} px-4 py-2 rounded-lg text-xs md:text-sm font-bold transition">
+                                ${isComp ? '<i class="fa-solid fa-eye"></i> Data' : '<i class="fa-solid fa-satellite-dish"></i> Live'}
                             </button>
-                            <button onclick="deleteMatch('${m.id}')" class="bg-red-900 hover:bg-red-700 text-white px-3 py-2 rounded text-sm"><i class="fa-solid fa-trash"></i></button>
+                            <button onclick="deleteMatch('${m.id}')" class="bg-red-900/50 hover:bg-red-600 text-white px-3 py-2 rounded-lg border border-red-800 transition"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 `;
@@ -590,104 +598,65 @@
         }
 
         window.createMatch = async () => {
-            if(!userId || !state.activeTId) return;
-            const t = state.tournaments.find(x => x.id === state.activeTId);
             const nextNum = state.matches.length > 0 ? Math.max(...state.matches.map(m=>m.matchNum)) + 1 : 1;
-            
-            // Init team stats
-            const tStats = {};
-            for(let i=0; i<12; i++){
-                tStats[i] = { sl: i+1, elims: 0, pos: '' };
-            }
-
-            const mData = {
-                tId: state.activeTId,
-                matchNum: nextNum,
-                status: 'active',
-                aliveTeams: '12/12',
-                aliveEnemies: 50,
-                timerSeconds: 0,
-                teamStats: tStats,
-                createdAt: Date.now()
-            };
-
+            const tStats = {}; for(let i=0; i<12; i++) tStats[i] = { sl: i+1, elims: 0, pos: '' };
+            const mData = { tId: state.activeTId, matchNum: nextNum, status: 'active', aliveTeams: '12/12', aliveEnemies: 48, timerSeconds: 0, teamStats: tStats, createdAt: Date.now() };
             await setDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', `m_${Date.now()}`), mData);
             showToast(`Match ${nextNum} Created`);
             loadMatches();
         };
 
         window.deleteMatch = async (mId) => {
-            if(!userId) return;
+            if(!confirm("Delete match?")) return;
             await deleteDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', mId));
-            showToast("Match Deleted");
-            loadMatches();
+            showToast("Match Deleted"); loadMatches();
         };
 
-        // --- 4. Live Match Dashboard ---
+        // --- 4. Live Dashboard ---
         let unsubLive = null;
-
         window.openLiveMatch = (mId) => {
             state.activeMId = mId;
             const m = state.matches.find(x => x.id === mId);
-            if(!m) return;
-
-            document.getElementById('liveMatchTitle').innerText = `Match ${m.matchNum} - Live Control`;
+            document.getElementById('liveMatchTitle').innerHTML = m.status === 'completed' ? `MATCH ${m.matchNum} - <span class="text-green-500">FINISHED</span>` : `<i class="fa-solid fa-satellite-dish text-red-500 mr-2 animate-pulse"></i> MATCH ${m.matchNum} LIVE`;
             document.getElementById('liveAliveTeams').value = m.aliveTeams || '12/12';
-            document.getElementById('liveAliveEnemies').value = m.aliveEnemies || 50;
-            state.timerSeconds = m.timerSeconds || 0;
-            updateTimerUI();
+            document.getElementById('liveAliveEnemies').value = m.aliveEnemies || 48;
+            state.timerSeconds = m.timerSeconds || 0; updateTimerUI();
             
-            buildLiveTable();
-            switchView('liveDashboardView');
+            buildLiveTable(); switchView('liveDashboardView');
 
-            // Live listener
             if(unsubLive) unsubLive();
-            unsubLive = onSnapshot(
-                doc(db, 'artifacts', appId, 'users', userId, 'matches', mId),
-                (docSnap) => {
-                    const data = docSnap.data();
-                    if(!data) return;
-                    
-                    // Update only if not currently focused to avoid typing interruption
-                    if(document.activeElement.id !== 'liveAliveTeams') document.getElementById('liveAliveTeams').value = data.aliveTeams;
-                    if(document.activeElement.id !== 'liveAliveEnemies') document.getElementById('liveAliveEnemies').value = data.aliveEnemies;
-                    
-                    // Update row calculations dynamically
-                    for(let i=0; i<12; i++){
-                        if(data.teamStats && data.teamStats[i]){
-                            const s = data.teamStats[i];
-                            if(document.activeElement.id !== `live_elim_${i}`) document.getElementById(`live_elim_${i}`).value = s.elims;
-                            if(document.activeElement.id !== `live_pos_${i}`) document.getElementById(`live_pos_${i}`).value = s.pos;
-                            calcLiveRow(i);
-                        }
+            unsubLive = onSnapshot(doc(db, 'artifacts', appId, 'users', userId, 'matches', mId), (snap) => {
+                const data = snap.data(); if(!data) return;
+                if(document.activeElement.id !== 'liveAliveTeams') document.getElementById('liveAliveTeams').value = data.aliveTeams;
+                if(document.activeElement.id !== 'liveAliveEnemies') document.getElementById('liveAliveEnemies').value = data.aliveEnemies;
+                for(let i=0; i<12; i++){
+                    if(data.teamStats && data.teamStats[i]){
+                        if(document.activeElement.id !== `live_elim_${i}`) document.getElementById(`live_elim_${i}`).value = data.teamStats[i].elims;
+                        if(document.activeElement.id !== `live_pos_${i}`) document.getElementById(`live_pos_${i}`).value = data.teamStats[i].pos;
+                        calcLiveRow(i);
                     }
-                },
-                (err) => console.error("Live Sync Error", err)
-            );
+                }
+            });
         };
 
         function buildLiveTable() {
             const t = state.tournaments.find(x => x.id === state.activeTId);
             const m = state.matches.find(x => x.id === state.activeMId);
-            const tbody = document.getElementById('liveTableBody');
-            tbody.innerHTML = '';
-
+            const tbody = document.getElementById('liveTableBody'); tbody.innerHTML = '';
             for(let i=0; i<12; i++) {
                 const s = m.teamStats[i] || {sl: i+1, elims: 0, pos: ''};
-                const tName = t.teams[i] || `Team ${i+1}`;
-                
                 tbody.innerHTML += `
-                    <tr class="hover:bg-slate-800 transition">
-                        <td><input type="number" id="live_sl_${i}" value="${s.sl}" class="w-12 bg-transparent text-center text-slate-400 outline-none" oninput="autoSaveMatchDebounced()"></td>
-                        <td class="text-left pl-4 font-bold text-white uppercase text-sm">${tName}</td>
-                        <td><input type="number" id="live_elim_${i}" value="${s.elims}" min="0" class="w-16 bg-slate-900 border border-slate-600 rounded p-1 text-center text-white outline-none" oninput="calcLiveRow(${i}); autoSaveMatchDebounced()"></td>
-                        <td><input type="number" id="live_pos_${i}" value="${s.pos}" min="1" max="12" class="w-16 bg-slate-900 border border-slate-600 rounded p-1 text-center text-white outline-none" oninput="calcLiveRow(${i}); autoSaveMatchDebounced()"></td>
-                        <td id="live_pts_${i}" class="text-slate-400 font-mono">0</td>
-                        <td id="live_tot_${i}" class="text-esports-accent font-bold text-xl">0</td>
+                    <tr class="hover:bg-slate-800/80 transition group">
+                        <td><input type="number" id="live_sl_${i}" value="${s.sl}" class="w-10 bg-transparent text-center text-slate-500 text-xs outline-none" oninput="autoSaveMatchDebounced()"></td>
+                        <td class="text-left font-bold text-white uppercase text-sm tracking-wide group-hover:text-esports-primary transition">${t.teams[i] || `Team ${i+1}`}</td>
+                        <td><input type="number" id="live_elim_${i}" value="${s.elims}" min="0" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-blue-500" oninput="calcLiveRow(${i}); autoSaveMatchDebounced()"></td>
+                        <td><input type="number" id="live_pos_${i}" value="${s.pos}" min="1" max="12" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-yellow-500" oninput="calcLiveRow(${i}); autoSaveMatchDebounced()"></td>
+                        <td id="live_pts_${i}" class="text-slate-400 font-mono font-bold">0</td>
+                        <td id="live_tot_${i}" class="text-esports-primary font-bold text-xl drop-shadow-[0_0_5px_rgba(59,130,246,0.5)]">0</td>
                         <td id="live_stat_${i}"></td>
                     </tr>
                 `;
-                calcLiveRow(i); // Initial calc
+                calcLiveRow(i);
             }
         }
 
@@ -695,179 +664,110 @@
             const t = state.tournaments.find(x => x.id === state.activeTId);
             const elims = parseInt(document.getElementById(`live_elim_${i}`).value) || 0;
             const pos = parseInt(document.getElementById(`live_pos_${i}`).value) || 0;
-            
             const pPts = (pos >= 1 && pos <= 12) ? t.points[pos-1] : 0;
-            const total = elims + pPts;
             
             document.getElementById(`live_pts_${i}`).innerText = pPts;
-            document.getElementById(`live_tot_${i}`).innerText = total;
-            
-            const stat = document.getElementById(`live_stat_${i}`);
-            if(pos === 1) {
-                stat.innerHTML = '<span class="bg-yellow-500 text-black px-2 py-1 rounded text-xs font-bold shadow-[0_0_10px_rgba(234,179,8,0.5)]">BOOYAH</span>';
-            } else { stat.innerHTML = ''; }
+            document.getElementById(`live_tot_${i}`).innerText = elims + pPts;
+            document.getElementById(`live_stat_${i}`).innerHTML = pos === 1 ? '<span class="bg-yellow-500 text-black px-3 py-1 rounded text-[10px] font-bold shadow-[0_0_15px_rgba(234,179,8,0.8)] tracking-widest uppercase">BOOYAH</span>' : '';
         };
 
         window.autoSaveMatchDebounced = () => {
-            if(!userId || !state.activeMId) return;
             clearTimeout(state.saveTimeout);
-            
             state.saveTimeout = setTimeout(async () => {
-                const updateData = {
-                    aliveTeams: document.getElementById('liveAliveTeams').value,
-                    aliveEnemies: document.getElementById('liveAliveEnemies').value,
-                    timerSeconds: state.timerSeconds,
-                    teamStats: {}
-                };
-                for(let i=0; i<12; i++){
-                    updateData.teamStats[i] = {
-                        sl: parseInt(document.getElementById(`live_sl_${i}`).value) || i+1,
-                        elims: parseInt(document.getElementById(`live_elim_${i}`).value) || 0,
-                        pos: document.getElementById(`live_pos_${i}`).value
-                    };
-                }
-                
-                try {
-                    await updateDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', state.activeMId), updateData);
-                } catch(e) { console.error("Save error", e); }
-            }, 600); // 600ms debounce
+                const data = { aliveTeams: document.getElementById('liveAliveTeams').value, aliveEnemies: document.getElementById('liveAliveEnemies').value, timerSeconds: state.timerSeconds, teamStats: {} };
+                for(let i=0; i<12; i++) data.teamStats[i] = { sl: parseInt(document.getElementById(`live_sl_${i}`).value)||i+1, elims: parseInt(document.getElementById(`live_elim_${i}`).value)||0, pos: document.getElementById(`live_pos_${i}`).value };
+                await updateDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', state.activeMId), data);
+            }, 600);
         };
 
         window.finalizeMatch = async () => {
-            if(!userId || !state.activeMId) return;
-            await autoSaveMatchDebounced(); // Ensure latest is saved
+            await autoSaveMatchDebounced();
             await updateDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', state.activeMId), { status: 'completed' });
-            showToast("Match Finalized!");
-            if(unsubLive) unsubLive();
-            loadMatches();
-            switchView('matchListView');
+            showToast("Match Saved Successfully!");
+            if(unsubLive) unsubLive(); loadMatches(); switchView('matchListView');
         };
 
-        // Live Timer Logic
+        // Timer
         window.toggleTimer = () => {
             const btn = document.getElementById('timerToggleBtn');
             if(state.timerInterval) {
-                clearInterval(state.timerInterval);
-                state.timerInterval = null;
-                btn.innerHTML = '<i class="fa-solid fa-play mr-1"></i> Start';
-                btn.classList.replace('bg-yellow-600', 'bg-esports-primary');
-                autoSaveMatchDebounced();
+                clearInterval(state.timerInterval); state.timerInterval = null;
+                btn.innerHTML = '<i class="fa-solid fa-play"></i>'; btn.classList.replace('bg-yellow-600', 'bg-blue-600');
             } else {
-                state.timerInterval = setInterval(() => {
-                    state.timerSeconds++;
-                    updateTimerUI();
-                }, 1000);
-                btn.innerHTML = '<i class="fa-solid fa-pause mr-1"></i> Pause';
-                btn.classList.replace('bg-esports-primary', 'bg-yellow-600');
+                state.timerInterval = setInterval(() => { state.timerSeconds++; updateTimerUI(); }, 1000);
+                btn.innerHTML = '<i class="fa-solid fa-pause"></i>'; btn.classList.replace('bg-blue-600', 'bg-yellow-600');
             }
-        };
-
-        window.resetTimer = () => {
-            clearInterval(state.timerInterval);
-            state.timerInterval = null;
-            state.timerSeconds = 0;
-            updateTimerUI();
-            const btn = document.getElementById('timerToggleBtn');
-            btn.innerHTML = '<i class="fa-solid fa-play mr-1"></i> Start';
-            btn.classList.replace('bg-yellow-600', 'bg-esports-primary');
             autoSaveMatchDebounced();
         };
+        window.resetTimer = () => {
+            clearInterval(state.timerInterval); state.timerInterval = null; state.timerSeconds = 0; updateTimerUI();
+            const btn = document.getElementById('timerToggleBtn'); btn.innerHTML = '<i class="fa-solid fa-play"></i>'; btn.classList.replace('bg-yellow-600', 'bg-blue-600');
+            autoSaveMatchDebounced();
+        };
+        function updateTimerUI() { document.getElementById('liveTimerDisplay').innerText = `${String(Math.floor(state.timerSeconds/60)).padStart(2,'0')}:${String(state.timerSeconds%60).padStart(2,'0')}`; }
 
-        function updateTimerUI() {
-            const m = Math.floor(state.timerSeconds / 60).toString().padStart(2, '0');
-            const s = (state.timerSeconds % 60).toString().padStart(2, '0');
-            document.getElementById('liveTimerDisplay').innerText = `${m}:${s}`;
-        }
-
-        // --- 5. Final Point Table ---
+        // --- 5. Final Table ---
         window.generateFinalTable = () => {
-            if(!state.activeTId) return showToast("Select a tournament from History first");
+            if(!state.activeTId) return showToast("Select a tournament first", true);
             const t = state.tournaments.find(x => x.id === state.activeTId);
             document.getElementById('ptTourName').innerText = t.name.toUpperCase();
-
-            // Filter strictly completed matches for this tournament
-            const compMatches = state.matches.filter(m => m.status === 'completed');
             
-            const results = [];
-            for(let i=0; i<12; i++){
-                results[i] = { name: t.teams[i] || `Team ${i+1}`, matches: 0, booyahs: 0, pPts: 0, elims: 0, total: 0 };
-            }
-
-            compMatches.forEach(m => {
+            const results = Array.from({length:12}, (_,i) => ({ name: t.teams[i] || `Team ${i+1}`, matches: 0, booyahs: 0, pPts: 0, elims: 0, total: 0 }));
+            state.matches.filter(m => m.status === 'completed').forEach(m => {
                 for(let i=0; i<12; i++){
                     if(m.teamStats && m.teamStats[i]){
-                        const s = m.teamStats[i];
-                        const pos = parseInt(s.pos) || 0;
-                        const elims = parseInt(s.elims) || 0;
-                        
+                        const pos = parseInt(m.teamStats[i].pos) || 0, elims = parseInt(m.teamStats[i].elims) || 0;
                         if(pos > 0 || elims > 0) results[i].matches++;
                         if(pos === 1) results[i].booyahs++;
-                        
                         const pPts = (pos >= 1 && pos <= 12) ? t.points[pos-1] : 0;
-                        results[i].pPts += pPts;
-                        results[i].elims += elims;
-                        results[i].total += (elims + pPts);
+                        results[i].pPts += pPts; results[i].elims += elims; results[i].total += (elims + pPts);
                     }
                 }
             });
+            results.sort((a,b) => b.total - a.total || b.booyahs - a.booyahs || b.elims - a.elims);
 
-            // Sort: Total Points -> Booyahs -> Elims
-            results.sort((a,b) => {
-                if(b.total !== a.total) return b.total - a.total;
-                if(b.booyahs !== a.booyahs) return b.booyahs - a.booyahs;
-                return b.elims - a.elims;
-            });
-
-            const tbody = document.getElementById('finalTbody');
-            tbody.innerHTML = '';
-            
+            const tbody = document.getElementById('finalTbody'); tbody.innerHTML = '';
             results.forEach((team, idx) => {
-                let rowClass = "";
-                if(idx === 0) rowClass = "rank-1";
-                else if(idx === 1) rowClass = "rank-2";
-                else if(idx === 2) rowClass = "rank-3";
-
+                let rowClass = "rank-row ";
+                if(idx === 0) rowClass += "rank-1"; else if(idx === 1) rowClass += "rank-2"; else if(idx === 2) rowClass += "rank-3";
+                
                 tbody.innerHTML += `
                     <tr class="${rowClass}">
                         <td class="rank-num">#${idx+1}</td>
-                        <td class="text-left pl-2 font-bold text-white uppercase text-sm">${team.name}</td>
-                        <td class="text-slate-400">${team.matches}</td>
-                        <td class="${team.booyahs > 0 ? 'text-yellow-500 font-bold' : 'text-slate-500'}">${team.booyahs}</td>
-                        <td class="text-slate-300">${team.pPts}</td>
-                        <td class="text-slate-300 font-bold">${team.elims}</td>
-                        <td class="text-esports-accent font-bold text-lg bg-black/20">${team.total}</td>
+                        <td class="text-left pl-3 font-bold text-white uppercase text-[15px] tracking-wide">${team.name}</td>
+                        <td class="text-slate-400 font-mono">${team.matches}</td>
+                        <td class="${team.booyahs > 0 ? 'text-yellow-400 font-bold drop-shadow-[0_0_5px_rgba(250,204,21,0.8)]' : 'text-slate-500'} font-mono">${team.booyahs}</td>
+                        <td class="text-slate-300 font-mono">${team.pPts}</td>
+                        <td class="text-white font-bold font-mono">${team.elims}</td>
+                        <td class="text-esports-primary font-bold text-xl drop-shadow-[0_0_8px_rgba(59,130,246,0.5)] bg-blue-900/20">${team.total}</td>
                     </tr>
                 `;
             });
-
             switchView('finalTableView');
         };
 
-        // Export as Image
         window.downloadTableImage = () => {
-            const el = document.getElementById('exportTableArea');
             const btn = document.getElementById('dwnBtn');
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Processing...';
+            // Temporary styles for export to ensure full width capture
+            const el = document.getElementById('exportTableArea');
+            el.style.width = '800px'; 
             
-            html2canvas(el, {
-                backgroundColor: '#0f172a',
-                scale: 2 // High Res
-            }).then(canvas => {
+            html2canvas(el, { backgroundColor: '#050B14', scale: 2, useCORS: true }).then(canvas => {
+                el.style.width = 'auto'; // Revert
                 const link = document.createElement('a');
-                link.download = 'BD_ORG_Final_Standings.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-                btn.innerHTML = '<i class="fa-solid fa-image mr-1"></i> Download Image';
-                showToast("Image Downloaded!");
-            }).catch(err => {
-                console.error(err);
-                btn.innerHTML = '<i class="fa-solid fa-image mr-1"></i> Download Image';
+                link.download = `BD_ORG_${document.getElementById('ptTourName').innerText.replace(/\s+/g, '_')}_Standings.png`;
+                link.href = canvas.toDataURL('image/png'); link.click();
+                btn.innerHTML = '<i class="fa-solid fa-download mr-1"></i> <span class="hidden md:inline">Export Image</span>';
+                showToast("High Quality Image Downloaded!");
+            }).catch(e => {
+                el.style.width = 'auto'; console.error(e);
+                btn.innerHTML = 'Export Failed'; showToast("Failed to generate image", true);
             });
         };
 
         // Boot
         initApp();
-
     </script>
 </body>
 </html>
