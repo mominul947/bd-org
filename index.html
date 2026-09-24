@@ -85,22 +85,22 @@
         
         .pt-table-wrap { padding: 20px 25px; }
         
-        /* TABLE ALIGNMENT FIX (A to Z Core Fix) */
+        /* TABLE ALIGNMENT FIX (Black gap fix) */
         .pt-table { 
             width: 100%; 
             border-collapse: collapse !important; 
             border-spacing: 0 !important; 
-            table-layout: fixed; /* STRICT COLUMN WIDTHS */
+            table-layout: fixed; 
         }
         
-        /* STRICT COLUMN SIZING */
-        .pt-table th:nth-child(1), .pt-table td:nth-child(1) { width: 8%; }  /* Rank */
-        .pt-table th:nth-child(2), .pt-table td:nth-child(2) { width: 40%; text-align: left; padding-left: 15px !important; } /* Team */
-        .pt-table th:nth-child(3), .pt-table td:nth-child(3) { width: 8%; }  /* M */
-        .pt-table th:nth-child(4), .pt-table td:nth-child(4) { width: 12%; } /* WWCD */
-        .pt-table th:nth-child(5), .pt-table td:nth-child(5) { width: 10%; } /* P.PTS */
-        .pt-table th:nth-child(6), .pt-table td:nth-child(6) { width: 10%; } /* ELIMS */
-        .pt-table th:nth-child(7), .pt-table td:nth-child(7) { width: 12%; } /* TOTAL */
+        /* EXACT COLUMN PERCENTAGES TO PREVENT BREAKING */
+        .pt-table th:nth-child(1), .pt-table td:nth-child(1) { width: 8%; }  
+        .pt-table th:nth-child(2), .pt-table td:nth-child(2) { width: 44%; text-align: left; padding-left: 15px !important; } 
+        .pt-table th:nth-child(3), .pt-table td:nth-child(3) { width: 8%; }  
+        .pt-table th:nth-child(4), .pt-table td:nth-child(4) { width: 10%; } 
+        .pt-table th:nth-child(5), .pt-table td:nth-child(5) { width: 10%; } 
+        .pt-table th:nth-child(6), .pt-table td:nth-child(6) { width: 10%; } 
+        .pt-table th:nth-child(7), .pt-table td:nth-child(7) { width: 10%; } 
 
         .pt-table th { 
             font-size: var(--pt-th-size, 0.95rem); color: var(--pt-th-color); background: var(--pt-th-bg, transparent); 
@@ -110,11 +110,18 @@
         .pt-table td { 
             font-size: 1.1rem; text-align: center; background: var(--pt-td-bg, transparent); 
             border-bottom: var(--pt-td-border, none); border-top: var(--pt-td-border-top, none); 
-            transition: 0.3s; vertical-align: middle; padding: 8px 5px; height: 45px;
+            transition: 0.3s; vertical-align: middle; padding: 10px 5px; height: 45px;
         }
 
         .pt-rank-col { font-family: 'Rajdhani', sans-serif; font-size: var(--pt-rank-size, 1.5rem); font-weight: 700; color: var(--pt-rank-color) !important; background: var(--pt-rank-bg, transparent); }
-        .pt-team-col { font-weight: 800; font-size: var(--pt-team-size, 1.25rem); letter-spacing: 0.5px; color: var(--pt-team-color) !important; display: flex; align-items: center; justify-content: flex-start; gap: 8px; height: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+        
+        /* Flexbox removed to fix black gap issue */
+        .pt-team-col { 
+            font-weight: 800; font-size: var(--pt-team-size, 1.15rem); letter-spacing: 0.5px; 
+            color: var(--pt-team-color) !important; 
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; vertical-align: middle;
+        }
+        
         .pt-stat-col { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: var(--pt-stat-size, 1.3rem); color: var(--pt-stat-color); }
         .pt-booyah-col { color: var(--pt-booyah-color) !important; font-weight: 700; font-family: 'Rajdhani', sans-serif; font-size: var(--pt-booyah-size, 1.3rem); }
         .pt-total-col { background: var(--pt-total-bg, transparent); color: var(--pt-total-color) !important; font-weight: 800; font-size: var(--pt-total-size, 1.6rem); font-family: 'Rajdhani', sans-serif; border-radius: 4px; padding: 2px 10px; display: inline-block; box-shadow: var(--pt-total-box-shadow, none); text-shadow: var(--pt-total-shadow, none); }
@@ -247,7 +254,7 @@
             <div class="p-3 md:p-4 border-t border-slate-700/50 flex flex-col gap-3 bg-slate-900/30">
                 <div class="text-center hidden md:block">
                     <div id="authStatus" class="text-xs text-green-500 mb-1"><i class="fa-solid fa-cloud"></i> Connected</div>
-                    <p class="text-[10px] text-slate-500">System v6.1 (Pro Alignment) • WP: 01303482412</p>
+                    <p class="text-[10px] text-slate-500">System v6.2 (Alignment Fix) • WP: 01303482412</p>
                 </div>
                 <button onclick="window.handleLogout()" class="w-full bg-red-900/40 hover:bg-red-700 border border-red-800 text-red-200 hover:text-white text-xs font-bold py-2 px-4 rounded-lg transition flex items-center justify-center whitespace-nowrap">
                     <i class="fa-solid fa-power-off mr-2"></i> <span class="hidden md:inline">Logout</span>
@@ -797,18 +804,18 @@
 
                 let displayTeamName = team.name;
                 if (isChampion) {
-                    displayTeamName += ` <i class="fa-solid fa-crown text-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.9)] text-[1.2rem]" title="Champion"></i>`;
+                    displayTeamName += ` <i class="fa-solid fa-crown text-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.9)] ml-2 text-[1.2rem]" title="Champion"></i>`;
                 }
 
                 tbody.innerHTML += `
                     <tr class="${rowClass}">
-                        <td class="pt-rank-col">${String(idx+1).padStart(2, '0')}</td>
+                        <td class="pt-rank-col text-center">${String(idx+1).padStart(2, '0')}</td>
                         <td class="pt-team-col">${displayTeamName}</td>
-                        <td class="pt-stat-col opacity-80">${team.matches}</td>
-                        <td class="pt-booyah-col">${team.booyahs}</td>
-                        <td class="pt-stat-col opacity-80">${team.pPts}</td>
-                        <td class="pt-stat-col" style="font-weight:700;">${team.elims}</td>
-                        <td><span class="pt-total-col">${team.total}</span></td>
+                        <td class="pt-stat-col opacity-80 text-center">${team.matches}</td>
+                        <td class="pt-booyah-col text-center">${team.booyahs}</td>
+                        <td class="pt-stat-col opacity-80 text-center">${team.pPts}</td>
+                        <td class="pt-stat-col text-center" style="font-weight:700;">${team.elims}</td>
+                        <td class="text-center"><span class="pt-total-col px-3 py-1">${team.total}</span></td>
                     </tr>
                 `;
             });
