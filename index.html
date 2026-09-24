@@ -85,7 +85,7 @@
         
         .pt-table-wrap { padding: 20px 25px; }
         
-        /* TABLE ALIGNMENT FIX (Black gap fix) */
+        /* TABLE ALIGNMENT FIX */
         .pt-table { 
             width: 100%; 
             border-collapse: collapse !important; 
@@ -93,7 +93,6 @@
             table-layout: fixed; 
         }
         
-        /* EXACT COLUMN PERCENTAGES TO PREVENT BREAKING */
         .pt-table th:nth-child(1), .pt-table td:nth-child(1) { width: 8%; }  
         .pt-table th:nth-child(2), .pt-table td:nth-child(2) { width: 44%; text-align: left; padding-left: 15px !important; } 
         .pt-table th:nth-child(3), .pt-table td:nth-child(3) { width: 8%; }  
@@ -115,11 +114,11 @@
 
         .pt-rank-col { font-family: 'Rajdhani', sans-serif; font-size: var(--pt-rank-size, 1.5rem); font-weight: 700; color: var(--pt-rank-color) !important; background: var(--pt-rank-bg, transparent); }
         
-        /* Flexbox removed to fix black gap issue */
         .pt-team-col { 
             font-weight: 800; font-size: var(--pt-team-size, 1.15rem); letter-spacing: 0.5px; 
             color: var(--pt-team-color) !important; 
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; vertical-align: middle;
+            display: flex; align-items: center; justify-content: flex-start; gap: 8px;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; vertical-align: middle; height: 100%;
         }
         
         .pt-stat-col { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: var(--pt-stat-size, 1.3rem); color: var(--pt-stat-color); }
@@ -254,7 +253,7 @@
             <div class="p-3 md:p-4 border-t border-slate-700/50 flex flex-col gap-3 bg-slate-900/30">
                 <div class="text-center hidden md:block">
                     <div id="authStatus" class="text-xs text-green-500 mb-1"><i class="fa-solid fa-cloud"></i> Connected</div>
-                    <p class="text-[10px] text-slate-500">System v6.2 (Alignment Fix) • WP: 01303482412</p>
+                    <p class="text-[10px] text-slate-500">System Logo Enabled • WP: 01303482412</p>
                 </div>
                 <button onclick="window.handleLogout()" class="w-full bg-red-900/40 hover:bg-red-700 border border-red-800 text-red-200 hover:text-white text-xs font-bold py-2 px-4 rounded-lg transition flex items-center justify-center whitespace-nowrap">
                     <i class="fa-solid fa-power-off mr-2"></i> <span class="hidden md:inline">Logout</span>
@@ -293,8 +292,8 @@
                         </div>
 
                         <div class="bg-slate-900/50 p-4 rounded-lg mb-8 border border-slate-700/50">
-                            <h3 class="text-sm text-esports-accent mb-4 esports-font tracking-widest"><i class="fa-solid fa-users mr-2"></i>Team Slots (1-12)</h3>
-                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3" id="setupTeams"></div>
+                            <h3 class="text-sm text-esports-accent mb-4 esports-font tracking-widest"><i class="fa-solid fa-users mr-2"></i>Team Slots & Logos</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="setupTeams"></div>
                         </div>
 
                         <button type="submit" class="w-full btn-primary text-white font-bold py-4 rounded-lg text-lg esports-font tracking-wider" id="setupSaveBtn">
@@ -376,7 +375,7 @@
                 <!-- SPECIAL MATCH MODIFIERS -->
                 <div class="glass-panel p-4 rounded-xl mb-6 relative overflow-hidden">
                     <div class="absolute w-1 h-full bg-purple-500 left-0 top-0"></div>
-                    <h3 class="text-sm text-purple-400 mb-3 esports-font tracking-widest pl-2"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i>GLOBAL HIGHLIGHTS & EFFECTS (Synced across matches)</h3>
+                    <h3 class="text-sm text-purple-400 mb-3 esports-font tracking-widest pl-2"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i>GLOBAL HIGHLIGHTS & EFFECTS</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pl-2">
                         <div>
                             <label class="block text-[10px] text-slate-400 font-bold uppercase mb-2"><i class="fa-solid fa-crown text-yellow-500 mr-1"></i> Champion Team (Crown Logo)</label>
@@ -546,6 +545,41 @@
         const state = { tournaments: [], matches: [], activeTId: null, activeMId: null, editingTId: null, timerInterval: null, timerSeconds: 0, saveTimeout: null };
         const DEFAULT_POINTS = [12, 9, 7, 7, 6, 5, 4, 3, 2, 1, 0, 0];
 
+        // --- ImgBB API Upload Function ---
+        window.uploadTeamLogo = async (input, idx) => {
+            const file = input.files[0];
+            if(!file) return;
+            
+            const preview = document.getElementById(`setup_logo_preview_${idx}`);
+            const urlInput = document.getElementById(`setup_logo_url_${idx}`);
+            
+            preview.style.opacity = "0.5";
+            window.showToast("Uploading logo...");
+            
+            const formData = new FormData();
+            formData.append("image", file);
+            
+            try {
+                const res = await fetch("https://api.imgbb.com/1/upload?key=48958619f4e043d398635890e2222cf1", {
+                    method: "POST",
+                    body: formData
+                });
+                const data = await res.json();
+                if(data.success) {
+                    const imgUrl = data.data.display_url; 
+                    urlInput.value = imgUrl;
+                    preview.src = imgUrl;
+                    preview.style.opacity = "1";
+                    window.showToast("Logo Uploaded!");
+                } else {
+                    throw new Error("Upload Failed");
+                }
+            } catch (e) {
+                window.showToast("Upload Error!", true);
+                preview.style.opacity = "1";
+            }
+        };
+
         window.showToast = (msg, isErr=false) => {
             const t=document.getElementById('toast'); document.getElementById('toastMsg').innerText=msg;
             t.classList.toggle('error', isErr); t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000);
@@ -574,24 +608,50 @@
             const p=document.getElementById('setupPoints'), t=document.getElementById('setupTeams'); p.innerHTML=''; t.innerHTML='';
             for(let i=0;i<12;i++){
                 p.innerHTML+=`<div><label class="block text-[9px] text-slate-500 font-bold text-center">#${i+1}</label><input type="number" id="setup_pt_${i}" value="${DEFAULT_POINTS[i]}" class="w-full p-2 rounded bg-slate-800 border border-slate-600 text-center text-sm font-bold text-esports-primary focus:border-blue-500 outline-none"></div>`;
-                t.innerHTML+=`<div><label class="block text-[10px] text-esports-accent font-bold uppercase mb-1">Slot ${i+1}</label><input type="text" id="setup_tm_${i}" placeholder="Team ${i+1}" class="w-full p-2 rounded-lg neon-input text-sm font-semibold"></div>`;
+                
+                t.innerHTML+=`
+                <div class="bg-slate-800/50 p-3 rounded border border-slate-700">
+                    <label class="block text-[10px] text-esports-accent font-bold uppercase mb-1">Slot ${i+1}</label>
+                    <input type="text" id="setup_tm_${i}" placeholder="Team ${i+1}" class="w-full p-2 mb-2 rounded bg-slate-900 border border-slate-600 text-white text-sm font-semibold outline-none focus:border-blue-500">
+                    <div class="flex items-center gap-2">
+                        <img id="setup_logo_preview_${i}" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM0NzU1NjkiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cmVjdCB4PSIzIiB5PSIzIiB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHJ4PSIyIiByeT0iMiI+PC9yZWN0PjxjaXJjbGUgY3g9IjguNSIgY3k9IjguNSIgcj0iMS41Ij48L2NpcmNsZT48cG9seWxpbmUgcG9pbnRzPSIyMSAxNSAxNiAxMCA1IDIxIj48L3BvbHlsaW5lPjwvc3ZnPg==" class="w-8 h-8 rounded bg-slate-900 border border-slate-600 object-cover">
+                        <input type="hidden" id="setup_logo_url_${i}" value="">
+                        <label class="cursor-pointer bg-slate-700 hover:bg-slate-600 text-white text-[10px] font-bold py-1.5 px-3 rounded transition">
+                            <i class="fa-solid fa-upload"></i> Logo
+                            <input type="file" accept="image/*" class="hidden" onchange="window.uploadTeamLogo(this, ${i})">
+                        </label>
+                    </div>
+                </div>`;
             }
         };
 
         window.saveTournament = async () => {
             if(!userId) return;
-            const data={name:document.getElementById('tourName').value, date:document.getElementById('tourDate').value, time:document.getElementById('tourTime').value, points:[], teams:[], championTeam: "", championRushTeams: [], updatedAt:Date.now()};
-            for(let i=0;i<12;i++){ data.points.push(parseInt(document.getElementById(`setup_pt_${i}`).value)||0); data.teams.push(document.getElementById(`setup_tm_${i}`).value||`Team ${i+1}`); }
+            const data={name:document.getElementById('tourName').value, date:document.getElementById('tourDate').value, time:document.getElementById('tourTime').value, points:[], teams:[], logos:[], championTeam: "", championRushTeams: [], updatedAt:Date.now()};
+            for(let i=0;i<12;i++){ 
+                data.points.push(parseInt(document.getElementById(`setup_pt_${i}`).value)||0); 
+                data.teams.push(document.getElementById(`setup_tm_${i}`).value||`Team ${i+1}`); 
+                data.logos.push(document.getElementById(`setup_logo_url_${i}`).value||""); 
+            }
             if(state.editingTId){ await updateDoc(doc(db,'artifacts',appId,'users',userId,'tournaments',state.editingTId),data); window.showToast("Updated!"); }
             else{ data.createdAt=Date.now(); await setDoc(doc(db,'artifacts',appId,'users',userId,'tournaments','tour_'+Date.now()),data); window.showToast("Created!"); }
             window.resetSetupForm(); window.switchView('historyView');
         };
+
         window.editTournament = (tId) => {
             const t=state.tournaments.find(x=>x.id===tId); if(!t) return; state.editingTId=tId;
             document.getElementById('setupFormTitle').innerText="EDIT TOURNAMENT"; document.getElementById('tourName').value=t.name; document.getElementById('tourDate').value=t.date; document.getElementById('tourTime').value=t.time;
-            for(let i=0;i<12;i++){ document.getElementById(`setup_pt_${i}`).value=t.points[i]; document.getElementById(`setup_tm_${i}`).value=t.teams[i]; }
+            for(let i=0;i<12;i++){ 
+                document.getElementById(`setup_pt_${i}`).value=t.points[i]; 
+                document.getElementById(`setup_tm_${i}`).value=t.teams[i]; 
+                
+                const url = (t.logos && t.logos[i]) ? t.logos[i] : "";
+                document.getElementById(`setup_logo_url_${i}`).value = url;
+                document.getElementById(`setup_logo_preview_${i}`).src = url ? url : "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM0NzU1NjkiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cmVjdCB4PSIzIiB5PSIzIiB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHJ4PSIyIiByeT0iMiI+PC9yZWN0PjxjaXJjbGUgY3g9IjguNSIgY3k9IjguNSIgcj0iMS41Ij48L2NpcmNsZT48cG9seWxpbmUgcG9pbnRzPSIyMSAxNSAxNiAxMCA1IDIxIj48L3BvbHlsaW5lPjwvc3ZnPg==";
+            }
             document.getElementById('setupSaveBtn').innerHTML='UPDATE TOURNAMENT'; document.getElementById('setupCancelBtn').classList.remove('hidden'); window.switchView('setupView');
         };
+
         window.resetSetupForm = () => { state.editingTId=null; document.getElementById('setupForm').reset(); document.getElementById('setupFormTitle').innerText="CREATE NEW TOURNAMENT"; document.getElementById('setupSaveBtn').innerHTML='SAVE TOURNAMENT'; document.getElementById('setupCancelBtn').classList.add('hidden'); window.renderSetupForm(); };
 
         window.loadTournaments = async () => {
@@ -671,6 +731,8 @@
                 const s=(m&&m.teamStats&&m.teamStats[i])?m.teamStats[i]:{sl:i+1,elims:0,pos:''}; 
                 const tName=(t&&t.teams&&t.teams[i])?t.teams[i]:`Team ${i+1}`;
                 
+                let tLogo = (t && t.logos && t.logos[i]) ? `<img src="${t.logos[i]}" class="w-6 h-6 object-contain rounded bg-slate-900 border border-slate-600">` : '';
+                
                 if(champSelect && rushDiv) {
                     let isChampSel = (t && t.championTeam === i.toString()) ? "selected" : "";
                     champSelect.innerHTML += `<option value="${i}" ${isChampSel}>${tName}</option>`;
@@ -684,7 +746,7 @@
                     `;
                 }
 
-                tbody.innerHTML+=`<tr id="live_row_${i}" class="border-b border-slate-800 hover:bg-slate-800/30"><td class="p-2"><input type="number" id="live_sl_${i}" value="${s.sl}" class="w-14 bg-slate-900 border border-slate-600 rounded p-1.5 text-center text-white text-sm font-bold outline-none focus:border-blue-500" oninput="window.sortLiveTable(); window.forceSaveLiveStats()"></td><td class="text-left font-bold text-white uppercase text-sm">${tName}</td><td><input type="number" id="live_elim_${i}" value="${s.elims}" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-blue-500" oninput="window.calcLiveRow(${i}); window.forceSaveLiveStats()"></td><td><input type="number" id="live_pos_${i}" value="${s.pos}" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-blue-500" oninput="window.calcLiveRow(${i}); window.forceSaveLiveStats()"></td><td id="live_pts_${i}" class="text-slate-400 font-mono font-bold">0</td><td id="live_tot_${i}" class="text-blue-400 font-bold text-xl drop-shadow">0</td><td id="live_stat_${i}"></td></tr>`;
+                tbody.innerHTML+=`<tr id="live_row_${i}" class="border-b border-slate-800 hover:bg-slate-800/30"><td class="p-2"><input type="number" id="live_sl_${i}" value="${s.sl}" class="w-14 bg-slate-900 border border-slate-600 rounded p-1.5 text-center text-white text-sm font-bold outline-none focus:border-blue-500" oninput="window.sortLiveTable(); window.forceSaveLiveStats()"></td><td class="text-left font-bold text-white uppercase text-sm"><div class="flex items-center gap-2">${tLogo} <span>${tName}</span></div></td><td><input type="number" id="live_elim_${i}" value="${s.elims}" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-blue-500" oninput="window.calcLiveRow(${i}); window.forceSaveLiveStats()"></td><td><input type="number" id="live_pos_${i}" value="${s.pos}" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-blue-500" oninput="window.calcLiveRow(${i}); window.forceSaveLiveStats()"></td><td id="live_pts_${i}" class="text-slate-400 font-mono font-bold">0</td><td id="live_tot_${i}" class="text-blue-400 font-bold text-xl drop-shadow">0</td><td id="live_stat_${i}"></td></tr>`;
                 window.calcLiveRow(i);
             }
             window.sortLiveTable();
@@ -776,7 +838,8 @@
 
             const results = Array.from({length:12}, (_,i) => ({ 
                 teamIdx: i,
-                name: (t.teams && t.teams[i]) ? t.teams[i] : `Team ${i+1}`, 
+                name: (t.teams && t.teams[i]) ? t.teams[i] : `Team ${i+1}`,
+                logo: (t.logos && t.logos[i]) ? t.logos[i] : null,
                 matches: 0, booyahs: 0, pPts: 0, elims: 0, total: 0 
             }));
             
@@ -802,9 +865,11 @@
 
                 if (isRush) rowClass += " rush-highlight"; 
 
-                let displayTeamName = team.name;
+                let logoHtml = team.logo ? `<img src="${team.logo}" style="width: 26px; height: 26px; object-fit: contain; border-radius: 4px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); flex-shrink: 0;">` : '';
+                
+                let displayTeamName = `${logoHtml} <span class="truncate">${team.name}</span>`;
                 if (isChampion) {
-                    displayTeamName += ` <i class="fa-solid fa-crown text-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.9)] ml-2 text-[1.2rem]" title="Champion"></i>`;
+                    displayTeamName += ` <i class="fa-solid fa-crown text-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.9)] text-[1.2rem]" title="Champion"></i>`;
                 }
 
                 tbody.innerHTML += `
