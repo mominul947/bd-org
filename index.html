@@ -7,7 +7,7 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -16,12 +16,18 @@
             theme: {
                 extend: {
                     colors: {
-                        esports: { bg: '#050B14', card: '#0F172A', cardHover: '#1E293B', accent: '#F59E0B', primary: '#3B82F6' }
+                        esports: {
+                            bg: '#050B14',      
+                            card: '#0F172A',    
+                            cardHover: '#1E293B',
+                            accent: '#F59E0B',  
+                            primary: '#3B82F6', 
+                        }
                     },
                     fontFamily: {
                         oswald: ['Oswald', 'sans-serif'],
                         inter: ['Inter', 'sans-serif'],
-                        rajdhani: ['Rajdhani', 'sans-serif'], /* For sleek numbers */
+                        rajdhani: ['Rajdhani', 'sans-serif'],
                     }
                 }
             }
@@ -30,282 +36,187 @@
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #050B14; color: #F8FAFC; overflow-x: hidden; }
         .esports-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
-        .num-font { font-family: 'Rajdhani', sans-serif; font-weight: 700; }
         
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #050B14; }
         ::-webkit-scrollbar-thumb { background: #3B82F6; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #F59E0B; }
 
         /* View Management Animations */
-        .view-section { display: none; animation: fadeInUp 0.3s ease-out forwards; opacity: 0; transform: translateY(10px); }
+        .view-section { display: none; animation: fadeInUp 0.4s ease-out forwards; opacity: 0; transform: translateY(15px); }
         .view-section.active { display: block; }
         @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-        /* Inputs & Glass Panels */
-        .glass-panel { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(59, 130, 246, 0.15); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); }
-        .neon-input { background-color: rgba(15, 23, 42, 0.8); border: 1px solid #334155; color: white; transition: all 0.2s ease; }
-        .neon-input:focus { border-color: #3B82F6; box-shadow: 0 0 8px rgba(59, 130, 246, 0.4); outline: none; }
+        /* RESTORED: Premium Inputs & Glass Panels */
+        .glass-panel { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(59, 130, 246, 0.2); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); }
+        .neon-input { background-color: rgba(15, 23, 42, 0.8); border: 1px solid #334155; color: white; transition: all 0.3s ease; }
+        .neon-input:focus { border-color: #3B82F6; box-shadow: 0 0 10px rgba(59, 130, 246, 0.5); outline: none; }
         
-        /* Nav Buttons */
-        .nav-btn { transition: all 0.2s ease; border: 1px solid transparent; }
-        .nav-btn:hover { background: rgba(59, 130, 246, 0.1); }
-        .nav-btn.active-nav { background: #3B82F6; color: white; border-color: #60A5FA; box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
+        /* RESTORED: Nav Buttons */
+        .nav-btn { position: relative; overflow: hidden; transition: all 0.3s ease; border: 1px solid transparent; }
+        .nav-btn:hover { background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.4); box-shadow: 0 0 15px rgba(59, 130, 246, 0.2); }
+        .nav-btn.active-nav { background: linear-gradient(90deg, #1D4ED8 0%, #3B82F6 100%); border-color: #60A5FA; box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); color: white; }
 
-        /* Buttons */
-        .btn-primary { background: #2563EB; transition: 0.2s; }
-        .btn-primary:hover { background: #1D4ED8; transform: translateY(-1px); }
-        .btn-accent { background: #F59E0B; transition: 0.2s; color: black; }
-        .btn-accent:hover { background: #D97706; transform: translateY(-1px); }
+        /* RESTORED: Action Buttons */
+        .btn-primary { background: linear-gradient(45deg, #2563EB, #3B82F6); box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); transition: 0.3s; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6); }
+        .btn-accent { background: linear-gradient(45deg, #D97706, #F59E0B); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4); transition: 0.3s; color: black; }
+        .btn-accent:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245, 158, 11, 0.6); }
 
-        /* Live Table */
-        .live-table th { background: rgba(15, 23, 42, 0.95); color: #94A3B8; font-size: 0.8rem; text-transform: uppercase; border-bottom: 2px solid #3B82F6; padding: 10px; }
-        .live-table td { border-bottom: 1px solid rgba(51, 65, 85, 0.3); padding: 8px; text-align: center; }
+        .live-table th { background: rgba(15, 23, 42, 0.9); color: #94A3B8; font-size: 0.85rem; text-transform: uppercase; border-bottom: 2px solid #3B82F6; padding: 12px; }
+        .live-table td { border-bottom: 1px solid rgba(51, 65, 85, 0.5); padding: 10px; text-align: center; }
         
         /* =========================================
-           NEW PRO ESPORTS STANDINGS THEMES
+           NEW: PRO ESPORTS STANDINGS ENGINE
            ========================================= */
         
-        /* Base Container */
         .pt-container {
-            background-color: var(--theme-bg);
-            background-image: var(--theme-bg-img, none);
-            background-size: cover;
-            background-position: center;
-            border: var(--theme-border, none);
-            position: relative;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-            color: var(--theme-text);
-            overflow: hidden;
-            font-family: 'Inter', sans-serif;
+            background: var(--pt-bg); border: var(--pt-border-size) solid var(--pt-border);
+            border-radius: var(--pt-radius); position: relative; box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+            color: var(--pt-td-color); transition: all 0.4s ease; overflow: hidden;
         }
-
-        /* Header Area */
-        .pt-header {
-            text-align: center;
-            padding: var(--theme-header-p, 25px 10px 15px);
-            background: var(--theme-header-bg);
-            border-bottom: var(--theme-header-border);
-            position: relative;
+        .pt-header { 
+            text-align: center; padding: 25px 10px 20px 10px; 
+            border-bottom: var(--pt-border-size) solid var(--pt-border); 
+            background: var(--pt-header-bg); position: relative;
         }
-        .pt-header h2 { color: var(--theme-title-color); font-size: 2.8rem; margin: 0; line-height: 1; letter-spacing: 1px; font-weight: 700; text-transform: uppercase; font-family: 'Oswald', sans-serif; text-shadow: var(--theme-title-shadow, none); }
-        .pt-header p { color: var(--theme-sub-color); font-size: 1.1rem; letter-spacing: 3px; margin-top: 5px; font-weight: 600; text-transform: uppercase; font-family: 'Oswald', sans-serif; }
-
-        /* Table Architecture */
-        .pt-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .pt-table th { 
-            padding: 10px 15px; 
-            font-size: 0.85rem; 
-            color: var(--theme-th-color); 
-            background: var(--theme-th-bg); 
-            text-transform: uppercase; 
-            font-weight: 700;
-            letter-spacing: 1px;
-            border-bottom: var(--theme-th-border);
-        }
+        .pt-header h2 { color: var(--pt-title-color); font-size: 3rem; margin: 0; letter-spacing: 2px; text-shadow: var(--pt-title-shadow); font-weight: 700; line-height: 1.1; }
+        .pt-header p { color: var(--pt-sub-color); font-size: 1.2rem; letter-spacing: 6px; margin-top: 5px; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.5); background: var(--pt-sub-bg, transparent); display: inline-block; padding: 2px 15px; border-radius: 20px; }
         
-        /* Rows */
-        .pt-table tbody tr {
-            background: var(--theme-row-bg);
-            border-bottom: var(--theme-row-border);
-            transition: 0.2s;
-        }
-        .pt-table td { padding: 10px 15px; font-size: 1.1rem; text-align: center; font-weight: 600; }
+        .pt-table { width: 100%; border-collapse: separate; border-spacing: 0 var(--pt-row-gap, 4px); padding: 15px; }
+        .pt-table th { padding: 12px 10px; font-size: 0.95rem; color: var(--pt-th-color); background: var(--pt-th-bg); text-transform: uppercase; letter-spacing: 1.5px; border-bottom: var(--pt-th-border, none); }
+        .pt-table td { padding: 10px 10px; font-size: 1.1rem; text-align: center; background: var(--pt-td-bg); border-bottom: var(--pt-td-border, none); transition: 0.3s; }
         
-        /* Specific Columns */
-        .pt-rank { font-size: 1.2rem; color: var(--theme-rank-color); font-weight: 700; font-family: 'Rajdhani', sans-serif; width: 60px; }
-        .pt-team { text-align: left !important; font-size: 1.2rem; font-weight: 700; text-transform: uppercase; color: var(--theme-team-color); letter-spacing: -0.5px; }
-        .pt-stat { font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--theme-stat-color); opacity: 0.9; }
+        .pt-rank-col { font-family: 'Rajdhani', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--pt-rank-color); }
+        .pt-team-name { font-weight: 800; font-size: 1.15rem; letter-spacing: 0.5px; color: var(--pt-team-color); display: flex; align-items: center; justify-content: flex-start; gap: 8px; }
+        .pt-team-name i { font-size: 1.1rem; color: var(--pt-icon-color); }
         
-        /* Total Points Highlights */
+        .pt-stat-col { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 1.2rem; color: var(--pt-stat-color); }
+        .pt-booyah-col { color: var(--pt-booyah-color); font-weight: 700; font-size: 1.3rem; }
+        
         .pt-total-wrap {
-            background: var(--theme-total-bg);
-            color: var(--theme-total-color);
-            padding: 8px 15px;
-            border-radius: var(--theme-total-radius, 0px);
-            font-weight: 700;
-            font-size: 1.4rem;
-            display: inline-block;
-            min-width: 60px;
-            text-shadow: var(--theme-total-shadow, none);
-            font-family: 'Rajdhani', sans-serif;
-            border: var(--theme-total-border, none);
+            background: var(--pt-total-bg); color: var(--pt-total-color); padding: 6px 15px;
+            border-radius: var(--pt-total-radius); font-weight: 800; font-size: 1.4rem;
+            display: inline-block; min-width: 60px; text-shadow: var(--pt-total-shadow, none);
+            font-family: 'Rajdhani', sans-serif; border: var(--pt-total-border, none);
+            box-shadow: var(--pt-total-box-shadow, none);
         }
 
-        /* Footer */
-        .pt-footer {
-            padding: 15px 25px;
-            background: var(--theme-footer-bg);
-            border-top: var(--theme-footer-border);
-            display: flex; justify-content: space-between; align-items: center;
-            font-size: 0.9rem; font-weight: 600;
+        .pt-footer { padding: 15px 25px; text-align: center; font-size: 0.9rem; border-top: var(--pt-border-size) solid var(--pt-border); background: var(--pt-header-bg); display: flex; justify-content: space-between; align-items: center; font-weight: 600; }
+
+        /* THEME 1: NEON BLUE (Default) */
+        .theme-blue {
+            --pt-bg: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+            --pt-border: #0ea5e9; --pt-border-size: 2px; --pt-radius: 12px;
+            --pt-header-bg: radial-gradient(circle at top, #0284c7 0%, #0f172a 80%);
+            --pt-title-color: #ffffff; --pt-title-shadow: 0 0 15px #0ea5e9;
+            --pt-sub-color: #bae6fd; --pt-th-bg: rgba(14, 165, 233, 0.2);
+            --pt-th-color: #7dd3fc; --pt-td-bg: rgba(15, 23, 42, 0.8);
+            --pt-td-border: 1px solid rgba(14, 165, 233, 0.2);
+            --pt-rank-color: #38bdf8; --pt-team-color: #f8fafc;
+            --pt-icon-color: #0ea5e9; --pt-stat-color: #cbd5e1;
+            --pt-booyah-color: #38bdf8; --pt-total-bg: #0ea5e9;
+            --pt-total-color: #ffffff; --pt-total-radius: 6px;
         }
 
-        /* --------------------------------------
-           THEME 1: MODERN DARK (Clean & Sharp)
-        --------------------------------------- */
-        .theme-modern {
-            --theme-bg: #0A0A0A;
-            --theme-text: #FFFFFF;
-            --theme-border: 1px solid #333;
-            --theme-header-bg: #111111;
-            --theme-header-border: 2px solid #2563EB;
-            --theme-title-color: #FFFFFF;
-            --theme-sub-color: #2563EB;
-            --theme-th-bg: #1A1A1A;
-            --theme-th-color: #9CA3AF;
-            --theme-th-border: 1px solid #333;
-            --theme-row-bg: transparent;
-            --theme-row-border: 1px solid #1F2937;
-            --theme-rank-color: #60A5FA;
-            --theme-team-color: #F9FAFB;
-            --theme-stat-color: #D1D5DB;
-            --theme-total-bg: transparent;
-            --theme-total-color: #3B82F6;
-            --theme-total-radius: 0px;
-            --theme-footer-bg: #111;
-            --theme-footer-border: 1px solid #333;
-        }
-        /* Top 3 Highlighting for Modern */
-        .theme-modern .rank-1 { background: linear-gradient(90deg, rgba(37,99,235,0.15) 0%, transparent 100%); border-left: 3px solid #3B82F6; }
-        .theme-modern .rank-2 { background: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, transparent 100%); border-left: 3px solid #9CA3AF; }
-        .theme-modern .rank-3 { background: linear-gradient(90deg, rgba(245,158,11,0.08) 0%, transparent 100%); border-left: 3px solid #F59E0B; }
-
-        /* --------------------------------------
-           THEME 2: BLOOD STRIKE (Aggressive Red/Black)
-        --------------------------------------- */
+        /* THEME 2: BLOOD STRIKE (Aggressive Red/Black) */
         .theme-blood {
-            --theme-bg: #000000;
-            --theme-text: #F3F4F6;
-            --theme-border: 2px solid #DC2626;
-            --theme-header-bg: linear-gradient(to bottom, #7F1D1D, #000000);
-            --theme-header-border: none;
-            --theme-title-color: #FFFFFF;
-            --theme-sub-color: #FCA5A5;
-            --theme-th-bg: #DC2626;
-            --theme-th-color: #FFFFFF;
-            --theme-th-border: none;
-            --theme-row-bg: #111111;
-            --theme-row-border: 1px solid #333;
-            --theme-rank-color: #DC2626;
-            --theme-team-color: #FFFFFF;
-            --theme-stat-color: #9CA3AF;
-            --theme-total-bg: #DC2626;
-            --theme-total-color: #FFFFFF;
-            --theme-total-radius: 4px;
-            --theme-footer-bg: #000000;
-            --theme-footer-border: 1px solid #DC2626;
+            --pt-bg: #000000;
+            --pt-border: #dc2626; --pt-border-size: 2px; --pt-radius: 0px;
+            --pt-header-bg: linear-gradient(180deg, #7f1d1d 0%, #000000 100%);
+            --pt-title-color: #ffffff; --pt-title-shadow: 2px 2px 0 #dc2626;
+            --pt-sub-color: #ffffff; --pt-sub-bg: #dc2626;
+            --pt-th-bg: #dc2626; --pt-th-color: #ffffff;
+            --pt-td-bg: #111111; --pt-td-border: 1px solid #333333;
+            --pt-rank-color: #dc2626; --pt-team-color: #ffffff;
+            --pt-icon-color: #dc2626; --pt-stat-color: #9ca3af;
+            --pt-booyah-color: #fca5a5; --pt-total-bg: #dc2626;
+            --pt-total-color: #ffffff; --pt-total-radius: 0px;
         }
 
-        /* --------------------------------------
-           THEME 3: APEX GOLD (Luxury Tournament)
-        --------------------------------------- */
-        .theme-apex {
-            --theme-bg: #18181B; /* Zinc 900 */
-            --theme-text: #FFFFFF;
-            --theme-border: 1px solid #F59E0B;
-            --theme-header-bg: #09090B;
-            --theme-header-border: 1px solid #F59E0B;
-            --theme-title-color: #FBBF24;
-            --theme-sub-color: #FFFFFF;
-            --theme-th-bg: #F59E0B;
-            --theme-th-color: #000000;
-            --theme-th-border: none;
-            --theme-row-bg: #27272A;
-            --theme-row-border: 2px solid #18181B; /* Creates gaps between rows */
-            --theme-rank-color: #FBBF24;
-            --theme-team-color: #FFFFFF;
-            --theme-stat-color: #E4E4E7;
-            --theme-total-bg: #000000;
-            --theme-total-color: #FBBF24;
-            --theme-total-radius: 0px;
-            --theme-total-border: 1px solid #F59E0B;
-            --theme-footer-bg: #09090B;
-            --theme-footer-border: 1px solid #F59E0B;
+        /* THEME 3: APEX GOLD (Luxury Tournament) */
+        .theme-gold {
+            --pt-bg: #18181b;
+            --pt-border: #f59e0b; --pt-border-size: 1px; --pt-radius: 0px;
+            --pt-header-bg: #09090b;
+            --pt-title-color: #fbbf24; --pt-title-shadow: none;
+            --pt-sub-color: #ffffff; --pt-th-bg: #f59e0b;
+            --pt-th-color: #000000; --pt-td-bg: #27272a;
+            --pt-td-border: none; --pt-row-gap: 6px;
+            --pt-rank-color: #fbbf24; --pt-team-color: #ffffff;
+            --pt-icon-color: #f59e0b; --pt-stat-color: #e4e4e7;
+            --pt-booyah-color: #fcd34d; --pt-total-bg: #000000;
+            --pt-total-color: #fbbf24; --pt-total-radius: 0px;
+            --pt-total-border: 1px solid #f59e0b;
         }
 
-        /* --------------------------------------
-           THEME 4: TOXIC GREEN (Neon/Cyberpunk)
-        --------------------------------------- */
+        /* THEME 4: TOXIC GREEN (Cyberpunk) */
         .theme-toxic {
-            --theme-bg: #022C22; /* Emerald 950 */
-            --theme-text: #D1FAE5;
-            --theme-border: 1px solid #10B981;
-            --theme-header-bg: #064E3B;
-            --theme-header-border: 2px solid #34D399;
-            --theme-title-color: #34D399;
-            --theme-title-shadow: 0 0 15px rgba(52,211,153,0.5);
-            --theme-sub-color: #A7F3D0;
-            --theme-th-bg: #047857;
-            --theme-th-color: #ECFDF5;
-            --theme-th-border: none;
-            --theme-row-bg: rgba(6, 78, 59, 0.4);
-            --theme-row-border: 1px solid #065F46;
-            --theme-rank-color: #6EE7B7;
-            --theme-team-color: #FFFFFF;
-            --theme-stat-color: #A7F3D0;
-            --theme-total-bg: transparent;
-            --theme-total-color: #34D399;
-            --theme-total-shadow: 0 0 10px rgba(52,211,153,0.8);
-            --theme-footer-bg: #064E3B;
-            --theme-footer-border: 1px solid #10B981;
+            --pt-bg: #022c22;
+            --pt-border: #10b981; --pt-border-size: 1px; --pt-radius: 8px;
+            --pt-header-bg: #064e3b;
+            --pt-title-color: #34d399; --pt-title-shadow: 0 0 10px rgba(52,211,153,0.5);
+            --pt-sub-color: #a7f3d0; --pt-th-bg: #047857;
+            --pt-th-color: #ecfdf5; --pt-td-bg: rgba(6, 78, 59, 0.4);
+            --pt-td-border: 1px solid #065f46;
+            --pt-rank-color: #6ee7b7; --pt-team-color: #ffffff;
+            --pt-icon-color: #10b981; --pt-stat-color: #a7f3d0;
+            --pt-booyah-color: #34d399; --pt-total-bg: transparent;
+            --pt-total-color: #34d399; --pt-total-radius: 0px;
+            --pt-total-shadow: 0 0 10px rgba(52,211,153,0.8);
         }
 
-        /* --------------------------------------
-           THEME 5: WHITE MINIMAL (Like Official Global)
-        --------------------------------------- */
+        /* THEME 5: WHITE MINIMAL (Global Style) */
         .theme-white {
-            --theme-bg: #F8FAFC; /* Slate 50 */
-            --theme-text: #0F172A;
-            --theme-border: 1px solid #CBD5E1;
-            --theme-header-bg: #FFFFFF;
-            --theme-header-border: 2px solid #E2E8F0;
-            --theme-title-color: #0F172A;
-            --theme-sub-color: #64748B;
-            --theme-th-bg: #F1F5F9;
-            --theme-th-color: #475569;
-            --theme-th-border: 1px solid #E2E8F0;
-            --theme-row-bg: #FFFFFF;
-            --theme-row-border: 1px solid #E2E8F0;
-            --theme-rank-color: #0F172A;
-            --theme-team-color: #0F172A;
-            --theme-stat-color: #334155;
-            --theme-total-bg: #0F172A;
-            --theme-total-color: #FFFFFF;
-            --theme-total-radius: 6px;
-            --theme-footer-bg: #FFFFFF;
-            --theme-footer-border: 1px solid #E2E8F0;
+            --pt-bg: #f8fafc;
+            --pt-border: #cbd5e1; --pt-border-size: 1px; --pt-radius: 12px;
+            --pt-header-bg: #ffffff;
+            --pt-title-color: #0f172a; --pt-title-shadow: none;
+            --pt-sub-color: #64748b; --pt-th-bg: #f1f5f9;
+            --pt-th-color: #475569; --pt-td-bg: #ffffff;
+            --pt-td-border: 1px solid #e2e8f0; --pt-row-gap: 0px;
+            --pt-rank-color: #0f172a; --pt-team-color: #0f172a;
+            --pt-icon-color: #64748b; --pt-stat-color: #334155;
+            --pt-booyah-color: #0f172a; --pt-total-bg: #0f172a;
+            --pt-total-color: #ffffff; --pt-total-radius: 6px;
         }
-        .theme-white .pt-header h2, .theme-white .pt-header p { text-shadow: none; }
-        .theme-white .rank-1 { background: #FEF3C7; } /* Light yellow for 1st in white theme */
+
+        /* Top 3 Highlighting dynamically handles background */
+        .rank-1 td { background-image: linear-gradient(90deg, rgba(255, 215, 0, 0.15) 0%, transparent 100%); border-left: 3px solid #fbbf24; }
+        .rank-2 td { background-image: linear-gradient(90deg, rgba(192, 192, 192, 0.15) 0%, transparent 100%); border-left: 3px solid #94a3b8; }
+        .rank-3 td { background-image: linear-gradient(90deg, rgba(205, 127, 50, 0.15) 0%, transparent 100%); border-left: 3px solid #d97706; }
 
         /* Toast */
-        .toast { position: fixed; top: 20px; right: 20px; background: #10B981; color: white; padding: 12px 24px; border-radius: 4px; font-weight: bold; transform: translateX(150%); opacity: 0; transition: all 0.3s ease; z-index: 9999; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .toast { position: fixed; top: 20px; right: 20px; background: rgba(16, 185, 129, 0.9); backdrop-filter: blur(5px); color: white; padding: 12px 24px; border-radius: 8px; font-weight: bold; transform: translateX(150%); opacity: 0; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 9999; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
         .toast.show { transform: translateX(0); opacity: 1; }
-        .toast.error { background: #EF4444; }
+        .toast.error { background: rgba(239, 68, 68, 0.9); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); }
     </style>
+    <!-- html2canvas -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 
     <!-- LOGIN SCREEN -->
     <div id="loginView" class="min-h-screen bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] flex items-center justify-center p-4 relative">
-        <div class="glass-panel p-8 md:p-10 rounded-xl w-full max-w-md relative z-10 border-t-4 border-t-blue-500">
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-blue-600 rounded-full blur-[100px] opacity-20"></div>
+        <div class="glass-panel p-8 md:p-10 rounded-2xl w-full max-w-md relative z-10 overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 to-esports-accent shadow-[0_0_15px_#3B82F6]"></div>
             <div class="text-center mb-8">
-                <h1 class="text-3xl md:text-4xl text-white font-bold esports-font mb-1">BD ORG <span class="text-esports-primary">ESP</span></h1>
-                <p class="text-xs text-slate-400 uppercase tracking-widest font-bold">Admin Portal Login</p>
+                <h1 class="text-3xl md:text-4xl text-white font-bold tracking-wider esports-font drop-shadow-[0_0_8px_rgba(59,130,246,0.8)] mb-2">BD ORG <span class="text-esports-accent">ESP</span></h1>
+                <p class="text-xs text-blue-400 uppercase tracking-widest font-bold">Admin Portal Login</p>
             </div>
             <form id="loginForm" onsubmit="event.preventDefault(); handleLogin();">
-                <div class="mb-4">
+                <div class="mb-5">
                     <label class="block text-xs text-slate-400 mb-1 uppercase font-bold tracking-wider"><i class="fa-solid fa-envelope mr-1"></i> Email</label>
-                    <input type="email" id="loginEmail" class="w-full p-3 rounded neon-input text-sm" placeholder="admin@example.com" required>
+                    <input type="email" id="loginEmail" class="w-full p-3 rounded-lg neon-input text-sm" placeholder="admin@example.com" required>
                 </div>
-                <div class="mb-6">
+                <div class="mb-8">
                     <label class="block text-xs text-slate-400 mb-1 uppercase font-bold tracking-wider"><i class="fa-solid fa-lock mr-1"></i> Password</label>
-                    <input type="password" id="loginPassword" class="w-full p-3 rounded neon-input text-sm" placeholder="••••••••" required>
+                    <input type="password" id="loginPassword" class="w-full p-3 rounded-lg neon-input text-sm" placeholder="••••••••" required>
                 </div>
-                <button type="submit" id="loginBtn" class="w-full btn-primary text-white font-bold py-3 rounded text-lg esports-font tracking-wider">
-                    LOGIN <i class="fa-solid fa-arrow-right-to-bracket ml-2"></i>
+                <button type="submit" id="loginBtn" class="w-full btn-primary text-white font-bold py-3.5 rounded-lg text-lg esports-font tracking-wider">
+                    LOGIN TO DASHBOARD <i class="fa-solid fa-arrow-right-to-bracket ml-2"></i>
                 </button>
             </form>
         </div>
@@ -315,152 +226,176 @@
     <div id="appContainer" class="hidden flex-col md:flex-row h-screen">
 
         <!-- Sidebar -->
-        <nav class="bg-esports-card w-full md:w-64 flex-shrink-0 border-b md:border-b-0 md:border-r border-slate-800 flex flex-col z-50">
-            <div class="p-4 md:p-6 text-center border-b border-slate-800 bg-slate-900/50">
-                <h1 class="text-2xl md:text-3xl text-white font-bold esports-font">BD ORG <span class="text-esports-primary">ESP</span></h1>
+        <nav class="bg-esports-card w-full md:w-64 flex-shrink-0 border-b md:border-b-0 md:border-r border-slate-700/50 flex flex-col z-50 shadow-2xl">
+            <div class="p-4 md:p-6 text-center border-b border-slate-700/50 bg-slate-900/50">
+                <h1 class="text-2xl md:text-3xl text-white font-bold tracking-wider esports-font drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]">BD ORG <span class="text-esports-accent">ESP</span></h1>
+                <p class="text-[10px] md:text-xs text-blue-400 mt-1 uppercase tracking-widest font-bold">Admin Portal</p>
             </div>
             
             <div class="flex-grow flex flex-row md:flex-col p-3 gap-2 overflow-x-auto md:overflow-x-visible md:overflow-y-auto hide-scrollbar">
-                <button onclick="switchView('setupView')" class="nav-btn w-auto md:w-full text-left px-4 py-3 rounded bg-slate-800 text-slate-300 text-sm md:text-base font-semibold whitespace-nowrap active-nav" id="btn-setupView">
-                    <i class="fa-solid fa-plus-square md:mr-2"></i> <span class="hidden md:inline">Create Setup</span>
+                <button onclick="switchView('setupView')" class="nav-btn w-auto md:w-full text-left px-4 py-3 rounded-lg bg-slate-800 text-slate-300 text-sm md:text-base font-semibold whitespace-nowrap active-nav" id="btn-setupView">
+                    <i class="fa-solid fa-square-plus md:mr-2"></i> <span class="hidden md:inline">1. Create Setup</span>
                 </button>
-                <button onclick="switchView('historyView')" class="nav-btn w-auto md:w-full text-left px-4 py-3 rounded bg-slate-800 text-slate-300 text-sm md:text-base font-semibold whitespace-nowrap" id="btn-historyView">
-                    <i class="fa-solid fa-folder-open md:mr-2"></i> <span class="hidden md:inline">Tournaments</span>
+                <button onclick="switchView('historyView')" class="nav-btn w-auto md:w-full text-left px-4 py-3 rounded-lg bg-slate-800 text-slate-300 text-sm md:text-base font-semibold whitespace-nowrap" id="btn-historyView">
+                    <i class="fa-solid fa-clock-rotate-left md:mr-2"></i> <span class="hidden md:inline">2. Tournaments</span>
                 </button>
                 
-                <div id="tournamentContextNav" class="hidden md:block flex-row md:flex-col gap-2 mt-0 md:mt-4 md:pt-4 md:border-t border-slate-800">
-                    <p class="hidden md:block text-[10px] text-slate-500 mb-2 px-2 uppercase font-bold tracking-wider" id="navActiveTName">Current</p>
-                    <button onclick="switchView('matchListView')" class="nav-btn w-auto md:w-full text-left px-4 py-3 md:py-2 rounded bg-slate-800/50 text-white text-sm whitespace-nowrap" id="btn-matchListView">
-                        <i class="fa-solid fa-list text-esports-primary md:mr-2"></i> <span class="hidden md:inline">Match List</span>
+                <div id="tournamentContextNav" class="hidden md:block flex-row md:flex-col gap-2 mt-0 md:mt-4 md:pt-4 md:border-t border-slate-700/50">
+                    <p class="hidden md:block text-xs text-esports-primary mb-2 px-2 uppercase font-bold tracking-wider" id="navActiveTName">Current</p>
+                    <button onclick="switchView('matchListView')" class="nav-btn w-auto md:w-full text-left px-4 py-3 md:py-2 rounded-lg bg-slate-800/80 text-white text-sm whitespace-nowrap" id="btn-matchListView">
+                        <i class="fa-solid fa-list text-esports-primary md:mr-2"></i> <span class="hidden md:inline">3. Match List</span>
                     </button>
-                    <button onclick="generateFinalTable()" class="nav-btn w-auto md:w-full text-left px-4 py-3 md:py-2 rounded bg-slate-800/50 text-white text-sm whitespace-nowrap" id="btn-finalTableView">
-                        <i class="fa-solid fa-trophy text-esports-accent md:mr-2"></i> <span class="hidden md:inline">Standings</span>
+                    <button onclick="generateFinalTable()" class="nav-btn w-auto md:w-full text-left px-4 py-3 md:py-2 rounded-lg bg-slate-800/80 text-white text-sm whitespace-nowrap" id="btn-finalTableView">
+                        <i class="fa-solid fa-trophy text-esports-accent md:mr-2"></i> <span class="hidden md:inline">4. Final Table</span>
                     </button>
                 </div>
             </div>
             
-            <div class="p-4 border-t border-slate-800 bg-slate-900/30 flex flex-col gap-2">
-                <div class="text-center hidden md:block text-xs text-green-500 mb-2"><i class="fa-solid fa-circle-check"></i> Sync Active</div>
-                <button onclick="handleLogout()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold py-2 rounded transition">
-                    <i class="fa-solid fa-power-off mr-2"></i> Logout
+            <div class="p-3 md:p-4 border-t border-slate-700/50 flex flex-col gap-3 bg-slate-900/30">
+                <div class="text-center hidden md:block">
+                    <div id="authStatus" class="text-xs text-green-500 mb-1"><i class="fa-solid fa-cloud"></i> Connected</div>
+                    <p class="text-[10px] text-slate-500">System v3.0 • WP: 01303482412</p>
+                </div>
+                <button onclick="handleLogout()" class="w-full bg-red-900/40 hover:bg-red-700 border border-red-800 text-red-200 hover:text-white text-xs font-bold py-2 px-4 rounded-lg transition flex items-center justify-center whitespace-nowrap">
+                    <i class="fa-solid fa-power-off mr-2"></i> <span class="hidden md:inline">Logout</span>
                 </button>
             </div>
         </nav>
 
         <!-- Main Content -->
-        <main class="flex-grow p-4 md:p-6 overflow-y-auto w-full relative">
+        <main class="flex-grow p-4 md:p-8 overflow-y-auto w-full relative bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
             
             <!-- 1. Setup View -->
             <div id="setupView" class="view-section max-w-5xl mx-auto">
-                <div class="glass-panel p-5 md:p-6 rounded-lg relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-esports-primary"></div>
-                    <h2 class="text-2xl text-white pl-4 mb-6 esports-font tracking-wide" id="setupFormTitle">CREATE NEW TOURNAMENT</h2>
+                <div class="glass-panel p-5 md:p-8 rounded-xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-esports-primary shadow-[0_0_15px_#3B82F6]"></div>
+                    <h2 class="text-2xl md:text-3xl text-white pl-4 mb-6 esports-font tracking-wider" id="setupFormTitle">CREATE NEW TOURNAMENT</h2>
                     
                     <form id="setupForm" onsubmit="event.preventDefault(); saveTournament();">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
                             <div>
-                                <label class="block text-xs text-slate-400 mb-1 font-bold">Tournament Name</label>
-                                <input type="text" id="tourName" class="w-full p-2.5 rounded neon-input font-bold" required>
+                                <label class="block text-xs text-slate-400 mb-1 uppercase font-bold tracking-wider">Tournament Name</label>
+                                <input type="text" id="tourName" class="w-full p-3 rounded-lg neon-input text-lg font-bold" placeholder="e.g. BD Cup S1" required>
                             </div>
                             <div>
-                                <label class="block text-xs text-slate-400 mb-1 font-bold">Date</label>
-                                <input type="date" id="tourDate" class="w-full p-2.5 rounded neon-input" required>
+                                <label class="block text-xs text-slate-400 mb-1 uppercase font-bold tracking-wider">Date</label>
+                                <input type="date" id="tourDate" class="w-full p-3 rounded-lg neon-input" required>
                             </div>
                             <div>
-                                <label class="block text-xs text-slate-400 mb-1 font-bold">Time</label>
-                                <input type="time" id="tourTime" class="w-full p-2.5 rounded neon-input" required>
+                                <label class="block text-xs text-slate-400 mb-1 uppercase font-bold tracking-wider">Time</label>
+                                <input type="time" id="tourTime" class="w-full p-3 rounded-lg neon-input" required>
                             </div>
                         </div>
 
-                        <div class="bg-slate-900/40 p-4 rounded mb-6 border border-slate-800">
-                            <h3 class="text-sm text-esports-primary mb-3 font-bold"><i class="fa-solid fa-crosshairs mr-2"></i>Point Distribution</h3>
-                            <div class="grid grid-cols-6 md:grid-cols-12 gap-2" id="setupPoints"></div>
+                        <div class="bg-slate-900/50 p-4 rounded-lg mb-8 border border-slate-700/50">
+                            <h3 class="text-sm text-esports-primary mb-4 esports-font tracking-widest"><i class="fa-solid fa-crosshairs mr-2"></i>Point Distribution (Rank 1-12)</h3>
+                            <div class="grid grid-cols-6 md:grid-cols-12 gap-2" id="setupPoints">
+                                <!-- Generated by JS -->
+                            </div>
                         </div>
 
-                        <div class="bg-slate-900/40 p-4 rounded mb-6 border border-slate-800">
-                            <h3 class="text-sm text-esports-accent mb-3 font-bold"><i class="fa-solid fa-users mr-2"></i>Team Slots</h3>
-                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3" id="setupTeams"></div>
+                        <div class="bg-slate-900/50 p-4 rounded-lg mb-8 border border-slate-700/50">
+                            <h3 class="text-sm text-esports-accent mb-4 esports-font tracking-widest"><i class="fa-solid fa-users mr-2"></i>Team Slots (1-12)</h3>
+                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3" id="setupTeams">
+                                <!-- Generated by JS -->
+                            </div>
                         </div>
 
-                        <button type="submit" class="w-full btn-primary text-white font-bold py-3 rounded text-lg esports-font tracking-wider" id="setupSaveBtn">
-                            SAVE TOURNAMENT
+                        <button type="submit" class="w-full btn-primary text-white font-bold py-4 rounded-lg text-lg esports-font tracking-wider" id="setupSaveBtn">
+                            <i class="fa-solid fa-save mr-2"></i> SAVE TOURNAMENT
                         </button>
-                        <button type="button" id="setupCancelBtn" onclick="resetSetupForm()" class="hidden w-full mt-2 bg-slate-700 text-white font-bold py-2 rounded text-sm">CANCEL</button>
+                        <button type="button" id="setupCancelBtn" onclick="resetSetupForm()" class="hidden w-full mt-3 bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-lg transition border border-slate-600 text-sm">CANCEL EDIT</button>
                     </form>
                 </div>
             </div>
 
             <!-- 2. History View -->
             <div id="historyView" class="view-section max-w-5xl mx-auto">
-                <h2 class="text-2xl text-white border-l-4 border-esports-accent pl-3 mb-6 esports-font">TOURNAMENT HISTORY</h2>
-                <div id="tourList" class="grid gap-4"></div>
+                <h2 class="text-2xl md:text-3xl text-white border-l-4 border-esports-accent pl-4 mb-6 esports-font tracking-wider drop-shadow-md">TOURNAMENT HISTORY</h2>
+                <div id="tourList" class="grid gap-5">
+                    <!-- Generated by JS -->
+                </div>
             </div>
 
-            <!-- 3. Matches View -->
+            <!-- 3. Matches List View -->
             <div id="matchListView" class="view-section max-w-5xl mx-auto">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl text-white border-l-4 border-esports-primary pl-3 esports-font" id="matchListTourName">MATCHES</h2>
-                    <button onclick="createMatch()" class="bg-esports-primary hover:bg-blue-600 text-white font-bold px-4 py-2 rounded text-sm transition">
-                        <i class="fa-solid fa-plus mr-1"></i> ADD MATCH
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                    <div>
+                        <h2 class="text-2xl md:text-3xl text-white border-l-4 border-esports-primary pl-4 esports-font tracking-wider drop-shadow-md" id="matchListTourName">MATCHES</h2>
+                        <p class="text-slate-400 text-sm mt-1 ml-5">Manage schedule & live panels</p>
+                    </div>
+                    <button onclick="createMatch()" class="btn-accent font-bold px-5 py-3 rounded-lg w-full md:w-auto text-sm esports-font tracking-wider">
+                        <i class="fa-solid fa-plus mr-2"></i> ADD MATCH
                     </button>
                 </div>
                 
-                <div class="bg-slate-900/80 rounded border border-slate-800 overflow-hidden">
-                    <table class="w-full text-left">
-                        <thead class="bg-slate-950 border-b border-slate-800">
-                            <tr>
-                                <th class="p-3 text-slate-400 text-xs font-bold uppercase">Match Info</th>
-                                <th class="p-3 text-slate-400 text-xs font-bold uppercase">Status</th>
-                                <th class="p-3 text-slate-400 text-xs font-bold uppercase text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="matchesListBody"></tbody>
-                    </table>
+                <div class="glass-panel rounded-xl overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left min-w-[500px]">
+                            <thead class="bg-slate-900/80 border-b border-slate-700/50">
+                                <tr>
+                                    <th class="p-4 text-slate-300 text-xs font-bold uppercase tracking-wider">Match Info</th>
+                                    <th class="p-4 text-slate-300 text-xs font-bold uppercase tracking-wider">Status</th>
+                                    <th class="p-4 text-slate-300 text-xs font-bold uppercase tracking-wider text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="matchesListBody">
+                                <!-- Generated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
             <!-- 4. Live Dashboard -->
             <div id="liveDashboardView" class="view-section max-w-6xl mx-auto">
-                <div class="flex flex-col md:flex-row justify-between items-center mb-4 bg-slate-900 p-4 rounded border border-slate-800">
-                    <h2 class="text-xl text-white esports-font" id="liveMatchTitle"><i class="fa-solid fa-circle-dot text-red-500 animate-pulse mr-2"></i> LIVE PANEL</h2>
+                <div class="flex flex-col md:flex-row justify-between items-center mb-6 bg-slate-900/50 p-4 rounded-xl border border-slate-700/50">
+                    <h2 class="text-2xl text-white esports-font tracking-wider mb-2 md:mb-0" id="liveMatchTitle"><i class="fa-solid fa-satellite-dish text-red-500 mr-2 animate-pulse"></i> LIVE CONTROL</h2>
+                    <div class="text-green-400 text-xs font-bold bg-green-900/30 px-3 py-1 rounded-full border border-green-500/30"><i class="fa-solid fa-circle fa-beat text-[8px] mr-1"></i> CLOUD SYNC ACTIVE</div>
                 </div>
 
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
-                    <div class="bg-slate-900 p-3 rounded border border-slate-800 flex justify-between items-center">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 mb-6">
+                    <div class="glass-panel p-4 rounded-xl flex justify-between items-center relative overflow-hidden">
+                        <div class="absolute w-1 h-full bg-blue-500 left-0 top-0"></div>
                         <div>
-                            <p class="text-slate-500 text-[10px] font-bold uppercase">Alive Teams</p>
-                            <input type="text" id="liveAliveTeams" class="w-16 bg-transparent text-xl font-bold text-white border-b border-slate-700 outline-none focus:border-blue-500" oninput="autoSaveMatchDebounced()">
+                            <p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Alive Teams</p>
+                            <input type="text" id="liveAliveTeams" class="w-20 bg-transparent text-2xl md:text-3xl font-bold text-white border-b border-slate-600 mt-1 outline-none focus:border-blue-500 transition" oninput="autoSaveMatchDebounced()">
                         </div>
+                        <i class="fa-solid fa-shield-halved text-2xl md:text-3xl text-slate-600 opacity-50"></i>
                     </div>
-                    <div class="bg-slate-900 p-3 rounded border border-slate-800 flex justify-between items-center">
+                    <div class="glass-panel p-4 rounded-xl flex justify-between items-center relative overflow-hidden">
+                        <div class="absolute w-1 h-full bg-red-500 left-0 top-0"></div>
                         <div>
-                            <p class="text-slate-500 text-[10px] font-bold uppercase">Alive Enemies</p>
-                            <input type="number" id="liveAliveEnemies" class="w-16 bg-transparent text-xl font-bold text-white border-b border-slate-700 outline-none focus:border-red-500" oninput="autoSaveMatchDebounced()">
+                            <p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Alive Enemies</p>
+                            <input type="number" id="liveAliveEnemies" class="w-20 bg-transparent text-2xl md:text-3xl font-bold text-white border-b border-slate-600 mt-1 outline-none focus:border-red-500 transition" oninput="autoSaveMatchDebounced()">
                         </div>
+                        <i class="fa-solid fa-skull text-2xl md:text-3xl text-slate-600 opacity-50"></i>
                     </div>
-                    <div class="bg-slate-900 p-3 rounded border border-slate-800 flex justify-between items-center col-span-2 md:col-span-1">
+                    <div class="glass-panel p-4 rounded-xl flex justify-between items-center col-span-2 md:col-span-1 relative overflow-hidden">
+                        <div class="absolute w-1 h-full bg-yellow-500 left-0 top-0"></div>
                         <div>
-                            <p class="text-slate-500 text-[10px] font-bold uppercase">Timer</p>
-                            <div id="liveTimerDisplay" class="text-2xl font-bold text-esports-accent num-font">00:00</div>
+                            <p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Match Timer</p>
+                            <div id="liveTimerDisplay" class="text-3xl font-bold text-esports-accent esports-font mt-1">00:00</div>
                         </div>
-                        <div class="flex gap-1">
-                            <button onclick="toggleTimer()" id="timerToggleBtn" class="bg-blue-600 text-white w-8 h-8 rounded"><i class="fa-solid fa-play text-xs"></i></button>
-                            <button onclick="resetTimer()" class="bg-slate-700 text-white w-8 h-8 rounded"><i class="fa-solid fa-rotate-right text-xs"></i></button>
+                        <div class="flex gap-2">
+                            <button onclick="toggleTimer()" id="timerToggleBtn" class="bg-blue-600 hover:bg-blue-500 text-white w-10 h-10 rounded-full flex items-center justify-center transition shadow-[0_0_10px_rgba(37,99,235,0.5)]"><i class="fa-solid fa-play"></i></button>
+                            <button onclick="resetTimer()" class="bg-slate-700 hover:bg-slate-600 text-white w-10 h-10 rounded-full flex items-center justify-center transition"><i class="fa-solid fa-rotate-right"></i></button>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-slate-900/90 rounded border border-slate-800 overflow-hidden mb-4">
+                <div class="glass-panel rounded-xl overflow-hidden mb-6">
                     <div class="overflow-x-auto">
-                        <table class="w-full live-table min-w-[600px]">
+                        <table class="w-full live-table min-w-[700px]">
                             <thead>
                                 <tr>
-                                    <th class="w-14">SORT #</th>
+                                    <th class="w-16"># (SORT)</th>
                                     <th class="text-left">TEAM NAME</th>
-                                    <th class="w-16">ELIMS</th>
-                                    <th class="w-16">RANK</th>
-                                    <th class="w-14">P.PTS</th>
-                                    <th class="w-16 text-blue-400">TOTAL</th>
+                                    <th class="w-20">ELIMS</th>
+                                    <th class="w-20">RANK</th>
+                                    <th class="w-16">P.PTS</th>
+                                    <th class="w-20 text-esports-primary">TOTAL</th>
+                                    <th class="w-24">BOOYAH</th>
                                 </tr>
                             </thead>
                             <tbody id="liveTableBody">
@@ -470,65 +405,66 @@
                     </div>
                 </div>
 
-                <button onclick="finalizeMatch()" class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-3 rounded transition text-sm esports-font tracking-widest">
-                    FINALIZE MATCH
+                <button onclick="finalizeMatch()" class="w-full bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400 text-white font-bold py-4 rounded-xl shadow-[0_0_15px_rgba(16,185,129,0.4)] transition text-lg esports-font tracking-wider">
+                    <i class="fa-solid fa-flag-checkered mr-2"></i> FINALIZE & SAVE MATCH DATA
                 </button>
             </div>
 
-            <!-- 5. Final Standings View -->
+            <!-- 5. Final Table View -->
             <div id="finalTableView" class="view-section max-w-5xl mx-auto">
-                <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-                    <h2 class="text-2xl text-white esports-font border-l-4 border-esports-accent pl-3">OVERALL STANDINGS</h2>
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                    <h2 class="text-2xl md:text-3xl text-white border-l-4 border-esports-accent pl-4 esports-font tracking-wider drop-shadow-md">STANDINGS</h2>
                     
                     <!-- THEME SELECTOR -->
-                    <div class="flex items-center gap-2 bg-slate-900 p-2 rounded border border-slate-800">
-                        <span class="text-[10px] font-bold text-slate-500 uppercase mr-1">Design:</span>
-                        <button onclick="setTheme('theme-modern', this)" class="theme-select-btn px-2 py-1 bg-slate-800 text-white text-[10px] rounded border border-blue-500">Modern</button>
-                        <button onclick="setTheme('theme-blood', this)" class="theme-select-btn px-2 py-1 bg-slate-800 text-white text-[10px] rounded opacity-50">Blood</button>
-                        <button onclick="setTheme('theme-apex', this)" class="theme-select-btn px-2 py-1 bg-slate-800 text-white text-[10px] rounded opacity-50">Apex Gold</button>
-                        <button onclick="setTheme('theme-toxic', this)" class="theme-select-btn px-2 py-1 bg-slate-800 text-white text-[10px] rounded opacity-50">Toxic</button>
-                        <button onclick="setTheme('theme-white', this)" class="theme-select-btn px-2 py-1 bg-slate-800 text-white text-[10px] rounded opacity-50">Light</button>
+                    <div class="flex flex-wrap items-center gap-2 bg-slate-900/80 p-2.5 rounded-lg border border-slate-700/50 shadow-lg">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mr-2"><i class="fa-solid fa-palette mr-1"></i> Theme:</span>
+                        <button onclick="setTheme('theme-blue', this)" class="theme-select-btn px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded ring-2 ring-white transition shadow-[0_0_10px_#0ea5e9]">Neon</button>
+                        <button onclick="setTheme('theme-blood', this)" class="theme-select-btn px-3 py-1 bg-red-600 text-white text-xs font-bold rounded opacity-50 hover:opacity-100 transition">Blood</button>
+                        <button onclick="setTheme('theme-gold', this)" class="theme-select-btn px-3 py-1 bg-yellow-600 text-white text-xs font-bold rounded opacity-50 hover:opacity-100 transition">Apex</button>
+                        <button onclick="setTheme('theme-toxic', this)" class="theme-select-btn px-3 py-1 bg-emerald-600 text-white text-xs font-bold rounded opacity-50 hover:opacity-100 transition">Toxic</button>
+                        <button onclick="setTheme('theme-white', this)" class="theme-select-btn px-3 py-1 bg-white text-black text-xs font-bold rounded opacity-50 hover:opacity-100 transition">Light</button>
                     </div>
 
-                    <button id="dwnBtn" onclick="downloadTableImage()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-4 py-2 rounded text-sm transition">
-                        <i class="fa-solid fa-download mr-1"></i> Export JPG
+                    <button id="dwnBtn" onclick="downloadTableImage()" class="btn-accent font-bold px-5 py-3 rounded-lg text-sm transition shadow-[0_0_15px_rgba(245,158,11,0.4)] esports-font tracking-wider">
+                        <i class="fa-solid fa-download mr-1"></i> EXPORT HD IMAGE
                     </button>
                 </div>
                 
                 <div class="overflow-x-auto hide-scrollbar pb-10">
                     <!-- Exportable Area -->
-                    <div id="exportTableArea" class="pt-container theme-modern min-w-[650px] max-w-[800px] mx-auto">
+                    <div id="exportTableArea" class="pt-container theme-blue min-w-[700px] max-w-[900px] mx-auto">
                         <div class="pt-header">
-                            <h2 id="ptMainTitle">BD ORG RANKING</h2>
-                            <p id="ptTourName">COMMUNITY CUP</p>
+                            <h2 class="esports-font" id="ptMainTitle">BD ORG OVERALL RANKING</h2>
+                            <p class="esports-font" id="ptTourName">COMMUNITY CUP</p>
                         </div>
                         
-                        <div class="p-2 pb-6 px-4">
+                        <div class="p-4 md:p-6">
                             <table class="pt-table">
                                 <thead>
-                                    <tr>
-                                        <th class="w-12 text-center">#</th>
-                                        <th class="text-left pl-2">TEAM NAME</th>
-                                        <th class="w-12 text-center">M</th>
-                                        <th class="w-14 text-center">WWCD</th>
-                                        <th class="w-14 text-center">P.PTS</th>
-                                        <th class="w-14 text-center">KILLS</th>
-                                        <th class="w-20 text-center">TOTAL</th>
+                                    <tr class="esports-font">
+                                        <th class="w-14">#</th>
+                                        <th class="text-left pl-3">TEAM</th>
+                                        <th class="w-12">M</th>
+                                        <th class="w-16">WWCD</th>
+                                        <th class="w-16">P.PTS</th>
+                                        <th class="w-16">ELIMS</th>
+                                        <th class="w-24">TOTAL</th>
                                     </tr>
                                 </thead>
-                                <tbody id="finalTbody">
+                                <tbody id="finalTbody" class="esports-font tracking-wide">
                                     <!-- Generated by JS -->
                                 </tbody>
                             </table>
                         </div>
 
-                        <div class="pt-footer">
-                            <div>
-                                <i class="fa-brands fa-whatsapp text-green-500 mr-1"></i> 
-                                <span style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.1rem;opacity:0.8;">01303482412</span>
+                        <div class="pt-footer esports-font">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-brands fa-whatsapp text-green-500 text-xl"></i>
+                                <span class="text-[var(--pt-td-color)] font-bold tracking-widest text-lg opacity-90">01303482412</span>
                             </div>
-                            <div class="uppercase text-[10px] tracking-wider opacity-60">
-                                Powered By <strong class="opacity-100">BD ORG</strong>
+                            <div class="px-4 py-1.5 rounded-full border border-slate-700/50 bg-black/40 shadow-inner">
+                                <span class="text-slate-400 text-[10px] uppercase">Powered By</span>
+                                <span class="text-[var(--pt-sub-color)] font-bold ml-1 text-sm tracking-widest">BD ORG</span>
                             </div>
                         </div>
                     </div>
@@ -539,7 +475,7 @@
     </div>
 
     <!-- Toast Component -->
-    <div id="toast" class="toast"><span id="toastMsg">Success!</span></div>
+    <div id="toast" class="toast"><i class="fa-solid fa-circle-check mr-2"></i> <span id="toastMsg">Success!</span></div>
 
     <!-- MAIN JAVASCRIPT -->
     <script type="module">
@@ -558,10 +494,62 @@
             measurementId: "G-1MKDRB4P79"
         };
         const appId = 'bd-org-esports';
-        const app = initializeApp(envConfig); const auth = getAuth(app); const db = getFirestore(app);
+        
+        const app = initializeApp(envConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        
         let userId = null;
-        const state = { tournaments: [], matches: [], activeTId: null, activeMId: null, editingTId: null, timerInterval: null, timerSeconds: 0, saveTimeout: null, liveDataMap: {} };
+        const state = { tournaments: [], matches: [], activeTId: null, activeMId: null, editingTId: null, timerInterval: null, timerSeconds: 0, saveTimeout: null };
         const DEFAULT_POINTS = [12, 9, 7, 7, 6, 5, 4, 3, 2, 1, 0, 0];
+
+        // Ensure functions are in global scope so HTML buttons can click them
+        window.openTournament = (tId) => {
+            state.activeTId = tId;
+            const t = state.tournaments.find(x => x.id === tId);
+            if(t) document.getElementById('matchListTourName').innerText = t.name.toUpperCase();
+            loadMatches();
+            switchView('matchListView');
+        };
+
+        window.openLiveMatch = (mId) => {
+            state.activeMId = mId; 
+            const m = state.matches.find(x => x.id === mId);
+            if(!m) return showToast("Match not found", true);
+            
+            document.getElementById('liveMatchTitle').innerHTML = m.status === 'completed' ? `MATCH ${m.matchNum} - <span class="text-green-500">FINISHED</span>` : `<i class="fa-solid fa-satellite-dish text-red-500 mr-2 animate-pulse"></i> MATCH ${m.matchNum} LIVE`;
+            document.getElementById('liveAliveTeams').value = m.aliveTeams || '12/12'; 
+            document.getElementById('liveAliveEnemies').value = m.aliveEnemies || 48; 
+            state.timerSeconds = m.timerSeconds || 0; 
+            updateTimerUI();
+            
+            buildLiveTable(); 
+            switchView('liveDashboardView');
+
+            if(window.unsubLive) window.unsubLive();
+            window.unsubLive = onSnapshot(doc(db, 'artifacts', appId, 'users', userId, 'matches', mId), (snap) => {
+                const data = snap.data(); if(!data) return;
+                if(document.activeElement.id !== 'liveAliveTeams') document.getElementById('liveAliveTeams').value = data.aliveTeams;
+                if(document.activeElement.id !== 'liveAliveEnemies') document.getElementById('liveAliveEnemies').value = data.aliveEnemies;
+                
+                let needsSort = false;
+                for(let i=0; i<12; i++){
+                    if(data.teamStats && data.teamStats[i]){
+                        if(document.activeElement.id !== `live_elim_${i}`) document.getElementById(`live_elim_${i}`).value = data.teamStats[i].elims;
+                        if(document.activeElement.id !== `live_pos_${i}`) document.getElementById(`live_pos_${i}`).value = data.teamStats[i].pos;
+                        if(document.activeElement.id !== `live_sl_${i}`) {
+                            document.getElementById(`live_sl_${i}`).value = data.teamStats[i].sl;
+                            needsSort = true;
+                        }
+                        calcLiveRow(i, false);
+                    }
+                }
+                // Auto sort if a remote change updated the SL number, but don't interrupt active typing
+                if(needsSort && (!document.activeElement || !document.activeElement.id.startsWith('live_sl_'))) {
+                    sortLiveTable();
+                }
+            });
+        };
 
         async function initApp() {
             renderSetupForm(); 
@@ -569,219 +557,212 @@
                 if (user) {
                     userId = user.uid;
                     document.getElementById('loginView').classList.add('hidden');
-                    document.getElementById('appContainer').classList.remove('hidden'); document.getElementById('appContainer').classList.add('flex');
-                    switchView('setupView'); try { await loadTournaments(); } catch (err) {}
+                    document.getElementById('appContainer').classList.remove('hidden');
+                    document.getElementById('appContainer').classList.add('flex');
+                    switchView('setupView');
+                    try { await loadTournaments(); } catch (err) { console.error(err); }
                 } else {
                     userId = null;
                     document.getElementById('loginView').classList.remove('hidden');
-                    document.getElementById('appContainer').classList.add('hidden'); document.getElementById('appContainer').classList.remove('flex');
+                    document.getElementById('appContainer').classList.add('hidden');
+                    document.getElementById('appContainer').classList.remove('flex');
                 }
             });
         }
 
         window.handleLogin = async () => {
-            const e=document.getElementById('loginEmail').value, p=document.getElementById('loginPassword').value, b=document.getElementById('loginBtn');
-            const og=b.innerHTML; b.innerHTML='Wait...'; b.disabled=true;
-            try { await signInWithEmailAndPassword(auth, e, p); showToast("Logged in"); b.innerHTML=og; b.disabled=false; document.getElementById('loginForm').reset(); } 
-            catch(err){ b.innerHTML=og; b.disabled=false; showToast("Invalid Login", true); }
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const btn = document.getElementById('loginBtn');
+            const originalBtnHtml = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Authenticating...';
+            btn.disabled = true;
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                showToast("Login Successful!");
+                btn.innerHTML = originalBtnHtml; btn.disabled = false;
+                document.getElementById('loginForm').reset();
+            } catch (err) {
+                btn.innerHTML = originalBtnHtml; btn.disabled = false;
+                showToast("Invalid Email or Password", true);
+            }
         };
-        window.handleLogout = async () => { await signOut(auth); };
-        window.showToast = (msg, err=false) => { const t=document.getElementById('toast'); document.getElementById('toastMsg').innerText=msg; t.className=`toast ${err?'error':''} show`; setTimeout(()=>t.classList.remove('show'),3000); };
 
-        window.switchView = (id) => {
-            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active')); document.getElementById(id).classList.add('active');
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-nav')); const b = document.getElementById(`btn-${id}`); if(b) b.classList.add('active-nav');
-            const ctx = document.getElementById('tournamentContextNav');
-            if(state.activeTId) { document.getElementById('navActiveTName').innerText = state.tournaments.find(x=>x.id===state.activeTId)?.name || 'Selected'; ctx.classList.remove('hidden'); ctx.classList.add('md:block', 'flex'); } 
-            else { ctx.classList.add('hidden'); ctx.classList.remove('md:block', 'flex'); }
-            if(id === 'historyView') loadTournaments();
+        window.handleLogout = async () => { try { await signOut(auth); showToast("Logged out successfully"); } catch (err) {} };
+        window.showToast = (msg, isError = false) => {
+            const t = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            if(isError) t.classList.add('error'); else t.classList.remove('error');
+            t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3000);
+        };
+
+        window.switchView = (viewId) => {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active-nav'));
+            const btn = document.getElementById(`btn-${viewId}`);
+            if(btn) btn.classList.add('active-nav');
+            const ctxNav = document.getElementById('tournamentContextNav');
+            if(state.activeTId) {
+                const t = state.tournaments.find(x => x.id === state.activeTId);
+                document.getElementById('navActiveTName').innerText = t ? t.name : 'Selected';
+                ctxNav.classList.remove('hidden'); ctxNav.classList.add('md:block', 'flex'); 
+            } else {
+                ctxNav.classList.add('hidden'); ctxNav.classList.remove('md:block', 'flex');
+            }
+            if(viewId === 'historyView') loadTournaments();
         };
 
         window.renderSetupForm = () => {
-            const p=document.getElementById('setupPoints'), t=document.getElementById('setupTeams'); p.innerHTML=''; t.innerHTML='';
+            const ptsDiv = document.getElementById('setupPoints'); const teamsDiv = document.getElementById('setupTeams');
+            ptsDiv.innerHTML = ''; teamsDiv.innerHTML = '';
             for(let i=0; i<12; i++) {
-                p.innerHTML+=`<div><label class="block text-[9px] text-slate-500 font-bold text-center">#${i+1}</label><input type="number" id="setup_pt_${i}" value="${DEFAULT_POINTS[i]}" class="w-full p-1.5 rounded bg-slate-900 border border-slate-700 text-center text-sm focus:border-blue-500 outline-none"></div>`;
-                t.innerHTML+=`<div><label class="block text-[10px] text-esports-accent font-bold uppercase mb-1">Slot ${i+1}</label><input type="text" id="setup_tm_${i}" placeholder="Team ${i+1}" class="w-full p-2 rounded neon-input text-xs font-semibold"></div>`;
+                ptsDiv.innerHTML += `<div><label class="block text-[9px] text-slate-500 font-bold text-center">#${i+1}</label><input type="number" id="setup_pt_${i}" value="${DEFAULT_POINTS[i]}" class="w-full p-2 rounded bg-slate-800 border border-slate-600 text-center text-sm font-bold text-esports-primary focus:border-blue-500 outline-none transition"></div>`;
+                teamsDiv.innerHTML += `<div><label class="block text-[10px] text-esports-accent font-bold uppercase mb-1">Slot ${i+1}</label><input type="text" id="setup_tm_${i}" placeholder="Team ${i+1}" class="w-full p-2 rounded-lg neon-input text-sm font-semibold"></div>`;
             }
         };
 
         window.saveTournament = async () => {
-            if(!userId) return;
+            if(!userId) return showToast("Error", true);
             const data = { name: document.getElementById('tourName').value, date: document.getElementById('tourDate').value, time: document.getElementById('tourTime').value, points: [], teams: [], updatedAt: Date.now() };
             for(let i=0; i<12; i++) { data.points.push(parseInt(document.getElementById(`setup_pt_${i}`).value)||0); data.teams.push(document.getElementById(`setup_tm_${i}`).value||`Team ${i+1}`); }
-            if(state.editingTId) { await updateDoc(doc(db, 'artifacts', appId, 'users', userId, 'tournaments', state.editingTId), data); showToast("Updated"); } 
-            else { data.createdAt = Date.now(); await setDoc(doc(db, 'artifacts', appId, 'users', userId, 'tournaments', 'tour_'+Date.now()), data); showToast("Created"); }
-            resetSetupForm(); switchView('historyView');
+            try {
+                if(state.editingTId) { await updateDoc(doc(db, 'artifacts', appId, 'users', userId, 'tournaments', state.editingTId), data); showToast("Tournament Updated!"); } 
+                else { data.createdAt = Date.now(); await setDoc(doc(db, 'artifacts', appId, 'users', userId, 'tournaments', 'tour_'+Date.now()), data); showToast("Tournament Created!"); }
+                resetSetupForm(); switchView('historyView');
+            } catch(e) { showToast("Failed to save", true); }
         };
+
         window.editTournament = (tId) => {
-            const t = state.tournaments.find(x=>x.id===tId); if(!t) return; state.editingTId = tId;
-            document.getElementById('setupFormTitle').innerText="EDIT TOURNAMENT"; document.getElementById('tourName').value=t.name; document.getElementById('tourDate').value=t.date; document.getElementById('tourTime').value=t.time;
-            for(let i=0; i<12; i++) { document.getElementById(`setup_pt_${i}`).value=t.points[i]; document.getElementById(`setup_tm_${i}`).value=t.teams[i]; }
-            document.getElementById('setupSaveBtn').innerText='UPDATE'; document.getElementById('setupCancelBtn').classList.remove('hidden'); switchView('setupView');
+            const t = state.tournaments.find(x => x.id === tId); if(!t) return; state.editingTId = tId;
+            document.getElementById('setupFormTitle').innerText = "EDIT TOURNAMENT SETUP"; document.getElementById('tourName').value = t.name; document.getElementById('tourDate').value = t.date; document.getElementById('tourTime').value = t.time;
+            for(let i=0; i<12; i++) { document.getElementById(`setup_pt_${i}`).value = t.points[i]; document.getElementById(`setup_tm_${i}`).value = t.teams[i]; }
+            document.getElementById('setupSaveBtn').innerHTML = '<i class="fa-solid fa-pen mr-2"></i> UPDATE TOURNAMENT'; document.getElementById('setupCancelBtn').classList.remove('hidden'); switchView('setupView');
         };
-        window.resetSetupForm = () => { state.editingTId=null; document.getElementById('setupForm').reset(); document.getElementById('setupFormTitle').innerText="CREATE NEW TOURNAMENT"; document.getElementById('setupSaveBtn').innerText='SAVE TOURNAMENT'; document.getElementById('setupCancelBtn').classList.add('hidden'); renderSetupForm(); };
+
+        window.resetSetupForm = () => { state.editingTId = null; document.getElementById('setupForm').reset(); document.getElementById('setupFormTitle').innerText = "CREATE NEW TOURNAMENT"; document.getElementById('setupSaveBtn').innerHTML = '<i class="fa-solid fa-save mr-2"></i> SAVE TOURNAMENT'; document.getElementById('setupCancelBtn').classList.add('hidden'); renderSetupForm(); };
 
         async function loadTournaments() {
             if(!userId) return;
             const snap = await getDocs(collection(db, 'artifacts', appId, 'users', userId, 'tournaments')); state.tournaments = []; snap.forEach(d => state.tournaments.push({ id: d.id, ...d.data() })); state.tournaments.sort((a,b) => b.createdAt - a.createdAt);
             const list = document.getElementById('tourList'); list.innerHTML = '';
-            if(state.tournaments.length===0) list.innerHTML = '<p class="text-slate-500 text-center text-sm p-4">No tournaments found.</p>';
+            if(state.tournaments.length === 0) list.innerHTML = '<p class="text-slate-500 text-center p-8 bg-slate-900/50 rounded-xl border border-dashed border-slate-700">No tournaments created yet.</p>';
             state.tournaments.forEach(t => {
-                list.innerHTML += `<div class="bg-slate-900 p-4 rounded border border-slate-800 flex justify-between items-center"><div class="truncate mr-4"><h3 class="text-lg font-bold text-white uppercase truncate">${t.name}</h3><p class="text-[10px] text-slate-400 font-mono mt-1">${t.date}</p></div><div class="flex gap-1"><button onclick="openTournament('${t.id}')" class="bg-blue-600 text-white px-3 py-1.5 rounded text-xs font-bold">Manage</button><button onclick="editTournament('${t.id}')" class="bg-slate-700 text-white px-2.5 py-1.5 rounded"><i class="fa-solid fa-pen text-[10px]"></i></button><button onclick="deleteTournament('${t.id}')" class="bg-red-900/50 text-red-400 px-2.5 py-1.5 rounded"><i class="fa-solid fa-trash text-[10px]"></i></button></div></div>`;
+                list.innerHTML += `<div class="glass-panel p-5 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:border-esports-primary transition duration-300"><div><h3 class="text-xl md:text-2xl font-bold esports-font text-white drop-shadow-md">${t.name}</h3><p class="text-xs text-slate-400 mt-2 font-mono bg-slate-900/80 inline-block px-2 py-1 rounded"><i class="fa-regular fa-calendar text-esports-primary mr-1"></i> ${t.date} &nbsp;|&nbsp; <i class="fa-regular fa-clock text-esports-accent mr-1"></i> ${t.time}</p></div><div class="flex flex-wrap gap-2 w-full md:w-auto"><button onclick="openTournament('${t.id}')" class="flex-1 md:flex-none btn-primary text-white px-4 py-2 rounded-lg text-sm font-bold"><i class="fa-solid fa-folder-open mr-1"></i> Manage</button><button onclick="editTournament('${t.id}')" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg transition"><i class="fa-solid fa-pen"></i></button><button onclick="deleteTournament('${t.id}')" class="bg-red-900/80 hover:bg-red-700 text-white px-4 py-2 rounded-lg border border-red-800 transition"><i class="fa-solid fa-trash"></i></button></div></div>`;
             });
         }
-        window.openTournament = (tId) => { state.activeTId = tId; document.getElementById('matchListTourName').innerText = state.tournaments.find(x=>x.id===tId).name.toUpperCase(); loadMatches(); switchView('matchListView'); };
-        window.deleteTournament = async (tId) => { if(confirm("Delete?")) { await deleteDoc(doc(db, 'artifacts', appId, 'users', userId, 'tournaments', tId)); showToast("Deleted"); if(state.activeTId===tId) state.activeTId=null; loadTournaments(); } };
+        
+        window.deleteTournament = async (tId) => { if(!confirm("Delete?")) return; await deleteDoc(doc(db, 'artifacts', appId, 'users', userId, 'tournaments', tId)); showToast("Deleted"); if(state.activeTId === tId) state.activeTId = null; loadTournaments(); };
         
         async function loadMatches() {
             if(!userId || !state.activeTId) return;
             const snap = await getDocs(collection(db, 'artifacts', appId, 'users', userId, 'matches')); state.matches = [];
             snap.forEach(d => { if(d.data().tId === state.activeTId) state.matches.push({ id: d.id, ...d.data() }); }); state.matches.sort((a,b) => a.matchNum - b.matchNum);
             const tbody = document.getElementById('matchesListBody'); tbody.innerHTML = '';
+            if(state.matches.length===0) tbody.innerHTML = '<tr><td colspan="3" class="p-8 text-center text-slate-500">No matches found. Create one above.</td></tr>';
             state.matches.forEach(m => {
-                const isC = m.status==='completed';
-                tbody.innerHTML += `<tr class="border-b border-slate-800"><td class="p-3 font-bold text-sm text-white">Match ${m.matchNum}</td><td class="p-3 text-[10px] uppercase ${isC?'text-green-500':'text-yellow-500'}">${m.status}</td><td class="p-3 text-right"><button onclick="openLiveMatch('${m.id}')" class="${isC?'bg-slate-700':'bg-esports-primary'} text-white px-3 py-1 rounded text-xs font-bold mr-1">${isC?'View':'Live'}</button><button onclick="deleteMatch('${m.id}')" class="bg-slate-800 text-red-500 px-2 py-1 rounded"><i class="fa-solid fa-trash text-[10px]"></i></button></td></tr>`;
+                const isComp = m.status === 'completed';
+                tbody.innerHTML += `<tr class="border-b border-slate-700/50 hover:bg-slate-800/50 transition"><td class="p-4 font-bold esports-font text-lg md:text-xl text-white">MATCH ${m.matchNum}</td><td class="p-4"><span class="px-3 py-1 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-wider border ${isComp ? 'bg-green-900/30 text-green-400 border-green-500/50 shadow-[0_0_10px_rgba(34,197,94,0.2)]' : 'bg-yellow-900/30 text-yellow-400 border-yellow-500/50 shadow-[0_0_10px_rgba(234,179,8,0.2)]'}">${isComp ? '<i class="fa-solid fa-check mr-1"></i> Finished' : '<i class="fa-solid fa-circle-dot fa-fade mr-1"></i> Active'}</span></td><td class="p-4 text-right flex justify-end gap-2"><button onclick="openLiveMatch('${m.id}')" class="${isComp ? 'bg-slate-700 hover:bg-slate-600 text-white' : 'btn-accent'} px-4 py-2 rounded-lg text-xs md:text-sm font-bold transition">${isComp ? '<i class="fa-solid fa-eye"></i> Data' : '<i class="fa-solid fa-satellite-dish"></i> Live'}</button><button onclick="deleteMatch('${m.id}')" class="bg-red-900/50 hover:bg-red-600 text-white px-3 py-2 rounded-lg border border-red-800 transition"><i class="fa-solid fa-trash"></i></button></td></tr>`;
             });
         }
-        window.createMatch = async () => { const n = state.matches.length>0 ? Math.max(...state.matches.map(m=>m.matchNum))+1 : 1; const ts={}; for(let i=0;i<12;i++)ts[i]={sl:i+1,elims:0,pos:''}; await setDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', `m_${Date.now()}`), { tId: state.activeTId, matchNum: n, status: 'active', aliveTeams: '12/12', aliveEnemies: 48, timerSeconds: 0, teamStats: ts, createdAt: Date.now() }); loadMatches(); };
-        window.deleteMatch = async (mId) => { if(confirm("Delete match?")) { await deleteDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', mId)); loadMatches(); } };
+        window.createMatch = async () => { const nextNum = state.matches.length > 0 ? Math.max(...state.matches.map(m=>m.matchNum)) + 1 : 1; const tStats = {}; for(let i=0; i<12; i++) tStats[i] = { sl: i+1, elims: 0, pos: '' }; await setDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', `m_${Date.now()}`), { tId: state.activeTId, matchNum: nextNum, status: 'active', aliveTeams: '12/12', aliveEnemies: 48, timerSeconds: 0, teamStats: tStats, createdAt: Date.now() }); showToast(`Match ${nextNum} Created`); loadMatches(); };
+        window.deleteMatch = async (mId) => { if(confirm("Delete match?")) { await deleteDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', mId)); showToast("Deleted"); loadMatches(); } };
 
-        /* =========================================
-           RE-WRITTEN LIVE DASHBOARD (BUG FIXED)
-           ========================================= */
-        let unsubLive = null;
-        window.openLiveMatch = (mId) => {
-            state.activeMId = mId; const m = state.matches.find(x => x.id === mId);
-            document.getElementById('liveMatchTitle').innerHTML = `MATCH ${m.matchNum} ${m.status==='completed'?'(DONE)':'<span class="text-red-500 text-sm">● LIVE</span>'}`;
-            document.getElementById('liveAliveTeams').value = m.aliveTeams || '12/12'; document.getElementById('liveAliveEnemies').value = m.aliveEnemies || 48; state.timerSeconds = m.timerSeconds || 0; updateTimerUI();
-            
-            // Initial data populate
-            state.liveDataMap = {};
+        /* ------------------------------------------
+           LIVE DASHBOARD & DYNAMIC SORTING
+        ------------------------------------------ */
+        
+        function buildLiveTable() {
+            const t = state.tournaments.find(x => x.id === state.activeTId); 
+            const m = state.matches.find(x => x.id === state.activeMId);
+            const tbody = document.getElementById('liveTableBody'); tbody.innerHTML = '';
             for(let i=0; i<12; i++) {
-                state.liveDataMap[i] = m.teamStats[i] || {sl: i+1, elims: 0, pos: ''};
+                const s = (m && m.teamStats && m.teamStats[i]) ? m.teamStats[i] : {sl: i+1, elims: 0, pos: ''};
+                const teamName = (t && t.teams && t.teams[i]) ? t.teams[i] : `Team ${i+1}`;
+                
+                tbody.innerHTML += `
+                    <tr id="live_row_${i}" class="hover:bg-slate-800/80 transition group">
+                        <td><input type="number" id="live_sl_${i}" value="${s.sl}" class="w-14 bg-slate-900 border border-slate-600 rounded p-1.5 text-center text-white text-sm font-bold outline-none focus:border-blue-500" oninput="sortLiveTable(); autoSaveMatchDebounced()"></td>
+                        <td class="text-left font-bold text-white uppercase text-sm tracking-wide group-hover:text-esports-primary transition"><i class="fa-solid fa-shield-halved mr-2 text-slate-500"></i>${teamName}</td>
+                        <td><input type="number" id="live_elim_${i}" value="${s.elims}" min="0" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-blue-500" oninput="calcLiveRow(${i}); autoSaveMatchDebounced()"></td>
+                        <td><input type="number" id="live_pos_${i}" value="${s.pos}" min="1" max="12" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-yellow-500" oninput="calcLiveRow(${i}); autoSaveMatchDebounced()"></td>
+                        <td id="live_pts_${i}" class="text-slate-400 font-mono font-bold">0</td>
+                        <td id="live_tot_${i}" class="text-esports-primary font-bold text-xl drop-shadow-[0_0_5px_rgba(59,130,246,0.5)]">0</td>
+                        <td id="live_stat_${i}"></td>
+                    </tr>
+                `;
+                calcLiveRow(i, false);
             }
-            
-            renderLiveTableRows();
-            switchView('liveDashboardView');
-            
-            if(unsubLive) unsubLive();
-            unsubLive = onSnapshot(doc(db, 'artifacts', appId, 'users', userId, 'matches', mId), (snap) => {
-                const data = snap.data(); if(!data) return;
-                // Only update fields if user is NOT currently typing in them
-                if(document.activeElement.id !== 'liveAliveTeams') document.getElementById('liveAliveTeams').value = data.aliveTeams;
-                if(document.activeElement.id !== 'liveAliveEnemies') document.getElementById('liveAliveEnemies').value = data.aliveEnemies;
-                
-                let needsReRender = false;
-                for(let i=0; i<12; i++){
-                    if(data.teamStats && data.teamStats[i]){
-                        const newDat = data.teamStats[i];
-                        const oldDat = state.liveDataMap[i];
-                        
-                        // Check if data changed remotely while not focused
-                        if(oldDat.sl !== newDat.sl && document.activeElement.id !== `sl_${i}`) { oldDat.sl = newDat.sl; needsReRender = true; }
-                        if(oldDat.elims !== newDat.elims && document.activeElement.id !== `elim_${i}`) { oldDat.elims = newDat.elims; needsReRender = true; }
-                        if(oldDat.pos !== newDat.pos && document.activeElement.id !== `pos_${i}`) { oldDat.pos = newDat.pos; needsReRender = true; }
-                    }
-                }
-                
-                if(needsReRender) renderLiveTableRows();
-            });
-        };
+            sortLiveTable(); // Initial Sort
+        }
 
-        // Render table based on state.liveDataMap (sorted)
-        function renderLiveTableRows() {
-            const t = state.tournaments.find(x => x.id === state.activeTId);
+        // PERFECT Real-time Sorting Logic (Uses DOM moving, never loses cursor focus!)
+        window.sortLiveTable = () => {
             const tbody = document.getElementById('liveTableBody');
+            const rows = Array.from(tbody.querySelectorAll('tr[id^="live_row_"]'));
             
-            // Get focused element to restore it later
-            const activeId = document.activeElement ? document.activeElement.id : null;
-            
-            // Create array from map and sort by SL
-            const rowsData = Object.keys(state.liveDataMap).map(key => ({
-                originalIndex: parseInt(key),
-                data: state.liveDataMap[key],
-                teamName: t.teams[key] || `Team ${parseInt(key)+1}`
-            })).sort((a, b) => {
-                let slA = parseInt(a.data.sl); if(isNaN(slA)) slA = 999;
-                let slB = parseInt(b.data.sl); if(isNaN(slB)) slB = 999;
+            rows.sort((a, b) => {
+                const inputA = a.querySelector('input[id^="live_sl_"]');
+                const inputB = b.querySelector('input[id^="live_sl_"]');
+                const slA = parseInt(inputA.value) || 999; 
+                const slB = parseInt(inputB.value) || 999;
                 return slA - slB;
             });
 
-            tbody.innerHTML = '';
-            rowsData.forEach((row) => {
-                const i = row.originalIndex;
-                const s = row.data;
-                const pos = parseInt(s.pos) || 0;
-                const elims = parseInt(s.elims) || 0;
-                const pPts = (pos >= 1 && pos <= 12) ? t.points[pos-1] : 0;
-                const total = elims + pPts;
-                
-                tbody.innerHTML += `
-                    <tr class="border-b border-slate-800 bg-slate-900/50 hover:bg-slate-800">
-                        <td class="p-1"><input type="number" id="sl_${i}" value="${s.sl}" class="w-10 bg-slate-950 border border-slate-700 text-center text-xs text-slate-300 p-1.5 rounded outline-none focus:border-blue-500" oninput="handleLiveInput('sl', ${i}, this.value)"></td>
-                        <td class="p-2 text-left font-bold text-xs uppercase text-slate-200 truncate max-w-[100px]">${row.teamName}</td>
-                        <td class="p-1"><input type="number" id="elim_${i}" value="${s.elims}" class="w-12 bg-slate-950 border border-slate-700 text-center text-sm font-bold text-white p-1.5 rounded outline-none focus:border-blue-500" oninput="handleLiveInput('elims', ${i}, this.value)"></td>
-                        <td class="p-1"><input type="number" id="pos_${i}" value="${s.pos}" class="w-12 bg-slate-950 border border-slate-700 text-center text-sm font-bold text-white p-1.5 rounded outline-none focus:border-yellow-500" oninput="handleLiveInput('pos', ${i}, this.value)"></td>
-                        <td class="p-2 text-slate-400 text-sm font-mono">${pPts}</td>
-                        <td class="p-2 text-blue-400 font-bold text-lg font-mono">${total}</td>
-                    </tr>
-                `;
-            });
-
-            // Restore focus
-            if(activeId) {
-                setTimeout(() => { const el = document.getElementById(activeId); if(el) { el.focus(); /* move cursor to end */ const val=el.value; el.value=''; el.value=val; } }, 10);
-            }
-        }
-
-        // Handle typing (Updates state immediately, saves to DB with debounce)
-        window.handleLiveInput = (type, index, val) => {
-            state.liveDataMap[index][type] = val; // Update local state
-            
-            // If SL changed, re-render immediately to sort visually
-            if(type === 'sl') {
-                renderLiveTableRows();
-            } else {
-                // For pos/elims, just update math without full re-render (keeps it fast)
-                const t = state.tournaments.find(x => x.id === state.activeTId);
-                const pos = parseInt(state.liveDataMap[index].pos) || 0;
-                const elims = parseInt(state.liveDataMap[index].elims) || 0;
-                const pPts = (pos >= 1 && pos <= 12) ? t.points[pos-1] : 0;
-                // find row and update text (complex without ids, so we just re-render full table to be safe, it's fast enough)
-                renderLiveTableRows(); 
-            }
-            
-            autoSaveMatchDebounced();
+            // Re-append moves the node without destroying it, preserving input focus automatically!
+            rows.forEach(row => tbody.appendChild(row));
         };
 
-        window.autoSaveMatchDebounced = () => { clearTimeout(state.saveTimeout); state.saveTimeout = setTimeout(async () => {
-            const data = { aliveTeams: document.getElementById('liveAliveTeams').value, aliveEnemies: document.getElementById('liveAliveEnemies').value, timerSeconds: state.timerSeconds, teamStats: state.liveDataMap };
-            await updateDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', state.activeMId), data);
-        }, 500); };
-        window.finalizeMatch = async () => { await autoSaveMatchDebounced(); await updateDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', state.activeMId), { status: 'completed' }); showToast("Finalized!"); if(unsubLive) unsubLive(); loadMatches(); switchView('matchListView'); };
+        window.calcLiveRow = (i, sortAfter = true) => {
+            const t = state.tournaments.find(x => x.id === state.activeTId); 
+            const pos = parseInt(document.getElementById(`live_pos_${i}`).value) || 0;
+            const pPts = (t && pos >= 1 && pos <= 12) ? t.points[pos-1] : 0; 
+            const elims = parseInt(document.getElementById(`live_elim_${i}`).value) || 0;
+            
+            document.getElementById(`live_pts_${i}`).innerText = pPts; 
+            document.getElementById(`live_tot_${i}`).innerText = elims + pPts;
+            document.getElementById(`live_stat_${i}`).innerHTML = pos === 1 ? '<span class="bg-yellow-500 text-black px-3 py-1.5 rounded text-[10px] font-bold shadow-[0_0_15px_rgba(234,179,8,0.8)] tracking-widest uppercase"><i class="fa-solid fa-trophy mr-1"></i>BOOYAH</span>' : '';
+        };
+
+        window.autoSaveMatchDebounced = () => { 
+            clearTimeout(state.saveTimeout); 
+            state.saveTimeout = setTimeout(async () => {
+                const data = { aliveTeams: document.getElementById('liveAliveTeams').value, aliveEnemies: document.getElementById('liveAliveEnemies').value, timerSeconds: state.timerSeconds, teamStats: {} };
+                for(let i=0; i<12; i++) {
+                    data.teamStats[i] = { sl: parseInt(document.getElementById(`live_sl_${i}`).value)||99, elims: parseInt(document.getElementById(`live_elim_${i}`).value)||0, pos: document.getElementById(`live_pos_${i}`).value };
+                }
+                await updateDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', state.activeMId), data);
+            }, 600); 
+        };
+
+        window.finalizeMatch = async () => { await autoSaveMatchDebounced(); await updateDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', state.activeMId), { status: 'completed' }); showToast("Match Saved!"); if(window.unsubLive) window.unsubLive(); loadMatches(); switchView('matchListView'); };
         
         // Timer
-        window.toggleTimer = () => { const btn = document.getElementById('timerToggleBtn'); if(state.timerInterval) { clearInterval(state.timerInterval); state.timerInterval = null; btn.innerHTML = '<i class="fa-solid fa-play text-xs"></i>'; } else { state.timerInterval = setInterval(() => { state.timerSeconds++; document.getElementById('liveTimerDisplay').innerText = `${String(Math.floor(state.timerSeconds/60)).padStart(2,'0')}:${String(state.timerSeconds%60).padStart(2,'0')}`; }, 1000); btn.innerHTML = '<i class="fa-solid fa-pause text-xs"></i>'; } autoSaveMatchDebounced(); };
-        window.resetTimer = () => { clearInterval(state.timerInterval); state.timerInterval = null; state.timerSeconds = 0; document.getElementById('liveTimerDisplay').innerText = "00:00"; document.getElementById('timerToggleBtn').innerHTML = '<i class="fa-solid fa-play text-xs"></i>'; autoSaveMatchDebounced(); };
+        window.toggleTimer = () => { const btn = document.getElementById('timerToggleBtn'); if(state.timerInterval) { clearInterval(state.timerInterval); state.timerInterval = null; btn.innerHTML = '<i class="fa-solid fa-play"></i>'; btn.classList.replace('bg-yellow-600', 'bg-blue-600'); } else { state.timerInterval = setInterval(() => { state.timerSeconds++; updateTimerUI(); }, 1000); btn.innerHTML = '<i class="fa-solid fa-pause"></i>'; btn.classList.replace('bg-blue-600', 'bg-yellow-600'); } autoSaveMatchDebounced(); };
+        window.resetTimer = () => { clearInterval(state.timerInterval); state.timerInterval = null; state.timerSeconds = 0; updateTimerUI(); const btn = document.getElementById('timerToggleBtn'); btn.innerHTML = '<i class="fa-solid fa-play"></i>'; btn.classList.replace('bg-yellow-600', 'bg-blue-600'); autoSaveMatchDebounced(); };
+        function updateTimerUI() { document.getElementById('liveTimerDisplay').innerText = `${String(Math.floor(state.timerSeconds/60)).padStart(2,'0')}:${String(state.timerSeconds%60).padStart(2,'0')}`; }
 
 
-        /* =========================================
-           FINAL TABLE GENERATOR (CLEAN PRO THEMES)
-           ========================================= */
+        /* ------------------------------------------
+           FINAL TABLE & THEME GENERATOR
+        ------------------------------------------ */
+        
         window.setTheme = (themeName, btnElement) => {
-            document.getElementById('exportTableArea').className = `pt-container min-w-[650px] max-w-[800px] mx-auto ${themeName}`;
+            document.getElementById('exportTableArea').className = `pt-container min-w-[700px] max-w-[900px] mx-auto ${themeName}`;
             document.querySelectorAll('.theme-select-btn').forEach(b => {
-                b.classList.remove('border-blue-500'); b.classList.add('opacity-50', 'border-transparent');
+                b.classList.remove('ring-2', 'ring-white', 'opacity-100');
+                b.classList.add('opacity-50');
             });
-            btnElement.classList.remove('opacity-50', 'border-transparent'); btnElement.classList.add('border-blue-500');
+            btnElement.classList.remove('opacity-50');
+            btnElement.classList.add('ring-2', 'ring-white', 'opacity-100');
         };
 
         window.generateFinalTable = () => {
             if(!state.activeTId) return showToast("Select a tournament first", true);
             const t = state.tournaments.find(x => x.id === state.activeTId);
-            document.getElementById('ptTourName').innerText = t.name;
+            document.getElementById('ptTourName').innerText = t.name.toUpperCase();
             
-            const results = Array.from({length:12}, (_,i) => ({ name: t.teams[i] || `Team ${i+1}`, matches: 0, booyahs: 0, pPts: 0, elims: 0, total: 0 }));
+            const results = Array.from({length:12}, (_,i) => ({ name: (t.teams && t.teams[i]) ? t.teams[i] : `Team ${i+1}`, matches: 0, booyahs: 0, pPts: 0, elims: 0, total: 0 }));
             state.matches.filter(m => m.status === 'completed').forEach(m => {
                 for(let i=0; i<12; i++){
                     if(m.teamStats && m.teamStats[i]){
@@ -798,16 +779,18 @@
             const tbody = document.getElementById('finalTbody'); tbody.innerHTML = '';
             results.forEach((team, idx) => {
                 let rowClass = "";
-                if(idx === 0) rowClass = "rank-1"; else if(idx === 1) rowClass = "rank-2"; else if(idx === 2) rowClass = "rank-3";
+                if(idx === 0) { rowClass = "rank-1"; }
+                else if(idx === 1) { rowClass = "rank-2"; }
+                else if(idx === 2) { rowClass = "rank-3"; }
                 
                 tbody.innerHTML += `
                     <tr class="${rowClass}">
-                        <td class="pt-rank text-center">0${idx+1}</td>
-                        <td class="pt-team pl-2">${team.name}</td>
-                        <td class="pt-stat text-center">${team.matches}</td>
-                        <td class="pt-stat text-center" style="color:var(--theme-total-color);font-weight:700;">${team.booyahs}</td>
-                        <td class="pt-stat text-center">${team.pPts}</td>
-                        <td class="pt-stat text-center">${team.elims}</td>
+                        <td class="pt-rank-col text-center">0${idx+1}</td>
+                        <td class="text-left pl-3 pt-team-name"><i class="fa-solid fa-shield-halved"></i> ${team.name.toUpperCase()}</td>
+                        <td class="pt-stat-col opacity-80">${team.matches}</td>
+                        <td class="pt-booyah-col drop-shadow-md">${team.booyahs}</td>
+                        <td class="pt-stat-col opacity-80">${team.pPts}</td>
+                        <td class="pt-stat-col" style="color: var(--pt-td-color); font-weight: 700;">${team.elims}</td>
                         <td class="text-center"><span class="pt-total-wrap">${team.total}</span></td>
                     </tr>
                 `;
@@ -817,21 +800,24 @@
 
         window.downloadTableImage = () => {
             const btn = document.getElementById('dwnBtn');
-            btn.innerHTML = 'Wait...';
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Processing...';
             const el = document.getElementById('exportTableArea');
-            el.style.width = '800px'; // Lock width for perfect screenshot
+            el.style.width = '900px'; 
             
-            html2canvas(el, { backgroundColor: null, scale: 3, useCORS: true }).then(canvas => {
+            html2canvas(el, { backgroundColor: null, scale: 2.5, useCORS: true }).then(canvas => {
                 el.style.width = 'auto'; 
                 const link = document.createElement('a');
-                link.download = `Standings_${document.getElementById('ptTourName').innerText.replace(/\s+/g, '')}.jpg`;
-                link.href = canvas.toDataURL('image/jpeg', 0.95); link.click();
-                btn.innerHTML = '<i class="fa-solid fa-download mr-1"></i> Export JPG';
+                link.download = `BD_ORG_${document.getElementById('ptTourName').innerText.replace(/\s+/g, '_')}_Standings.png`;
+                link.href = canvas.toDataURL('image/png'); link.click();
+                btn.innerHTML = '<i class="fa-solid fa-download mr-1"></i> EXPORT HD IMAGE';
+                showToast("High Quality Image Downloaded!");
             }).catch(e => {
-                el.style.width = 'auto'; btn.innerHTML = 'Failed';
+                el.style.width = 'auto'; console.error(e);
+                btn.innerHTML = 'Export Failed'; showToast("Failed to generate image", true);
             });
         };
 
+        // Boot
         initApp();
     </script>
 </body>
