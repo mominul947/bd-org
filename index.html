@@ -48,17 +48,17 @@
         .view-section.active { display: block; }
         @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-        /* RESTORED: Premium Inputs & Glass Panels */
+        /* Premium Inputs & Glass Panels */
         .glass-panel { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(59, 130, 246, 0.2); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); }
         .neon-input { background-color: rgba(15, 23, 42, 0.8); border: 1px solid #334155; color: white; transition: all 0.3s ease; }
         .neon-input:focus { border-color: #3B82F6; box-shadow: 0 0 10px rgba(59, 130, 246, 0.5); outline: none; }
         
-        /* RESTORED: Nav Buttons */
+        /* Nav Buttons */
         .nav-btn { position: relative; overflow: hidden; transition: all 0.3s ease; border: 1px solid transparent; }
         .nav-btn:hover { background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.4); box-shadow: 0 0 15px rgba(59, 130, 246, 0.2); }
         .nav-btn.active-nav { background: linear-gradient(90deg, #1D4ED8 0%, #3B82F6 100%); border-color: #60A5FA; box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); color: white; }
 
-        /* RESTORED: Action Buttons */
+        /* Action Buttons */
         .btn-primary { background: linear-gradient(45deg, #2563EB, #3B82F6); box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); transition: 0.3s; }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6); }
         .btn-accent { background: linear-gradient(45deg, #D97706, #F59E0B); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4); transition: 0.3s; color: black; }
@@ -68,7 +68,7 @@
         .live-table td { border-bottom: 1px solid rgba(51, 65, 85, 0.5); padding: 10px; text-align: center; }
         
         /* =========================================
-           NEW: PRO ESPORTS STANDINGS ENGINE
+           PRO ESPORTS STANDINGS ENGINE
            ========================================= */
         
         .pt-container {
@@ -206,7 +206,7 @@
                 <h1 class="text-3xl md:text-4xl text-white font-bold tracking-wider esports-font drop-shadow-[0_0_8px_rgba(59,130,246,0.8)] mb-2">BD ORG <span class="text-esports-accent">ESP</span></h1>
                 <p class="text-xs text-blue-400 uppercase tracking-widest font-bold">Admin Portal Login</p>
             </div>
-            <form id="loginForm" onsubmit="event.preventDefault(); handleLogin();">
+            <form id="loginForm" onsubmit="event.preventDefault(); window.handleLogin();">
                 <div class="mb-5">
                     <label class="block text-xs text-slate-400 mb-1 uppercase font-bold tracking-wider"><i class="fa-solid fa-envelope mr-1"></i> Email</label>
                     <input type="email" id="loginEmail" class="w-full p-3 rounded-lg neon-input text-sm" placeholder="admin@example.com" required>
@@ -233,19 +233,19 @@
             </div>
             
             <div class="flex-grow flex flex-row md:flex-col p-3 gap-2 overflow-x-auto md:overflow-x-visible md:overflow-y-auto hide-scrollbar">
-                <button onclick="switchView('setupView')" class="nav-btn w-auto md:w-full text-left px-4 py-3 rounded-lg bg-slate-800 text-slate-300 text-sm md:text-base font-semibold whitespace-nowrap active-nav" id="btn-setupView">
+                <button onclick="window.switchView('setupView')" class="nav-btn w-auto md:w-full text-left px-4 py-3 rounded-lg bg-slate-800 text-slate-300 text-sm md:text-base font-semibold whitespace-nowrap active-nav" id="btn-setupView">
                     <i class="fa-solid fa-square-plus md:mr-2"></i> <span class="hidden md:inline">1. Create Setup</span>
                 </button>
-                <button onclick="switchView('historyView')" class="nav-btn w-auto md:w-full text-left px-4 py-3 rounded-lg bg-slate-800 text-slate-300 text-sm md:text-base font-semibold whitespace-nowrap" id="btn-historyView">
+                <button onclick="window.switchView('historyView')" class="nav-btn w-auto md:w-full text-left px-4 py-3 rounded-lg bg-slate-800 text-slate-300 text-sm md:text-base font-semibold whitespace-nowrap" id="btn-historyView">
                     <i class="fa-solid fa-clock-rotate-left md:mr-2"></i> <span class="hidden md:inline">2. Tournaments</span>
                 </button>
                 
                 <div id="tournamentContextNav" class="hidden md:block flex-row md:flex-col gap-2 mt-0 md:mt-4 md:pt-4 md:border-t border-slate-700/50">
                     <p class="hidden md:block text-xs text-esports-primary mb-2 px-2 uppercase font-bold tracking-wider" id="navActiveTName">Current</p>
-                    <button onclick="switchView('matchListView')" class="nav-btn w-auto md:w-full text-left px-4 py-3 md:py-2 rounded-lg bg-slate-800/80 text-white text-sm whitespace-nowrap" id="btn-matchListView">
+                    <button onclick="window.switchView('matchListView')" class="nav-btn w-auto md:w-full text-left px-4 py-3 md:py-2 rounded-lg bg-slate-800/80 text-white text-sm whitespace-nowrap" id="btn-matchListView">
                         <i class="fa-solid fa-list text-esports-primary md:mr-2"></i> <span class="hidden md:inline">3. Match List</span>
                     </button>
-                    <button onclick="generateFinalTable()" class="nav-btn w-auto md:w-full text-left px-4 py-3 md:py-2 rounded-lg bg-slate-800/80 text-white text-sm whitespace-nowrap" id="btn-finalTableView">
+                    <button onclick="window.generateFinalTable()" class="nav-btn w-auto md:w-full text-left px-4 py-3 md:py-2 rounded-lg bg-slate-800/80 text-white text-sm whitespace-nowrap" id="btn-finalTableView">
                         <i class="fa-solid fa-trophy text-esports-accent md:mr-2"></i> <span class="hidden md:inline">4. Final Table</span>
                     </button>
                 </div>
@@ -256,7 +256,7 @@
                     <div id="authStatus" class="text-xs text-green-500 mb-1"><i class="fa-solid fa-cloud"></i> Connected</div>
                     <p class="text-[10px] text-slate-500">System v3.0 • WP: 01303482412</p>
                 </div>
-                <button onclick="handleLogout()" class="w-full bg-red-900/40 hover:bg-red-700 border border-red-800 text-red-200 hover:text-white text-xs font-bold py-2 px-4 rounded-lg transition flex items-center justify-center whitespace-nowrap">
+                <button onclick="window.handleLogout()" class="w-full bg-red-900/40 hover:bg-red-700 border border-red-800 text-red-200 hover:text-white text-xs font-bold py-2 px-4 rounded-lg transition flex items-center justify-center whitespace-nowrap">
                     <i class="fa-solid fa-power-off mr-2"></i> <span class="hidden md:inline">Logout</span>
                 </button>
             </div>
@@ -271,7 +271,7 @@
                     <div class="absolute top-0 left-0 w-1 h-full bg-esports-primary shadow-[0_0_15px_#3B82F6]"></div>
                     <h2 class="text-2xl md:text-3xl text-white pl-4 mb-6 esports-font tracking-wider" id="setupFormTitle">CREATE NEW TOURNAMENT</h2>
                     
-                    <form id="setupForm" onsubmit="event.preventDefault(); saveTournament();">
+                    <form id="setupForm" onsubmit="event.preventDefault(); window.saveTournament();">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
                             <div>
                                 <label class="block text-xs text-slate-400 mb-1 uppercase font-bold tracking-wider">Tournament Name</label>
@@ -304,7 +304,7 @@
                         <button type="submit" class="w-full btn-primary text-white font-bold py-4 rounded-lg text-lg esports-font tracking-wider" id="setupSaveBtn">
                             <i class="fa-solid fa-save mr-2"></i> SAVE TOURNAMENT
                         </button>
-                        <button type="button" id="setupCancelBtn" onclick="resetSetupForm()" class="hidden w-full mt-3 bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-lg transition border border-slate-600 text-sm">CANCEL EDIT</button>
+                        <button type="button" id="setupCancelBtn" onclick="window.resetSetupForm()" class="hidden w-full mt-3 bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-lg transition border border-slate-600 text-sm">CANCEL EDIT</button>
                     </form>
                 </div>
             </div>
@@ -324,7 +324,7 @@
                         <h2 class="text-2xl md:text-3xl text-white border-l-4 border-esports-primary pl-4 esports-font tracking-wider drop-shadow-md" id="matchListTourName">MATCHES</h2>
                         <p class="text-slate-400 text-sm mt-1 ml-5">Manage schedule & live panels</p>
                     </div>
-                    <button onclick="createMatch()" class="btn-accent font-bold px-5 py-3 rounded-lg w-full md:w-auto text-sm esports-font tracking-wider">
+                    <button onclick="window.createMatch()" class="btn-accent font-bold px-5 py-3 rounded-lg w-full md:w-auto text-sm esports-font tracking-wider">
                         <i class="fa-solid fa-plus mr-2"></i> ADD MATCH
                     </button>
                 </div>
@@ -359,7 +359,7 @@
                         <div class="absolute w-1 h-full bg-blue-500 left-0 top-0"></div>
                         <div>
                             <p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Alive Teams</p>
-                            <input type="text" id="liveAliveTeams" class="w-20 bg-transparent text-2xl md:text-3xl font-bold text-white border-b border-slate-600 mt-1 outline-none focus:border-blue-500 transition" oninput="autoSaveMatchDebounced()">
+                            <input type="text" id="liveAliveTeams" class="w-20 bg-transparent text-2xl md:text-3xl font-bold text-white border-b border-slate-600 mt-1 outline-none focus:border-blue-500 transition" oninput="window.autoSaveMatchDebounced()">
                         </div>
                         <i class="fa-solid fa-shield-halved text-2xl md:text-3xl text-slate-600 opacity-50"></i>
                     </div>
@@ -367,7 +367,7 @@
                         <div class="absolute w-1 h-full bg-red-500 left-0 top-0"></div>
                         <div>
                             <p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Alive Enemies</p>
-                            <input type="number" id="liveAliveEnemies" class="w-20 bg-transparent text-2xl md:text-3xl font-bold text-white border-b border-slate-600 mt-1 outline-none focus:border-red-500 transition" oninput="autoSaveMatchDebounced()">
+                            <input type="number" id="liveAliveEnemies" class="w-20 bg-transparent text-2xl md:text-3xl font-bold text-white border-b border-slate-600 mt-1 outline-none focus:border-red-500 transition" oninput="window.autoSaveMatchDebounced()">
                         </div>
                         <i class="fa-solid fa-skull text-2xl md:text-3xl text-slate-600 opacity-50"></i>
                     </div>
@@ -378,8 +378,8 @@
                             <div id="liveTimerDisplay" class="text-3xl font-bold text-esports-accent esports-font mt-1">00:00</div>
                         </div>
                         <div class="flex gap-2">
-                            <button onclick="toggleTimer()" id="timerToggleBtn" class="bg-blue-600 hover:bg-blue-500 text-white w-10 h-10 rounded-full flex items-center justify-center transition shadow-[0_0_10px_rgba(37,99,235,0.5)]"><i class="fa-solid fa-play"></i></button>
-                            <button onclick="resetTimer()" class="bg-slate-700 hover:bg-slate-600 text-white w-10 h-10 rounded-full flex items-center justify-center transition"><i class="fa-solid fa-rotate-right"></i></button>
+                            <button onclick="window.toggleTimer()" id="timerToggleBtn" class="bg-blue-600 hover:bg-blue-500 text-white w-10 h-10 rounded-full flex items-center justify-center transition shadow-[0_0_10px_rgba(37,99,235,0.5)]"><i class="fa-solid fa-play"></i></button>
+                            <button onclick="window.resetTimer()" class="bg-slate-700 hover:bg-slate-600 text-white w-10 h-10 rounded-full flex items-center justify-center transition"><i class="fa-solid fa-rotate-right"></i></button>
                         </div>
                     </div>
                 </div>
@@ -405,7 +405,7 @@
                     </div>
                 </div>
 
-                <button onclick="finalizeMatch()" class="w-full bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400 text-white font-bold py-4 rounded-xl shadow-[0_0_15px_rgba(16,185,129,0.4)] transition text-lg esports-font tracking-wider">
+                <button onclick="window.finalizeMatch()" class="w-full bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400 text-white font-bold py-4 rounded-xl shadow-[0_0_15px_rgba(16,185,129,0.4)] transition text-lg esports-font tracking-wider">
                     <i class="fa-solid fa-flag-checkered mr-2"></i> FINALIZE & SAVE MATCH DATA
                 </button>
             </div>
@@ -418,14 +418,14 @@
                     <!-- THEME SELECTOR -->
                     <div class="flex flex-wrap items-center gap-2 bg-slate-900/80 p-2.5 rounded-lg border border-slate-700/50 shadow-lg">
                         <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mr-2"><i class="fa-solid fa-palette mr-1"></i> Theme:</span>
-                        <button onclick="setTheme('theme-blue', this)" class="theme-select-btn px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded ring-2 ring-white transition shadow-[0_0_10px_#0ea5e9]">Neon</button>
-                        <button onclick="setTheme('theme-blood', this)" class="theme-select-btn px-3 py-1 bg-red-600 text-white text-xs font-bold rounded opacity-50 hover:opacity-100 transition">Blood</button>
-                        <button onclick="setTheme('theme-gold', this)" class="theme-select-btn px-3 py-1 bg-yellow-600 text-white text-xs font-bold rounded opacity-50 hover:opacity-100 transition">Apex</button>
-                        <button onclick="setTheme('theme-toxic', this)" class="theme-select-btn px-3 py-1 bg-emerald-600 text-white text-xs font-bold rounded opacity-50 hover:opacity-100 transition">Toxic</button>
-                        <button onclick="setTheme('theme-white', this)" class="theme-select-btn px-3 py-1 bg-white text-black text-xs font-bold rounded opacity-50 hover:opacity-100 transition">Light</button>
+                        <button onclick="window.setTheme('theme-blue', this)" class="theme-select-btn px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded ring-2 ring-white transition shadow-[0_0_10px_#0ea5e9]">Neon</button>
+                        <button onclick="window.setTheme('theme-blood', this)" class="theme-select-btn px-3 py-1 bg-red-600 text-white text-xs font-bold rounded opacity-50 hover:opacity-100 transition">Blood</button>
+                        <button onclick="window.setTheme('theme-gold', this)" class="theme-select-btn px-3 py-1 bg-yellow-600 text-white text-xs font-bold rounded opacity-50 hover:opacity-100 transition">Apex</button>
+                        <button onclick="window.setTheme('theme-toxic', this)" class="theme-select-btn px-3 py-1 bg-emerald-600 text-white text-xs font-bold rounded opacity-50 hover:opacity-100 transition">Toxic</button>
+                        <button onclick="window.setTheme('theme-white', this)" class="theme-select-btn px-3 py-1 bg-white text-black text-xs font-bold rounded opacity-50 hover:opacity-100 transition">Light</button>
                     </div>
 
-                    <button id="dwnBtn" onclick="downloadTableImage()" class="btn-accent font-bold px-5 py-3 rounded-lg text-sm transition shadow-[0_0_15px_rgba(245,158,11,0.4)] esports-font tracking-wider">
+                    <button id="dwnBtn" onclick="window.downloadTableImage()" class="btn-accent font-bold px-5 py-3 rounded-lg text-sm transition shadow-[0_0_15px_rgba(245,158,11,0.4)] esports-font tracking-wider">
                         <i class="fa-solid fa-download mr-1"></i> EXPORT HD IMAGE
                     </button>
                 </div>
@@ -483,7 +483,6 @@
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, getDocs, collection, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Configuration
         const envConfig = {
             apiKey: "AIzaSyCghsS37q-hk21jJfR1_XBlzelMv85ocGc",
             authDomain: "modhu-5e3e9.firebaseapp.com",
@@ -503,92 +502,8 @@
         const state = { tournaments: [], matches: [], activeTId: null, activeMId: null, editingTId: null, timerInterval: null, timerSeconds: 0, saveTimeout: null };
         const DEFAULT_POINTS = [12, 9, 7, 7, 6, 5, 4, 3, 2, 1, 0, 0];
 
-        // Ensure functions are in global scope so HTML buttons can click them
-        window.openTournament = (tId) => {
-            state.activeTId = tId;
-            const t = state.tournaments.find(x => x.id === tId);
-            if(t) document.getElementById('matchListTourName').innerText = t.name.toUpperCase();
-            loadMatches();
-            switchView('matchListView');
-        };
-
-        window.openLiveMatch = (mId) => {
-            state.activeMId = mId; 
-            const m = state.matches.find(x => x.id === mId);
-            if(!m) return showToast("Match not found", true);
-            
-            document.getElementById('liveMatchTitle').innerHTML = m.status === 'completed' ? `MATCH ${m.matchNum} - <span class="text-green-500">FINISHED</span>` : `<i class="fa-solid fa-satellite-dish text-red-500 mr-2 animate-pulse"></i> MATCH ${m.matchNum} LIVE`;
-            document.getElementById('liveAliveTeams').value = m.aliveTeams || '12/12'; 
-            document.getElementById('liveAliveEnemies').value = m.aliveEnemies || 48; 
-            state.timerSeconds = m.timerSeconds || 0; 
-            updateTimerUI();
-            
-            buildLiveTable(); 
-            switchView('liveDashboardView');
-
-            if(window.unsubLive) window.unsubLive();
-            window.unsubLive = onSnapshot(doc(db, 'artifacts', appId, 'users', userId, 'matches', mId), (snap) => {
-                const data = snap.data(); if(!data) return;
-                if(document.activeElement.id !== 'liveAliveTeams') document.getElementById('liveAliveTeams').value = data.aliveTeams;
-                if(document.activeElement.id !== 'liveAliveEnemies') document.getElementById('liveAliveEnemies').value = data.aliveEnemies;
-                
-                let needsSort = false;
-                for(let i=0; i<12; i++){
-                    if(data.teamStats && data.teamStats[i]){
-                        if(document.activeElement.id !== `live_elim_${i}`) document.getElementById(`live_elim_${i}`).value = data.teamStats[i].elims;
-                        if(document.activeElement.id !== `live_pos_${i}`) document.getElementById(`live_pos_${i}`).value = data.teamStats[i].pos;
-                        if(document.activeElement.id !== `live_sl_${i}`) {
-                            document.getElementById(`live_sl_${i}`).value = data.teamStats[i].sl;
-                            needsSort = true;
-                        }
-                        calcLiveRow(i, false);
-                    }
-                }
-                // Auto sort if a remote change updated the SL number, but don't interrupt active typing
-                if(needsSort && (!document.activeElement || !document.activeElement.id.startsWith('live_sl_'))) {
-                    sortLiveTable();
-                }
-            });
-        };
-
-        async function initApp() {
-            renderSetupForm(); 
-            onAuthStateChanged(auth, async (user) => {
-                if (user) {
-                    userId = user.uid;
-                    document.getElementById('loginView').classList.add('hidden');
-                    document.getElementById('appContainer').classList.remove('hidden');
-                    document.getElementById('appContainer').classList.add('flex');
-                    switchView('setupView');
-                    try { await loadTournaments(); } catch (err) { console.error(err); }
-                } else {
-                    userId = null;
-                    document.getElementById('loginView').classList.remove('hidden');
-                    document.getElementById('appContainer').classList.add('hidden');
-                    document.getElementById('appContainer').classList.remove('flex');
-                }
-            });
-        }
-
-        window.handleLogin = async () => {
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            const btn = document.getElementById('loginBtn');
-            const originalBtnHtml = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Authenticating...';
-            btn.disabled = true;
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                showToast("Login Successful!");
-                btn.innerHTML = originalBtnHtml; btn.disabled = false;
-                document.getElementById('loginForm').reset();
-            } catch (err) {
-                btn.innerHTML = originalBtnHtml; btn.disabled = false;
-                showToast("Invalid Email or Password", true);
-            }
-        };
-
-        window.handleLogout = async () => { try { await signOut(auth); showToast("Logged out successfully"); } catch (err) {} };
+        // --- GLOBAL FUNCTIONS EXPOSED TO WINDOW ---
+        
         window.showToast = (msg, isError = false) => {
             const t = document.getElementById('toast');
             document.getElementById('toastMsg').innerText = msg;
@@ -610,8 +525,28 @@
             } else {
                 ctxNav.classList.add('hidden'); ctxNav.classList.remove('md:block', 'flex');
             }
-            if(viewId === 'historyView') loadTournaments();
+            if(viewId === 'historyView') window.loadTournaments();
         };
+
+        window.handleLogin = async () => {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const btn = document.getElementById('loginBtn');
+            const originalBtnHtml = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Authenticating...';
+            btn.disabled = true;
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                window.showToast("Login Successful!");
+                btn.innerHTML = originalBtnHtml; btn.disabled = false;
+                document.getElementById('loginForm').reset();
+            } catch (err) {
+                btn.innerHTML = originalBtnHtml; btn.disabled = false;
+                window.showToast("Invalid Email or Password", true);
+            }
+        };
+
+        window.handleLogout = async () => { try { await signOut(auth); window.showToast("Logged out successfully"); } catch (err) {} };
 
         window.renderSetupForm = () => {
             const ptsDiv = document.getElementById('setupPoints'); const teamsDiv = document.getElementById('setupTeams');
@@ -623,38 +558,46 @@
         };
 
         window.saveTournament = async () => {
-            if(!userId) return showToast("Error", true);
+            if(!userId) return window.showToast("Error", true);
             const data = { name: document.getElementById('tourName').value, date: document.getElementById('tourDate').value, time: document.getElementById('tourTime').value, points: [], teams: [], updatedAt: Date.now() };
             for(let i=0; i<12; i++) { data.points.push(parseInt(document.getElementById(`setup_pt_${i}`).value)||0); data.teams.push(document.getElementById(`setup_tm_${i}`).value||`Team ${i+1}`); }
             try {
-                if(state.editingTId) { await updateDoc(doc(db, 'artifacts', appId, 'users', userId, 'tournaments', state.editingTId), data); showToast("Tournament Updated!"); } 
-                else { data.createdAt = Date.now(); await setDoc(doc(db, 'artifacts', appId, 'users', userId, 'tournaments', 'tour_'+Date.now()), data); showToast("Tournament Created!"); }
-                resetSetupForm(); switchView('historyView');
-            } catch(e) { showToast("Failed to save", true); }
+                if(state.editingTId) { await updateDoc(doc(db, 'artifacts', appId, 'users', userId, 'tournaments', state.editingTId), data); window.showToast("Tournament Updated!"); } 
+                else { data.createdAt = Date.now(); await setDoc(doc(db, 'artifacts', appId, 'users', userId, 'tournaments', 'tour_'+Date.now()), data); window.showToast("Tournament Created!"); }
+                window.resetSetupForm(); window.switchView('historyView');
+            } catch(e) { window.showToast("Failed to save", true); }
         };
 
         window.editTournament = (tId) => {
             const t = state.tournaments.find(x => x.id === tId); if(!t) return; state.editingTId = tId;
             document.getElementById('setupFormTitle').innerText = "EDIT TOURNAMENT SETUP"; document.getElementById('tourName').value = t.name; document.getElementById('tourDate').value = t.date; document.getElementById('tourTime').value = t.time;
             for(let i=0; i<12; i++) { document.getElementById(`setup_pt_${i}`).value = t.points[i]; document.getElementById(`setup_tm_${i}`).value = t.teams[i]; }
-            document.getElementById('setupSaveBtn').innerHTML = '<i class="fa-solid fa-pen mr-2"></i> UPDATE TOURNAMENT'; document.getElementById('setupCancelBtn').classList.remove('hidden'); switchView('setupView');
+            document.getElementById('setupSaveBtn').innerHTML = '<i class="fa-solid fa-pen mr-2"></i> UPDATE TOURNAMENT'; document.getElementById('setupCancelBtn').classList.remove('hidden'); window.switchView('setupView');
         };
 
-        window.resetSetupForm = () => { state.editingTId = null; document.getElementById('setupForm').reset(); document.getElementById('setupFormTitle').innerText = "CREATE NEW TOURNAMENT"; document.getElementById('setupSaveBtn').innerHTML = '<i class="fa-solid fa-save mr-2"></i> SAVE TOURNAMENT'; document.getElementById('setupCancelBtn').classList.add('hidden'); renderSetupForm(); };
+        window.resetSetupForm = () => { state.editingTId = null; document.getElementById('setupForm').reset(); document.getElementById('setupFormTitle').innerText = "CREATE NEW TOURNAMENT"; document.getElementById('setupSaveBtn').innerHTML = '<i class="fa-solid fa-save mr-2"></i> SAVE TOURNAMENT'; document.getElementById('setupCancelBtn').classList.add('hidden'); window.renderSetupForm(); };
 
-        async function loadTournaments() {
+        window.loadTournaments = async () => {
             if(!userId) return;
             const snap = await getDocs(collection(db, 'artifacts', appId, 'users', userId, 'tournaments')); state.tournaments = []; snap.forEach(d => state.tournaments.push({ id: d.id, ...d.data() })); state.tournaments.sort((a,b) => b.createdAt - a.createdAt);
             const list = document.getElementById('tourList'); list.innerHTML = '';
             if(state.tournaments.length === 0) list.innerHTML = '<p class="text-slate-500 text-center p-8 bg-slate-900/50 rounded-xl border border-dashed border-slate-700">No tournaments created yet.</p>';
             state.tournaments.forEach(t => {
-                list.innerHTML += `<div class="glass-panel p-5 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:border-esports-primary transition duration-300"><div><h3 class="text-xl md:text-2xl font-bold esports-font text-white drop-shadow-md">${t.name}</h3><p class="text-xs text-slate-400 mt-2 font-mono bg-slate-900/80 inline-block px-2 py-1 rounded"><i class="fa-regular fa-calendar text-esports-primary mr-1"></i> ${t.date} &nbsp;|&nbsp; <i class="fa-regular fa-clock text-esports-accent mr-1"></i> ${t.time}</p></div><div class="flex flex-wrap gap-2 w-full md:w-auto"><button onclick="openTournament('${t.id}')" class="flex-1 md:flex-none btn-primary text-white px-4 py-2 rounded-lg text-sm font-bold"><i class="fa-solid fa-folder-open mr-1"></i> Manage</button><button onclick="editTournament('${t.id}')" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg transition"><i class="fa-solid fa-pen"></i></button><button onclick="deleteTournament('${t.id}')" class="bg-red-900/80 hover:bg-red-700 text-white px-4 py-2 rounded-lg border border-red-800 transition"><i class="fa-solid fa-trash"></i></button></div></div>`;
+                list.innerHTML += `<div class="glass-panel p-5 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:border-esports-primary transition duration-300"><div><h3 class="text-xl md:text-2xl font-bold esports-font text-white drop-shadow-md">${t.name}</h3><p class="text-xs text-slate-400 mt-2 font-mono bg-slate-900/80 inline-block px-2 py-1 rounded"><i class="fa-regular fa-calendar text-esports-primary mr-1"></i> ${t.date} &nbsp;|&nbsp; <i class="fa-regular fa-clock text-esports-accent mr-1"></i> ${t.time}</p></div><div class="flex flex-wrap gap-2 w-full md:w-auto"><button onclick="window.openTournament('${t.id}')" class="flex-1 md:flex-none btn-primary text-white px-4 py-2 rounded-lg text-sm font-bold"><i class="fa-solid fa-folder-open mr-1"></i> Manage</button><button onclick="window.editTournament('${t.id}')" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg transition"><i class="fa-solid fa-pen"></i></button><button onclick="window.deleteTournament('${t.id}')" class="bg-red-900/80 hover:bg-red-700 text-white px-4 py-2 rounded-lg border border-red-800 transition"><i class="fa-solid fa-trash"></i></button></div></div>`;
             });
-        }
+        };
         
-        window.deleteTournament = async (tId) => { if(!confirm("Delete?")) return; await deleteDoc(doc(db, 'artifacts', appId, 'users', userId, 'tournaments', tId)); showToast("Deleted"); if(state.activeTId === tId) state.activeTId = null; loadTournaments(); };
-        
-        async function loadMatches() {
+        window.deleteTournament = async (tId) => { if(!confirm("Delete?")) return; await deleteDoc(doc(db, 'artifacts', appId, 'users', userId, 'tournaments', tId)); window.showToast("Deleted"); if(state.activeTId === tId) state.activeTId = null; window.loadTournaments(); };
+
+        window.openTournament = (tId) => {
+            state.activeTId = tId;
+            const t = state.tournaments.find(x => x.id === tId);
+            if(t) document.getElementById('matchListTourName').innerText = t.name.toUpperCase();
+            window.loadMatches();
+            window.switchView('matchListView');
+        };
+
+        window.loadMatches = async () => {
             if(!userId || !state.activeTId) return;
             const snap = await getDocs(collection(db, 'artifacts', appId, 'users', userId, 'matches')); state.matches = [];
             snap.forEach(d => { if(d.data().tId === state.activeTId) state.matches.push({ id: d.id, ...d.data() }); }); state.matches.sort((a,b) => a.matchNum - b.matchNum);
@@ -662,17 +605,72 @@
             if(state.matches.length===0) tbody.innerHTML = '<tr><td colspan="3" class="p-8 text-center text-slate-500">No matches found. Create one above.</td></tr>';
             state.matches.forEach(m => {
                 const isComp = m.status === 'completed';
-                tbody.innerHTML += `<tr class="border-b border-slate-700/50 hover:bg-slate-800/50 transition"><td class="p-4 font-bold esports-font text-lg md:text-xl text-white">MATCH ${m.matchNum}</td><td class="p-4"><span class="px-3 py-1 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-wider border ${isComp ? 'bg-green-900/30 text-green-400 border-green-500/50 shadow-[0_0_10px_rgba(34,197,94,0.2)]' : 'bg-yellow-900/30 text-yellow-400 border-yellow-500/50 shadow-[0_0_10px_rgba(234,179,8,0.2)]'}">${isComp ? '<i class="fa-solid fa-check mr-1"></i> Finished' : '<i class="fa-solid fa-circle-dot fa-fade mr-1"></i> Active'}</span></td><td class="p-4 text-right flex justify-end gap-2"><button onclick="openLiveMatch('${m.id}')" class="${isComp ? 'bg-slate-700 hover:bg-slate-600 text-white' : 'btn-accent'} px-4 py-2 rounded-lg text-xs md:text-sm font-bold transition">${isComp ? '<i class="fa-solid fa-eye"></i> Data' : '<i class="fa-solid fa-satellite-dish"></i> Live'}</button><button onclick="deleteMatch('${m.id}')" class="bg-red-900/50 hover:bg-red-600 text-white px-3 py-2 rounded-lg border border-red-800 transition"><i class="fa-solid fa-trash"></i></button></td></tr>`;
+                tbody.innerHTML += `
+                    <tr class="border-b border-slate-700/50 hover:bg-slate-800/50 transition">
+                        <td class="p-4 font-bold esports-font text-lg md:text-xl text-white">MATCH ${m.matchNum}</td>
+                        <td class="p-4"><span class="px-3 py-1 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-wider border ${isComp ? 'bg-green-900/30 text-green-400 border-green-500/50' : 'bg-yellow-900/30 text-yellow-400 border-yellow-500/50'}">${isComp ? '<i class="fa-solid fa-check mr-1"></i> Finished' : '<i class="fa-solid fa-circle-dot fa-fade mr-1"></i> Active'}</span></td>
+                        <td class="p-4 text-right flex justify-end gap-2">
+                            <button onclick="window.openLiveMatch('${m.id}')" class="${isComp ? 'bg-slate-700 hover:bg-slate-600 text-white' : 'btn-primary text-white'} px-4 py-2 rounded-lg text-xs md:text-sm font-bold transition shadow-lg">${isComp ? '<i class="fa-solid fa-eye mr-1"></i> View' : '<i class="fa-solid fa-satellite-dish mr-1"></i> Live'}</button>
+                            <button onclick="window.deleteMatch('${m.id}')" class="bg-slate-800 hover:bg-red-900 text-red-500 hover:text-white px-3 py-2 rounded-lg border border-slate-700 hover:border-red-700 transition shadow-lg"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>`;
             });
-        }
-        window.createMatch = async () => { const nextNum = state.matches.length > 0 ? Math.max(...state.matches.map(m=>m.matchNum)) + 1 : 1; const tStats = {}; for(let i=0; i<12; i++) tStats[i] = { sl: i+1, elims: 0, pos: '' }; await setDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', `m_${Date.now()}`), { tId: state.activeTId, matchNum: nextNum, status: 'active', aliveTeams: '12/12', aliveEnemies: 48, timerSeconds: 0, teamStats: tStats, createdAt: Date.now() }); showToast(`Match ${nextNum} Created`); loadMatches(); };
-        window.deleteMatch = async (mId) => { if(confirm("Delete match?")) { await deleteDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', mId)); showToast("Deleted"); loadMatches(); } };
+        };
 
-        /* ------------------------------------------
-           LIVE DASHBOARD & DYNAMIC SORTING
-        ------------------------------------------ */
-        
-        function buildLiveTable() {
+        window.createMatch = async () => {
+            const nextNum = state.matches.length > 0 ? Math.max(...state.matches.map(m=>m.matchNum)) + 1 : 1;
+            const tStats = {}; 
+            for(let i=0; i<12; i++) tStats[i] = { sl: i+1, elims: 0, pos: '' }; 
+            await setDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', `m_${Date.now()}`), { 
+                tId: state.activeTId, matchNum: nextNum, status: 'active', 
+                aliveTeams: '12/12', aliveEnemies: 48, timerSeconds: 0, 
+                teamStats: tStats, createdAt: Date.now() 
+            }); 
+            window.showToast(`Match ${nextNum} Created`); 
+            window.loadMatches(); 
+        };
+
+        window.deleteMatch = async (mId) => { if(confirm("Delete match?")) { await deleteDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', mId)); window.showToast("Deleted"); window.loadMatches(); } };
+
+        window.openLiveMatch = (mId) => {
+            state.activeMId = mId; 
+            const m = state.matches.find(x => x.id === mId);
+            if(!m) return window.showToast("Match not found", true);
+            
+            document.getElementById('liveMatchTitle').innerHTML = m.status === 'completed' ? `MATCH ${m.matchNum} - <span class="text-green-500">FINISHED</span>` : `<i class="fa-solid fa-satellite-dish text-red-500 mr-2 animate-pulse"></i> MATCH ${m.matchNum} LIVE`;
+            document.getElementById('liveAliveTeams').value = m.aliveTeams || '12/12'; 
+            document.getElementById('liveAliveEnemies').value = m.aliveEnemies || 48; 
+            state.timerSeconds = m.timerSeconds || 0; 
+            window.updateTimerUI();
+            
+            window.buildLiveTable(); 
+            window.switchView('liveDashboardView');
+
+            if(window.unsubLive) window.unsubLive();
+            window.unsubLive = onSnapshot(doc(db, 'artifacts', appId, 'users', userId, 'matches', mId), (snap) => {
+                const data = snap.data(); if(!data) return;
+                if(document.activeElement.id !== 'liveAliveTeams') document.getElementById('liveAliveTeams').value = data.aliveTeams;
+                if(document.activeElement.id !== 'liveAliveEnemies') document.getElementById('liveAliveEnemies').value = data.aliveEnemies;
+                
+                let needsSort = false;
+                for(let i=0; i<12; i++){
+                    if(data.teamStats && data.teamStats[i]){
+                        if(document.activeElement.id !== `live_elim_${i}`) document.getElementById(`live_elim_${i}`).value = data.teamStats[i].elims;
+                        if(document.activeElement.id !== `live_pos_${i}`) document.getElementById(`live_pos_${i}`).value = data.teamStats[i].pos;
+                        if(document.activeElement.id !== `live_sl_${i}`) {
+                            document.getElementById(`live_sl_${i}`).value = data.teamStats[i].sl;
+                            needsSort = true;
+                        }
+                        window.calcLiveRow(i, false);
+                    }
+                }
+                if(needsSort && (!document.activeElement || !document.activeElement.id.startsWith('live_sl_'))) {
+                    window.sortLiveTable();
+                }
+            });
+        };
+
+        window.buildLiveTable = () => {
             const t = state.tournaments.find(x => x.id === state.activeTId); 
             const m = state.matches.find(x => x.id === state.activeMId);
             const tbody = document.getElementById('liveTableBody'); tbody.innerHTML = '';
@@ -682,21 +680,20 @@
                 
                 tbody.innerHTML += `
                     <tr id="live_row_${i}" class="hover:bg-slate-800/80 transition group">
-                        <td><input type="number" id="live_sl_${i}" value="${s.sl}" class="w-14 bg-slate-900 border border-slate-600 rounded p-1.5 text-center text-white text-sm font-bold outline-none focus:border-blue-500" oninput="sortLiveTable(); autoSaveMatchDebounced()"></td>
+                        <td><input type="number" id="live_sl_${i}" value="${s.sl}" class="w-14 bg-slate-900 border border-slate-600 rounded p-1.5 text-center text-white text-sm font-bold outline-none focus:border-blue-500" oninput="window.sortLiveTable(); window.autoSaveMatchDebounced()"></td>
                         <td class="text-left font-bold text-white uppercase text-sm tracking-wide group-hover:text-esports-primary transition"><i class="fa-solid fa-shield-halved mr-2 text-slate-500"></i>${teamName}</td>
-                        <td><input type="number" id="live_elim_${i}" value="${s.elims}" min="0" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-blue-500" oninput="calcLiveRow(${i}); autoSaveMatchDebounced()"></td>
-                        <td><input type="number" id="live_pos_${i}" value="${s.pos}" min="1" max="12" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-yellow-500" oninput="calcLiveRow(${i}); autoSaveMatchDebounced()"></td>
+                        <td><input type="number" id="live_elim_${i}" value="${s.elims}" min="0" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-blue-500" oninput="window.calcLiveRow(${i}); window.autoSaveMatchDebounced()"></td>
+                        <td><input type="number" id="live_pos_${i}" value="${s.pos}" min="1" max="12" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-yellow-500" oninput="window.calcLiveRow(${i}); window.autoSaveMatchDebounced()"></td>
                         <td id="live_pts_${i}" class="text-slate-400 font-mono font-bold">0</td>
                         <td id="live_tot_${i}" class="text-esports-primary font-bold text-xl drop-shadow-[0_0_5px_rgba(59,130,246,0.5)]">0</td>
                         <td id="live_stat_${i}"></td>
                     </tr>
                 `;
-                calcLiveRow(i, false);
+                window.calcLiveRow(i, false);
             }
-            sortLiveTable(); // Initial Sort
-        }
+            window.sortLiveTable(); 
+        };
 
-        // PERFECT Real-time Sorting Logic (Uses DOM moving, never loses cursor focus!)
         window.sortLiveTable = () => {
             const tbody = document.getElementById('liveTableBody');
             const rows = Array.from(tbody.querySelectorAll('tr[id^="live_row_"]'));
@@ -708,8 +705,6 @@
                 const slB = parseInt(inputB.value) || 999;
                 return slA - slB;
             });
-
-            // Re-append moves the node without destroying it, preserving input focus automatically!
             rows.forEach(row => tbody.appendChild(row));
         };
 
@@ -735,18 +730,12 @@
             }, 600); 
         };
 
-        window.finalizeMatch = async () => { await autoSaveMatchDebounced(); await updateDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', state.activeMId), { status: 'completed' }); showToast("Match Saved!"); if(window.unsubLive) window.unsubLive(); loadMatches(); switchView('matchListView'); };
+        window.finalizeMatch = async () => { await window.autoSaveMatchDebounced(); await updateDoc(doc(db, 'artifacts', appId, 'users', userId, 'matches', state.activeMId), { status: 'completed' }); window.showToast("Match Saved!"); if(window.unsubLive) window.unsubLive(); window.loadMatches(); window.switchView('matchListView'); };
         
-        // Timer
-        window.toggleTimer = () => { const btn = document.getElementById('timerToggleBtn'); if(state.timerInterval) { clearInterval(state.timerInterval); state.timerInterval = null; btn.innerHTML = '<i class="fa-solid fa-play"></i>'; btn.classList.replace('bg-yellow-600', 'bg-blue-600'); } else { state.timerInterval = setInterval(() => { state.timerSeconds++; updateTimerUI(); }, 1000); btn.innerHTML = '<i class="fa-solid fa-pause"></i>'; btn.classList.replace('bg-blue-600', 'bg-yellow-600'); } autoSaveMatchDebounced(); };
-        window.resetTimer = () => { clearInterval(state.timerInterval); state.timerInterval = null; state.timerSeconds = 0; updateTimerUI(); const btn = document.getElementById('timerToggleBtn'); btn.innerHTML = '<i class="fa-solid fa-play"></i>'; btn.classList.replace('bg-yellow-600', 'bg-blue-600'); autoSaveMatchDebounced(); };
-        function updateTimerUI() { document.getElementById('liveTimerDisplay').innerText = `${String(Math.floor(state.timerSeconds/60)).padStart(2,'0')}:${String(state.timerSeconds%60).padStart(2,'0')}`; }
+        window.toggleTimer = () => { const btn = document.getElementById('timerToggleBtn'); if(state.timerInterval) { clearInterval(state.timerInterval); state.timerInterval = null; btn.innerHTML = '<i class="fa-solid fa-play"></i>'; btn.classList.replace('bg-yellow-600', 'bg-blue-600'); } else { state.timerInterval = setInterval(() => { state.timerSeconds++; window.updateTimerUI(); }, 1000); btn.innerHTML = '<i class="fa-solid fa-pause"></i>'; btn.classList.replace('bg-blue-600', 'bg-yellow-600'); } window.autoSaveMatchDebounced(); };
+        window.resetTimer = () => { clearInterval(state.timerInterval); state.timerInterval = null; state.timerSeconds = 0; window.updateTimerUI(); const btn = document.getElementById('timerToggleBtn'); btn.innerHTML = '<i class="fa-solid fa-play"></i>'; btn.classList.replace('bg-yellow-600', 'bg-blue-600'); window.autoSaveMatchDebounced(); };
+        window.updateTimerUI = () => { document.getElementById('liveTimerDisplay').innerText = `${String(Math.floor(state.timerSeconds/60)).padStart(2,'0')}:${String(state.timerSeconds%60).padStart(2,'0')}`; };
 
-
-        /* ------------------------------------------
-           FINAL TABLE & THEME GENERATOR
-        ------------------------------------------ */
-        
         window.setTheme = (themeName, btnElement) => {
             document.getElementById('exportTableArea').className = `pt-container min-w-[700px] max-w-[900px] mx-auto ${themeName}`;
             document.querySelectorAll('.theme-select-btn').forEach(b => {
@@ -758,7 +747,7 @@
         };
 
         window.generateFinalTable = () => {
-            if(!state.activeTId) return showToast("Select a tournament first", true);
+            if(!state.activeTId) return window.showToast("Select a tournament first", true);
             const t = state.tournaments.find(x => x.id === state.activeTId);
             document.getElementById('ptTourName').innerText = t.name.toUpperCase();
             
@@ -795,7 +784,7 @@
                     </tr>
                 `;
             });
-            switchView('finalTableView');
+            window.switchView('finalTableView');
         };
 
         window.downloadTableImage = () => {
@@ -810,14 +799,14 @@
                 link.download = `BD_ORG_${document.getElementById('ptTourName').innerText.replace(/\s+/g, '_')}_Standings.png`;
                 link.href = canvas.toDataURL('image/png'); link.click();
                 btn.innerHTML = '<i class="fa-solid fa-download mr-1"></i> EXPORT HD IMAGE';
-                showToast("High Quality Image Downloaded!");
+                window.showToast("High Quality Image Downloaded!");
             }).catch(e => {
                 el.style.width = 'auto'; console.error(e);
-                btn.innerHTML = 'Export Failed'; showToast("Failed to generate image", true);
+                btn.innerHTML = 'Export Failed'; window.showToast("Failed to generate image", true);
             });
         };
 
-        // Boot
+        // Initialize App
         initApp();
     </script>
 </body>
