@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cloud-Powered Free Fire Esports Admin Dashboard</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;500;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
@@ -29,6 +32,7 @@
         .view-section.active { display: block; }
         @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
+        /* Dashboard UI Elements */
         .glass-panel { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(59, 130, 246, 0.2); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); }
         .neon-input { background-color: rgba(15, 23, 42, 0.8); border: 1px solid #334155; color: white; transition: all 0.3s ease; }
         .neon-input:focus { border-color: #3B82F6; box-shadow: 0 0 10px rgba(59, 130, 246, 0.5); outline: none; }
@@ -45,7 +49,7 @@
 
         .rush-cb { accent-color: #F59E0B; width: 14px; height: 14px; cursor: pointer; }
         
-        .rush-highlight td { background-color: rgba(245, 158, 11, 0.25) !important; border-top: 1px solid #f59e0b !important; border-bottom: 1px solid #f59e0b !important; }
+        .rush-highlight td { background-color: rgba(245, 158, 11, 0.3) !important; border-top: 1px solid #f59e0b !important; border-bottom: 1px solid #f59e0b !important; }
         .rush-highlight .team-name-text { color: #fcd34d !important; text-shadow: 0 0 10px rgba(245, 158, 11, 0.8) !important; }
 
         .pt-container { background-color: var(--pt-bg); background-image: var(--pt-bg-image, none); background-size: cover; background-position: center; border: var(--pt-border-size, 0px) solid var(--pt-border-color, transparent); border-radius: var(--pt-radius, 0px); box-shadow: var(--pt-box-shadow, 0 15px 40px rgba(0,0,0,0.8)); color: var(--pt-text-color, #fff); position: relative; overflow: hidden; font-family: 'Inter', sans-serif; padding-top: 10px; }
@@ -307,16 +311,23 @@
                             <input type="number" id="liveAliveEnemies" class="w-20 bg-transparent text-2xl md:text-3xl font-bold text-white border-b border-slate-600 mt-1 outline-none focus:border-red-500" oninput="window.forceSaveLiveStats()">
                         </div>
                     </div>
-                    <div class="glass-panel p-4 rounded-xl flex justify-between items-center col-span-2 md:col-span-1 relative overflow-hidden">
+                    <div class="glass-panel p-4 rounded-xl flex flex-col justify-center relative overflow-hidden col-span-2 md:col-span-1">
                         <div class="absolute w-1 h-full bg-yellow-500 left-0 top-0"></div>
-                        <div>
-                            <p class="text-slate-400 text-[10px] font-bold uppercase">Match Timer</p>
-                            <div id="liveTimerDisplay" class="text-3xl font-bold text-esports-accent esports-font mt-1">00:00</div>
+                        <div class="flex justify-between items-center w-full">
+                            <div>
+                                <p class="text-slate-400 text-[10px] font-bold uppercase">Match Timer</p>
+                                <div id="liveTimerDisplay" class="text-3xl font-bold text-esports-accent esports-font mt-1">00:00</div>
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="window.toggleTimer()" id="timerToggleBtn" class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center transition hover:bg-blue-500"><i class="fa-solid fa-play"></i></button>
+                                <button onclick="window.resetTimer()" class="bg-slate-700 text-white w-10 h-10 rounded-full flex items-center justify-center transition hover:bg-slate-600"><i class="fa-solid fa-rotate-right"></i></button>
+                            </div>
                         </div>
-                        <div class="flex gap-2">
-                            <button onclick="window.toggleTimer()" id="timerToggleBtn" class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center transition hover:bg-blue-500"><i class="fa-solid fa-play"></i></button>
-                            <button onclick="window.resetTimer()" class="bg-slate-700 text-white w-10 h-10 rounded-full flex items-center justify-center transition hover:bg-slate-600"><i class="fa-solid fa-rotate-right"></i></button>
-                        </div>
+                        
+                        <!-- OBS TIMER INFO TOGGLE BUTTON -->
+                        <button id="btnToggleLiveInfo" onclick="window.toggleLiveInfo()" class="mt-3 w-full bg-slate-700 text-slate-300 hover:text-white text-xs font-bold py-2 rounded transition border border-slate-600">
+                            <i class="fa-solid fa-eye-slash mr-1"></i> SHOW INFO ON OBS
+                        </button>
                     </div>
                 </div>
 
@@ -495,7 +506,7 @@
         const app = initializeApp(envConfig); const auth = getAuth(app); const db = getFirestore(app);
         
         let userId = null; let unsubLive = null;
-        const state = { tournaments: [], matches: [], activeTId: null, overlayTId: null, activeMId: null, editingTId: null, timerInterval: null, timerSeconds: 0, saveTimeout: null };
+        const state = { tournaments: [], matches: [], activeTId: null, overlayTId: null, activeMId: null, editingTId: null, timerInterval: null, timerSeconds: 0, showLiveInfo: false, saveTimeout: null };
         const DEFAULT_POINTS = [12, 9, 7, 7, 6, 5, 4, 3, 2, 1, 0, 0];
 
         // --- ImgBB API Upload Function ---
@@ -666,18 +677,41 @@
         window.createMatch = async () => {
             const nextNum=state.matches.length>0 ? Math.max(...state.matches.map(m=>m.matchNum))+1 : 1; const tStats={}; for(let i=0;i<12;i++) tStats[i]={sl:i+1,elims:0,pos:''};
             await setDoc(doc(db,'artifacts',appId,'users',userId,'matches',`m_${Date.now()}`), {
-                tId:state.activeTId, matchNum:nextNum, status:'active', aliveTeams:'12/12', aliveEnemies:48, timerSeconds:0, 
+                tId:state.activeTId, matchNum:nextNum, status:'active', aliveTeams:'12/12', aliveEnemies:48, timerSeconds:0, showLiveInfo: false,
                 teamStats:tStats, createdAt:Date.now()
             });
             window.showToast(`Match Created`); window.loadMatches();
         };
         window.deleteMatch = async (mId) => { if(confirm("Delete match?")){ await deleteDoc(doc(db,'artifacts',appId,'users',userId,'matches',mId)); window.loadMatches(); } };
 
+        // --- NEW: TOGGLE LIVE OBS INFO ---
+        window.toggleLiveInfo = () => {
+            state.showLiveInfo = !state.showLiveInfo;
+            window.updateLiveInfoBtnUI();
+            window.forceSaveLiveStats();
+        };
+
+        window.updateLiveInfoBtnUI = () => {
+            const b = document.getElementById('btnToggleLiveInfo');
+            if(!b) return;
+            if(state.showLiveInfo) {
+                b.className = "mt-3 w-full bg-green-600 text-white text-xs font-bold py-2 rounded transition border border-green-500 shadow-[0_0_10px_rgba(22,163,74,0.4)]";
+                b.innerHTML = '<i class="fa-solid fa-eye mr-1"></i> INFO LIVE ON OBS';
+            } else {
+                b.className = "mt-3 w-full bg-slate-700 text-slate-300 hover:text-white text-xs font-bold py-2 rounded transition border border-slate-600";
+                b.innerHTML = '<i class="fa-solid fa-eye-slash mr-1"></i> SHOW INFO ON OBS';
+            }
+        };
+
         window.openLiveMatch = (mId) => {
             state.activeMId=mId; const m=state.matches.find(x=>x.id===mId); if(!m) return;
             document.getElementById('liveMatchTitle').innerHTML=m.status==='completed'?`MATCH ${m.matchNum} <span class="text-green-500">DONE</span>`:`MATCH ${m.matchNum} LIVE`;
             document.getElementById('liveAliveTeams').value=m.aliveTeams||'12/12'; document.getElementById('liveAliveEnemies').value=m.aliveEnemies||48; state.timerSeconds=m.timerSeconds||0; window.updateTimerUI();
             
+            // Set toggle button state
+            state.showLiveInfo = m.showLiveInfo || false;
+            window.updateLiveInfoBtnUI();
+
             window.buildLiveTable(); 
             window.switchView('liveDashboardView');
 
@@ -687,6 +721,9 @@
                 if(document.activeElement.id!=='liveAliveTeams') document.getElementById('liveAliveTeams').value=data.aliveTeams;
                 if(document.activeElement.id!=='liveAliveEnemies') document.getElementById('liveAliveEnemies').value=data.aliveEnemies;
                 
+                state.showLiveInfo = data.showLiveInfo || false;
+                window.updateLiveInfoBtnUI();
+
                 let needsSort=false;
                 for(let i=0;i<12;i++){
                     if(data.teamStats && data.teamStats[i]){
@@ -780,6 +817,7 @@
                 aliveEnemies: document.getElementById('liveAliveEnemies').value,
                 timerSeconds: state.timerSeconds,
                 isTimerRunning: state.timerInterval !== null,
+                showLiveInfo: state.showLiveInfo,
                 teamStats: {}
             };
             for(let i=0; i<12; i++){
