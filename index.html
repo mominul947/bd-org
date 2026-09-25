@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cloud-Powered Free Fire Esports Admin Dashboard</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;500;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
@@ -32,7 +29,6 @@
         .view-section.active { display: block; }
         @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-        /* Dashboard UI Elements */
         .glass-panel { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(59, 130, 246, 0.2); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); }
         .neon-input { background-color: rgba(15, 23, 42, 0.8); border: 1px solid #334155; color: white; transition: all 0.3s ease; }
         .neon-input:focus { border-color: #3B82F6; box-shadow: 0 0 10px rgba(59, 130, 246, 0.5); outline: none; }
@@ -49,109 +45,39 @@
 
         .rush-cb { accent-color: #F59E0B; width: 14px; height: 14px; cursor: pointer; }
         
-        /* Champion Rush Highlight CSS */
-        .rush-highlight td {
-            background-color: rgba(245, 158, 11, 0.25) !important;
-            border-top: 1px solid #f59e0b !important;
-            border-bottom: 1px solid #f59e0b !important;
-        }
-        .rush-highlight .team-name-text {
-            color: #fcd34d !important;
-            text-shadow: 0 0 10px rgba(245, 158, 11, 0.8) !important;
-        }
+        .rush-highlight td { background-color: rgba(245, 158, 11, 0.25) !important; border-top: 1px solid #f59e0b !important; border-bottom: 1px solid #f59e0b !important; }
+        .rush-highlight .team-name-text { color: #fcd34d !important; text-shadow: 0 0 10px rgba(245, 158, 11, 0.8) !important; }
 
-        /* 35 PRO ESPORTS STANDINGS ENGINE - FIXED ALIGNMENT */
-        .pt-container {
-            background-color: var(--pt-bg); background-image: var(--pt-bg-image, none); background-size: cover; background-position: center;
-            border: var(--pt-border-size, 0px) solid var(--pt-border-color, transparent); border-radius: var(--pt-radius, 0px); box-shadow: var(--pt-box-shadow, 0 15px 40px rgba(0,0,0,0.8));
-            color: var(--pt-text-color, #fff); position: relative; overflow: hidden; font-family: 'Inter', sans-serif; padding-top: 10px;
-        }
-        .pt-header { 
-            text-align: var(--pt-header-align, center); padding: 25px 20px; 
-            border-bottom: var(--pt-header-border-bottom, none); background: var(--pt-header-bg, transparent); 
-            position: relative; display: flex; flex-direction: column; justify-content: center;
-        }
-        .pt-header-title { 
-            color: var(--pt-title-color); font-size: var(--pt-title-size, 3.2rem); margin: 0; padding-top: 10px;
-            letter-spacing: var(--pt-title-spacing, 2px); text-shadow: var(--pt-title-shadow, none); 
-            font-weight: 700; line-height: 1.2; font-family: 'Oswald', sans-serif; text-transform: uppercase;
-        }
-        .pt-header-sub { 
-            color: var(--pt-sub-color); font-size: var(--pt-sub-size, 1.2rem); letter-spacing: var(--pt-sub-spacing, 6px); 
-            margin-top: 5px; font-weight: 700; background: var(--pt-sub-bg, transparent); 
-            display: inline-block; padding: var(--pt-sub-padding, 0); border-radius: var(--pt-sub-radius, 0);
-            text-transform: uppercase; font-family: 'Oswald', sans-serif; text-shadow: var(--pt-sub-shadow, none);
-        }
-        
+        .pt-container { background-color: var(--pt-bg); background-image: var(--pt-bg-image, none); background-size: cover; background-position: center; border: var(--pt-border-size, 0px) solid var(--pt-border-color, transparent); border-radius: var(--pt-radius, 0px); box-shadow: var(--pt-box-shadow, 0 15px 40px rgba(0,0,0,0.8)); color: var(--pt-text-color, #fff); position: relative; overflow: hidden; font-family: 'Inter', sans-serif; padding-top: 10px; }
+        .pt-header { text-align: var(--pt-header-align, center); padding: 25px 20px; border-bottom: var(--pt-header-border-bottom, none); background: var(--pt-header-bg, transparent); position: relative; display: flex; flex-direction: column; justify-content: center; }
+        .pt-header-title { color: var(--pt-title-color); font-size: var(--pt-title-size, 3.2rem); margin: 0; padding-top: 10px; letter-spacing: var(--pt-title-spacing, 2px); text-shadow: var(--pt-title-shadow, none); font-weight: 700; line-height: 1.2; font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+        .pt-header-sub { color: var(--pt-sub-color); font-size: var(--pt-sub-size, 1.2rem); letter-spacing: var(--pt-sub-spacing, 6px); margin-top: 5px; font-weight: 700; background: var(--pt-sub-bg, transparent); display: inline-block; padding: var(--pt-sub-padding, 0); border-radius: var(--pt-sub-radius, 0); text-transform: uppercase; font-family: 'Oswald', sans-serif; text-shadow: var(--pt-sub-shadow, none); }
         .pt-table-wrap { padding: 20px 25px; }
+        .pt-table { width: 100%; border-collapse: collapse !important; border-spacing: 0 !important; table-layout: fixed; }
         
-        /* TABLE ALIGNMENT FIX (A to Z Core Fix) */
-        .pt-table { 
-            width: 100%; 
-            border-collapse: collapse !important; 
-            border-spacing: 0 !important; 
-            table-layout: fixed; /* STRICT COLUMN WIDTHS */
-        }
-        
-        /* STRICT COLUMN SIZING */
-        .pt-table th:nth-child(1), .pt-table td:nth-child(1) { width: 8%; }  /* Rank */
-        .pt-table th:nth-child(2), .pt-table td:nth-child(2) { width: 44%; text-align: left; padding-left: 15px !important; } /* Team */
-        .pt-table th:nth-child(3), .pt-table td:nth-child(3) { width: 8%; }  /* M */
-        .pt-table th:nth-child(4), .pt-table td:nth-child(4) { width: 10%; } /* WWCD */
-        .pt-table th:nth-child(5), .pt-table td:nth-child(5) { width: 10%; } /* P.PTS */
-        .pt-table th:nth-child(6), .pt-table td:nth-child(6) { width: 10%; } /* ELIMS */
-        .pt-table th:nth-child(7), .pt-table td:nth-child(7) { width: 10%; } /* TOTAL */
+        .pt-table th:nth-child(1), .pt-table td:nth-child(1) { width: 8%; }  
+        .pt-table th:nth-child(2), .pt-table td:nth-child(2) { width: 44%; text-align: left; padding-left: 15px !important; } 
+        .pt-table th:nth-child(3), .pt-table td:nth-child(3) { width: 8%; }  
+        .pt-table th:nth-child(4), .pt-table td:nth-child(4) { width: 10%; } 
+        .pt-table th:nth-child(5), .pt-table td:nth-child(5) { width: 10%; } 
+        .pt-table th:nth-child(6), .pt-table td:nth-child(6) { width: 10%; } 
+        .pt-table th:nth-child(7), .pt-table td:nth-child(7) { width: 10%; } 
 
-        .pt-table th { 
-            font-size: var(--pt-th-size, 0.95rem); color: var(--pt-th-color); background: var(--pt-th-bg, transparent); 
-            text-transform: uppercase; letter-spacing: 1.5px; border-bottom: var(--pt-th-border, none); 
-            font-weight: 700; vertical-align: middle; padding: 12px 5px; text-align: center;
-        }
-        .pt-table td { 
-            font-size: 1.1rem; text-align: center; background: var(--pt-td-bg, transparent); 
-            border-bottom: var(--pt-td-border, none); border-top: var(--pt-td-border-top, none); 
-            transition: 0.3s; vertical-align: middle; padding: 8px 5px; height: 45px;
-        }
-
+        .pt-table th { font-size: var(--pt-th-size, 0.95rem); color: var(--pt-th-color); background: var(--pt-th-bg, transparent); text-transform: uppercase; letter-spacing: 1.5px; border-bottom: var(--pt-th-border, none); font-weight: 700; vertical-align: middle; padding: 12px 5px; text-align: center; }
+        .pt-table td { font-size: 1.1rem; text-align: center; background: var(--pt-td-bg, transparent); border-bottom: var(--pt-td-border, none); border-top: var(--pt-td-border-top, none); transition: 0.3s; vertical-align: middle; padding: 8px 5px; height: 45px; }
         .pt-rank-col { font-family: 'Rajdhani', sans-serif; font-size: var(--pt-rank-size, 1.5rem); font-weight: 700; color: var(--pt-rank-color) !important; background: var(--pt-rank-bg, transparent); border-right: 2px solid rgba(255, 255, 255, 0.1); }
+        .pt-team-col { vertical-align: middle; color: var(--pt-team-color) !important; }
         
-        .pt-team-col { 
-            vertical-align: middle;
-            color: var(--pt-team-color) !important; 
-        }
-
-        /* LOGO & NAME WRAPPER (Prevents black gap bug) */
-        .team-wrapper {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            max-width: 100%;
-        }
-        .team-logo {
-            width: 26px;
-            height: 26px;
-            object-fit: contain;
-            border-radius: 4px;
-            background-color: rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.2);
-            flex-shrink: 0;
-        }
-        .team-name-text {
-            font-weight: 800; 
-            font-size: var(--pt-team-size, 1.25rem); 
-            letter-spacing: 0.5px; 
-            white-space: nowrap; 
-            overflow: hidden; 
-            text-overflow: ellipsis;
-        }
+        .team-wrapper { display: inline-flex; align-items: center; gap: 8px; max-width: 100%; }
+        .team-logo { width: 26px; height: 26px; object-fit: contain; border-radius: 4px; background-color: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.2); flex-shrink: 0; }
+        .team-name-text { font-weight: 800; font-size: var(--pt-team-size, 1.25rem); letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         
         .pt-stat-col { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: var(--pt-stat-size, 1.3rem); color: var(--pt-stat-color); }
         .pt-booyah-col { color: var(--pt-booyah-color) !important; font-weight: 700; font-family: 'Rajdhani', sans-serif; font-size: var(--pt-booyah-size, 1.3rem); }
         .pt-total-col { background: var(--pt-total-bg, transparent); color: var(--pt-total-color) !important; font-weight: 800; font-size: var(--pt-total-size, 1.6rem); font-family: 'Rajdhani', sans-serif; border-radius: 4px; padding: 2px 10px; display: inline-block; box-shadow: var(--pt-total-box-shadow, none); text-shadow: var(--pt-total-shadow, none); }
-        
         .pt-footer { padding: var(--pt-footer-padding, 15px 25px); text-align: center; font-size: 0.9rem; border-top: var(--pt-footer-border, none); background: var(--pt-footer-bg, transparent); display: flex; justify-content: space-between; align-items: center; font-weight: 600; }
 
-        /* THEMES 1 to 20 (Original) */
+        /* THEMES 1-35 EXACTLY AS BEFORE */
         .t-survival { --pt-bg:#09090b; --pt-header-bg:#000; --pt-header-border-bottom:2px solid #ea580c; --pt-title-color:#fff; --pt-title-shadow:2px 2px 0px #ea580c; --pt-sub-color:#ea580c; --pt-sub-bg:#171717; --pt-sub-padding:2px 15px; --pt-wrap-padding:20px 30px; --pt-th-bg:#171717; --pt-th-color:#fdba74; --pt-td-bg:#18181b; --pt-rank-color:#ea580c; --pt-rank-bg:#111; --pt-team-color:#fff; --pt-stat-color:#d4d4d8; --pt-booyah-color:#f97316; --pt-total-bg:#ea580c; --pt-total-color:#fff; --pt-footer-bg:#000; --pt-footer-border:1px solid #27272a; }
         .t-survival .rank-1 td:first-child { background:#ea580c; color:#fff !important; } .t-survival .rank-2 td:first-child { background:#94a3b8; color:#fff !important; } .t-survival .rank-3 td:first-child { background:#b45309; color:#fff !important; }
         .t-worldcup { --pt-bg:#fff; --pt-border-size:1px; --pt-border-color:#e5e7eb; --pt-radius:8px; --pt-text-color:#111827; --pt-header-bg:#f3f4f6; --pt-header-border-bottom:3px solid #db2777; --pt-title-color:#111827; --pt-sub-color:#db2777; --pt-th-bg:#f9fafb; --pt-th-color:#111827; --pt-th-border:1px solid #e5e7eb; --pt-td-bg:#fff; --pt-td-border:1px solid #e5e7eb; --pt-rank-color:#111827; --pt-rank-bg:#f3f4f6; --pt-team-color:#111827; --pt-stat-color:#374151; --pt-booyah-color:#db2777; --pt-total-bg:#db2777; --pt-total-color:#fff; --pt-footer-bg:#f9fafb; --pt-footer-border:1px solid #e5e7eb; }
@@ -194,8 +120,6 @@
         .t-glitch .rank-1 td { border:1px solid #06b6d4; box-shadow:inset 0 0 10px rgba(6,182,212,0.3); }
         .t-champion { --pt-bg:#f1f5f9; --pt-border-size:2px; --pt-border-color:#cbd5e1; --pt-header-bg:linear-gradient(90deg,#1e3a8a,#2563eb); --pt-title-color:#fff; --pt-sub-color:#bfdbfe; --pt-th-bg:#e2e8f0; --pt-th-color:#1e293b; --pt-th-border:1px solid #cbd5e1; --pt-td-bg:#fff; --pt-td-border:1px solid #cbd5e1; --pt-rank-color:#2563eb; --pt-team-color:#0f172a; --pt-stat-color:#475569; --pt-booyah-color:#ea580c; --pt-total-bg:#2563eb; --pt-total-color:#fff; --pt-footer-bg:#e2e8f0; --pt-footer-border:1px solid #cbd5e1; }
         .t-champion .rank-1 td { background:#eff6ff; border-left:4px solid #2563eb; }
-
-        /* THEMES 21 to 35 (NEW ADDITIONS) */
         .t-new1 { --pt-bg:linear-gradient(135deg,#071c2b,#092e43 55%,#031018); --pt-header-bg:#08283b; --pt-header-border-bottom:2px solid #155e75; --pt-title-color:#67e8f9; --pt-sub-color:#7dd3fc; --pt-th-bg:rgba(8,40,59,0.5); --pt-th-color:#67e8f9; --pt-td-bg:#0a2638; --pt-td-border:1px solid #155e75; --pt-rank-color:#22d3ee; --pt-rank-bg:#062033; --pt-team-color:#e0f2fe; --pt-stat-color:#e0f2fe; --pt-booyah-color:#67e8f9; --pt-total-bg:#075985; --pt-total-color:#cffafe; --pt-footer-bg:#041824; }
         .t-new2 { --pt-bg:linear-gradient(125deg,#24110a,#5b250e 45%,#17100a); --pt-header-bg:linear-gradient(90deg,#7c2d12,#451a03); --pt-header-border-bottom:2px solid #a16207; --pt-title-color:#fef3c7; --pt-sub-color:#fdba74; --pt-th-bg:rgba(124,45,18,0.3); --pt-th-color:#fde68a; --pt-td-bg:#3a1b0e; --pt-td-border:1px solid #92400e; --pt-rank-color:#fbbf24; --pt-rank-bg:#2b1408; --pt-team-color:#ffedd5; --pt-stat-color:#ffedd5; --pt-booyah-color:#fde68a; --pt-total-bg:#b45309; --pt-total-color:#fff7ed; --pt-footer-bg:#1c0c04; }
         .t-new3 { --pt-bg:linear-gradient(145deg,#111827,#312e81 55%,#171044); --pt-header-bg:linear-gradient(90deg,#312e81,#4c1d95); --pt-header-border-bottom:2px solid #7c3aed; --pt-title-color:#ddd6fe; --pt-sub-color:#c4b5fd; --pt-th-bg:rgba(49,46,129,0.4); --pt-th-color:#e9d5ff; --pt-td-bg:#211d4b; --pt-td-border:1px solid #5b21b6; --pt-rank-color:#c084fc; --pt-rank-bg:#181338; --pt-team-color:#f5f3ff; --pt-stat-color:#f5f3ff; --pt-booyah-color:#e9d5ff; --pt-total-bg:#7e22ce; --pt-total-color:#f5d0fe; --pt-footer-bg:#10091f; }
@@ -442,7 +366,7 @@
                 </button>
             </div>
 
-            <!-- 5. Final Table View -->
+            <!-- 5. Final Table View (35 PRO ESPORTS DESIGNS) -->
             <div id="finalTableView" class="view-section max-w-7xl mx-auto">
                 <div class="flex flex-col justify-between items-start mb-6 gap-4">
                     <div class="flex justify-between w-full items-center">
@@ -515,13 +439,13 @@
                             <table class="pt-table">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>TEAM</th>
-                                        <th>M</th>
-                                        <th>WWCD</th>
-                                        <th>P.PTS</th>
-                                        <th>ELIMS</th>
-                                        <th>TOTAL</th>
+                                        <th class="w-12 text-center">#</th>
+                                        <th class="text-left">TEAM</th>
+                                        <th class="w-12 text-center">M</th>
+                                        <th class="w-16 text-center">WWCD</th>
+                                        <th class="w-16 text-center">P.PTS</th>
+                                        <th class="w-16 text-center">ELIMS</th>
+                                        <th class="w-24 text-center">TOTAL</th>
                                     </tr>
                                 </thead>
                                 <tbody id="finalTbody">
@@ -571,7 +495,7 @@
         const app = initializeApp(envConfig); const auth = getAuth(app); const db = getFirestore(app);
         
         let userId = null; let unsubLive = null;
-        const state = { tournaments: [], matches: [], activeTId: null, activeMId: null, editingTId: null, timerInterval: null, timerSeconds: 0, saveTimeout: null };
+        const state = { tournaments: [], matches: [], activeTId: null, overlayTId: null, activeMId: null, editingTId: null, timerInterval: null, timerSeconds: 0, saveTimeout: null };
         const DEFAULT_POINTS = [12, 9, 7, 7, 6, 5, 4, 3, 2, 1, 0, 0];
 
         // --- ImgBB API Upload Function ---
@@ -683,15 +607,48 @@
 
         window.resetSetupForm = () => { state.editingTId=null; document.getElementById('setupForm').reset(); document.getElementById('setupFormTitle').innerText="CREATE NEW TOURNAMENT"; document.getElementById('setupSaveBtn').innerHTML='SAVE TOURNAMENT'; document.getElementById('setupCancelBtn').classList.add('hidden'); window.renderSetupForm(); };
 
+        // --- NEW: TOGGLE OVERLAY FOCUS ---
+        window.toggleOverlay = async (tId) => {
+            const newTId = (state.overlayTId === tId) ? null : tId;
+            await setDoc(doc(db,'artifacts',appId,'users',userId,'settings','overlay'), { activeTId: newTId }, { merge: true });
+            state.overlayTId = newTId;
+            window.loadTournaments();
+            window.showToast(newTId ? "Overlay Live: ON" : "Overlay Live: OFF");
+        };
+
         window.loadTournaments = async () => {
             if(!userId) return;
+            
+            // Fetch Overlay Settings
+            const settingsDoc = await getDocs(collection(db,'artifacts',appId,'users',userId,'settings'));
+            settingsDoc.forEach(d => {
+                if (d.id === 'overlay') state.overlayTId = d.data().activeTId;
+            });
+
             const snap=await getDocs(collection(db,'artifacts',appId,'users',userId,'tournaments')); state.tournaments=[]; snap.forEach(d=>state.tournaments.push({id:d.id,...d.data()})); state.tournaments.sort((a,b)=>b.createdAt-a.createdAt);
             const list=document.getElementById('tourList'); list.innerHTML='';
             if(state.tournaments.length===0) list.innerHTML='<p class="text-slate-500 text-center p-8 bg-slate-900/50 rounded-xl border border-slate-700">No tournaments created yet.</p>';
+            
             state.tournaments.forEach(t=>{
-                list.innerHTML+=`<div class="glass-panel p-5 rounded-xl flex flex-col md:flex-row justify-between items-center gap-4 hover:border-esports-primary transition"><div><h3 class="text-2xl font-bold esports-font text-white drop-shadow-md">${t.name}</h3><p class="text-xs text-slate-400 mt-2 font-mono bg-slate-900/80 inline-block px-2 py-1 rounded">${t.date} | ${t.time}</p></div><div class="flex gap-2 w-full md:w-auto"><button onclick="window.openTournament('${t.id}')" class="flex-1 md:flex-none btn-primary text-white px-4 py-2 rounded-lg text-sm font-bold">Manage</button><button onclick="window.editTournament('${t.id}')" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg transition"><i class="fa-solid fa-pen"></i></button><button onclick="window.deleteTournament('${t.id}')" class="bg-red-900/80 hover:bg-red-700 text-white px-4 py-2 rounded-lg border border-red-800 transition"><i class="fa-solid fa-trash"></i></button></div></div>`;
+                const isOverlayOn = state.overlayTId === t.id;
+                
+                list.innerHTML+=`<div class="glass-panel p-5 rounded-xl flex flex-col md:flex-row justify-between items-center gap-4 hover:border-esports-primary transition">
+                    <div>
+                        <h3 class="text-2xl font-bold esports-font text-white drop-shadow-md">${t.name}</h3>
+                        <p class="text-xs text-slate-400 mt-2 font-mono bg-slate-900/80 inline-block px-2 py-1 rounded">${t.date} | ${t.time}</p>
+                    </div>
+                    <div class="flex gap-2 w-full md:w-auto">
+                        <button onclick="window.toggleOverlay('${t.id}')" class="${isOverlayOn ? 'bg-green-600 border border-green-500 text-white shadow-[0_0_15px_rgba(34,197,94,0.5)]' : 'bg-slate-700 border border-slate-600 text-slate-300 hover:text-white'} px-4 py-2 rounded-lg text-xs font-bold transition flex items-center justify-center">
+                            <i class="fa-solid fa-tv mr-2"></i> ${isOverlayOn ? 'ON LIVE' : 'SHOW OBS'}
+                        </button>
+                        <button onclick="window.openTournament('${t.id}')" class="flex-1 md:flex-none btn-primary text-white px-4 py-2 rounded-lg text-sm font-bold">Manage</button>
+                        <button onclick="window.editTournament('${t.id}')" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg transition"><i class="fa-solid fa-pen"></i></button>
+                        <button onclick="window.deleteTournament('${t.id}')" class="bg-red-900/80 hover:bg-red-700 text-white px-4 py-2 rounded-lg border border-red-800 transition"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>`;
             });
         };
+
         window.deleteTournament = async (tId) => { if(confirm("Delete?")){ await deleteDoc(doc(db,'artifacts',appId,'users',userId,'tournaments',tId)); window.showToast("Deleted"); if(state.activeTId===tId) state.activeTId=null; window.loadTournaments(); } };
 
         window.openTournament = (tId) => { state.activeTId=tId; const t=state.tournaments.find(x=>x.id===tId); if(t) document.getElementById('matchListTourName').innerText=t.name.toUpperCase(); window.loadMatches(); window.switchView('matchListView'); };
@@ -723,9 +680,6 @@
             
             window.buildLiveTable(); 
             window.switchView('liveDashboardView');
-            
-            // Broadcast live focus to Overlay
-            setDoc(doc(db,'artifacts',appId,'users',userId,'settings','live_focus'), { activeTId: state.activeTId }, { merge: true });
 
             if(unsubLive) unsubLive();
             unsubLive = onSnapshot(doc(db,'artifacts',appId,'users',userId,'matches',mId), (snap)=>{
@@ -764,6 +718,7 @@
                 const s=(m&&m.teamStats&&m.teamStats[i])?m.teamStats[i]:{sl:i+1,elims:0,pos:''}; 
                 const tName=(t&&t.teams&&t.teams[i])?t.teams[i]:`Team ${i+1}`;
                 
+                // Live table display for logo
                 let tLogo = (t && t.logos && t.logos[i]) ? `<img src="${t.logos[i]}" class="team-logo w-6 h-6 object-contain rounded bg-slate-900 border border-slate-600 flex-shrink-0">` : '';
                 
                 // Add to Special Selectors (Using Tournament Data to Sync Everywhere)
