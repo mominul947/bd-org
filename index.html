@@ -51,11 +51,11 @@
         
         /* Champion Rush Highlight CSS */
         .rush-highlight td {
-            background-color: rgba(245, 158, 11, 0.25) !important;
+            background-color: rgba(245, 158, 11, 0.3) !important;
             border-top: 1px solid #f59e0b !important;
             border-bottom: 1px solid #f59e0b !important;
         }
-        .rush-highlight .pt-team-col {
+        .rush-highlight .team-name-text {
             color: #fcd34d !important;
             text-shadow: 0 0 10px rgba(245, 158, 11, 0.8) !important;
         }
@@ -85,7 +85,7 @@
         
         .pt-table-wrap { padding: 20px 25px; }
         
-        /* TABLE ALIGNMENT FIX */
+        /* TABLE ALIGNMENT FIX (Black gap fix for html2canvas) */
         .pt-table { 
             width: 100%; 
             border-collapse: collapse !important; 
@@ -93,6 +93,7 @@
             table-layout: fixed; 
         }
         
+        /* STRICT COLUMN SIZING */
         .pt-table th:nth-child(1), .pt-table td:nth-child(1) { width: 8%; }  
         .pt-table th:nth-child(2), .pt-table td:nth-child(2) { width: 44%; text-align: left; padding-left: 15px !important; } 
         .pt-table th:nth-child(3), .pt-table td:nth-child(3) { width: 8%; }  
@@ -112,13 +113,36 @@
             transition: 0.3s; vertical-align: middle; padding: 10px 5px; height: 45px;
         }
 
-        .pt-rank-col { font-family: 'Rajdhani', sans-serif; font-size: var(--pt-rank-size, 1.5rem); font-weight: 700; color: var(--pt-rank-color) !important; background: var(--pt-rank-bg, transparent); }
+        .pt-rank-col { font-family: 'Rajdhani', sans-serif; font-size: var(--pt-rank-size, 1.5rem); font-weight: 700; color: var(--pt-rank-color) !important; background: var(--pt-rank-bg, transparent); border-right: 2px solid rgba(255, 255, 255, 0.1); }
         
         .pt-team-col { 
-            font-weight: 800; font-size: var(--pt-team-size, 1.15rem); letter-spacing: 0.5px; 
+            vertical-align: middle;
             color: var(--pt-team-color) !important; 
-            display: flex; align-items: center; justify-content: flex-start; gap: 8px;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; vertical-align: middle; height: 100%;
+        }
+
+        /* LOGO & NAME WRAPPER (Prevents black gap bug) */
+        .team-wrapper {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            max-width: 100%;
+        }
+        .team-logo {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            border-radius: 4px;
+            background-color: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.2);
+            flex-shrink: 0;
+        }
+        .team-name-text {
+            font-weight: 800; 
+            font-size: var(--pt-team-size, 1.2rem); 
+            letter-spacing: 0.5px; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis;
         }
         
         .pt-stat-col { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: var(--pt-stat-size, 1.3rem); color: var(--pt-stat-color); }
@@ -253,7 +277,7 @@
             <div class="p-3 md:p-4 border-t border-slate-700/50 flex flex-col gap-3 bg-slate-900/30">
                 <div class="text-center hidden md:block">
                     <div id="authStatus" class="text-xs text-green-500 mb-1"><i class="fa-solid fa-cloud"></i> Connected</div>
-                    <p class="text-[10px] text-slate-500">System Logo Enabled • WP: 01303482412</p>
+                    <p class="text-[10px] text-slate-500">System v6.3 (Final Fix) • WP: 01303482412</p>
                 </div>
                 <button onclick="window.handleLogout()" class="w-full bg-red-900/40 hover:bg-red-700 border border-red-800 text-red-200 hover:text-white text-xs font-bold py-2 px-4 rounded-lg transition flex items-center justify-center whitespace-nowrap">
                     <i class="fa-solid fa-power-off mr-2"></i> <span class="hidden md:inline">Logout</span>
@@ -718,6 +742,7 @@
             const t = state.tournaments.find(x=>x.id===state.activeTId); 
             const m = state.matches.find(x=>x.id===state.activeMId);
             
+            // Build Special Options from GLOBAL Tournament Data
             const champSelect = document.getElementById('championTeamSelect');
             const rushDiv = document.getElementById('championRushCheckboxes');
             
@@ -731,8 +756,10 @@
                 const s=(m&&m.teamStats&&m.teamStats[i])?m.teamStats[i]:{sl:i+1,elims:0,pos:''}; 
                 const tName=(t&&t.teams&&t.teams[i])?t.teams[i]:`Team ${i+1}`;
                 
-                let tLogo = (t && t.logos && t.logos[i]) ? `<img src="${t.logos[i]}" class="w-6 h-6 object-contain rounded bg-slate-900 border border-slate-600">` : '';
+                // Live table display for logo
+                let tLogo = (t && t.logos && t.logos[i]) ? `<img src="${t.logos[i]}" class="w-6 h-6 object-contain rounded bg-slate-900 border border-slate-600 flex-shrink-0">` : '';
                 
+                // Add to Special Selectors (Using Tournament Data to Sync Everywhere)
                 if(champSelect && rushDiv) {
                     let isChampSel = (t && t.championTeam === i.toString()) ? "selected" : "";
                     champSelect.innerHTML += `<option value="${i}" ${isChampSel}>${tName}</option>`;
@@ -746,7 +773,7 @@
                     `;
                 }
 
-                tbody.innerHTML+=`<tr id="live_row_${i}" class="border-b border-slate-800 hover:bg-slate-800/30"><td class="p-2"><input type="number" id="live_sl_${i}" value="${s.sl}" class="w-14 bg-slate-900 border border-slate-600 rounded p-1.5 text-center text-white text-sm font-bold outline-none focus:border-blue-500" oninput="window.sortLiveTable(); window.forceSaveLiveStats()"></td><td class="text-left font-bold text-white uppercase text-sm"><div class="flex items-center gap-2">${tLogo} <span>${tName}</span></div></td><td><input type="number" id="live_elim_${i}" value="${s.elims}" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-blue-500" oninput="window.calcLiveRow(${i}); window.forceSaveLiveStats()"></td><td><input type="number" id="live_pos_${i}" value="${s.pos}" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-blue-500" oninput="window.calcLiveRow(${i}); window.forceSaveLiveStats()"></td><td id="live_pts_${i}" class="text-slate-400 font-mono font-bold">0</td><td id="live_tot_${i}" class="text-blue-400 font-bold text-xl drop-shadow">0</td><td id="live_stat_${i}"></td></tr>`;
+                tbody.innerHTML+=`<tr id="live_row_${i}" class="border-b border-slate-800 hover:bg-slate-800/30"><td class="p-2"><input type="number" id="live_sl_${i}" value="${s.sl}" class="w-14 bg-slate-900 border border-slate-600 rounded p-1.5 text-center text-white text-sm font-bold outline-none focus:border-blue-500" oninput="window.sortLiveTable(); window.forceSaveLiveStats()"></td><td class="text-left font-bold text-white uppercase text-sm"><div class="flex items-center justify-start gap-2 h-full">${tLogo} <span class="truncate">${tName}</span></div></td><td><input type="number" id="live_elim_${i}" value="${s.elims}" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-blue-500" oninput="window.calcLiveRow(${i}); window.forceSaveLiveStats()"></td><td><input type="number" id="live_pos_${i}" value="${s.pos}" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-blue-500" oninput="window.calcLiveRow(${i}); window.forceSaveLiveStats()"></td><td id="live_pts_${i}" class="text-slate-400 font-mono font-bold">0</td><td id="live_tot_${i}" class="text-blue-400 font-bold text-xl drop-shadow">0</td><td id="live_stat_${i}"></td></tr>`;
                 window.calcLiveRow(i);
             }
             window.sortLiveTable();
@@ -765,23 +792,27 @@
             document.getElementById(`live_stat_${i}`).innerHTML=pos===1?'<span class="bg-gradient-to-r from-yellow-500 to-amber-600 text-black px-2 py-1 rounded text-[10px] font-bold shadow-md">BOOYAH</span>':'';
         };
 
+        // --- THE INSTANT SAVE SYSTEM & GLOBAL SYNC ---
         window.forceSaveLiveStats = async () => {
             if(!state.activeMId || !state.activeTId) return;
             
             const champTeam = document.getElementById('championTeamSelect') ? document.getElementById('championTeamSelect').value : "";
             const rushTms = Array.from(document.querySelectorAll('.rush-cb:checked')).map(cb => cb.value);
 
+            // 1. Sync Globally to Tournament Document
             await updateDoc(doc(db,'artifacts',appId,'users',userId,'tournaments',state.activeTId), {
                 championTeam: champTeam,
                 championRushTeams: rushTms
             });
 
+            // Update Local State so UI knows it instantly without re-fetching
             const t = state.tournaments.find(x => x.id === state.activeTId);
             if(t) {
                 t.championTeam = champTeam;
                 t.championRushTeams = rushTms;
             }
 
+            // 2. Save Live Match Stats
             const data = {
                 aliveTeams: document.getElementById('liveAliveTeams').value,
                 aliveEnemies: document.getElementById('liveAliveEnemies').value,
@@ -799,6 +830,7 @@
             await updateDoc(doc(db,'artifacts',appId,'users',userId,'matches',state.activeMId), data);
         };
 
+        // Added wrapper to keep old debounce references safe
         window.autoSaveMatchDebounced = () => { window.forceSaveLiveStats(); };
 
         window.finalizeMatch = async () => { await window.forceSaveLiveStats(); await updateDoc(doc(db,'artifacts',appId,'users',userId,'matches',state.activeMId),{status:'completed'}); window.showToast("Saved!"); if(unsubLive) unsubLive(); window.loadMatches(); window.switchView('matchListView'); };
@@ -833,6 +865,7 @@
             const t = state.tournaments.find(x => x.id === state.activeTId);
             document.getElementById('ptTourName').innerText = t.name.toUpperCase();
             
+            // Global Synchronized Highlights (Directly from Tournament Data)
             let currentChamp = t.championTeam || "";
             let currentRush = t.championRushTeams || [];
 
@@ -860,17 +893,20 @@
             results.forEach((team, idx) => {
                 let rowClass = idx===0?"rank-1":idx===1?"rank-2":idx===2?"rank-3":"";
                 
+                // Highlight Logic Check
                 let isChampion = (team.teamIdx.toString() === currentChamp.toString());
                 let isRush = currentRush.includes(team.teamIdx.toString());
 
-                if (isRush) rowClass += " rush-highlight"; 
+                if (isRush) rowClass += " rush-highlight"; // Attach globally synced highlight
 
-                let logoHtml = team.logo ? `<img src="${team.logo}" style="width: 26px; height: 26px; object-fit: contain; border-radius: 4px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); flex-shrink: 0;">` : '';
-                
-                let displayTeamName = `${logoHtml} <span class="truncate">${team.name}</span>`;
+                let logoHtml = team.logo ? `<img src="${team.logo}" class="team-logo">` : '';
+
+                // Safely wrapping logo and text for HTML2Canvas
+                let displayTeamName = `<div class="team-wrapper">${logoHtml} <span class="team-name-text">${team.name}</span>`;
                 if (isChampion) {
-                    displayTeamName += ` <i class="fa-solid fa-crown text-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.9)] text-[1.2rem]" title="Champion"></i>`;
+                    displayTeamName += ` <i class="fa-solid fa-crown text-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.9)] ml-2 text-[1rem]" title="Champion"></i>`;
                 }
+                displayTeamName += `</div>`;
 
                 tbody.innerHTML += `
                     <tr class="${rowClass}">
@@ -900,6 +936,7 @@
             }).catch(e => { el.style.width = origWidth || 'auto'; btn.innerHTML = 'Failed'; });
         };
 
+        // App Boot
         async function initApp() {
             window.renderSetupForm(); 
             onAuthStateChanged(auth, async (user) => {
