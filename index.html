@@ -55,7 +55,7 @@
             border-top: 1px solid #f59e0b !important;
             border-bottom: 1px solid #f59e0b !important;
         }
-        .rush-highlight .team-name-text {
+        .rush-highlight .pt-team-col {
             color: #fcd34d !important;
             text-shadow: 0 0 10px rgba(245, 158, 11, 0.8) !important;
         }
@@ -85,22 +85,21 @@
         
         .pt-table-wrap { padding: 20px 25px; }
         
-        /* TABLE ALIGNMENT FIX (A to Z Core Fix) */
+        /* TABLE ALIGNMENT FIX */
         .pt-table { 
             width: 100%; 
             border-collapse: collapse !important; 
             border-spacing: 0 !important; 
-            table-layout: fixed; /* STRICT COLUMN WIDTHS */
+            table-layout: fixed; 
         }
         
-        /* STRICT COLUMN SIZING */
-        .pt-table th:nth-child(1), .pt-table td:nth-child(1) { width: 8%; }  /* Rank */
-        .pt-table th:nth-child(2), .pt-table td:nth-child(2) { width: 44%; text-align: left; padding-left: 15px !important; } /* Team */
-        .pt-table th:nth-child(3), .pt-table td:nth-child(3) { width: 8%; }  /* M */
-        .pt-table th:nth-child(4), .pt-table td:nth-child(4) { width: 10%; } /* WWCD */
-        .pt-table th:nth-child(5), .pt-table td:nth-child(5) { width: 10%; } /* P.PTS */
-        .pt-table th:nth-child(6), .pt-table td:nth-child(6) { width: 10%; } /* ELIMS */
-        .pt-table th:nth-child(7), .pt-table td:nth-child(7) { width: 10%; } /* TOTAL */
+        .pt-table th:nth-child(1), .pt-table td:nth-child(1) { width: 8%; }  
+        .pt-table th:nth-child(2), .pt-table td:nth-child(2) { width: 44%; text-align: left; padding-left: 15px !important; } 
+        .pt-table th:nth-child(3), .pt-table td:nth-child(3) { width: 8%; }  
+        .pt-table th:nth-child(4), .pt-table td:nth-child(4) { width: 10%; } 
+        .pt-table th:nth-child(5), .pt-table td:nth-child(5) { width: 10%; } 
+        .pt-table th:nth-child(6), .pt-table td:nth-child(6) { width: 10%; } 
+        .pt-table th:nth-child(7), .pt-table td:nth-child(7) { width: 10%; } 
 
         .pt-table th { 
             font-size: var(--pt-th-size, 0.95rem); color: var(--pt-th-color); background: var(--pt-th-bg, transparent); 
@@ -110,39 +109,16 @@
         .pt-table td { 
             font-size: 1.1rem; text-align: center; background: var(--pt-td-bg, transparent); 
             border-bottom: var(--pt-td-border, none); border-top: var(--pt-td-border-top, none); 
-            transition: 0.3s; vertical-align: middle; padding: 8px 5px; height: 45px;
+            transition: 0.3s; vertical-align: middle; padding: 10px 5px; height: 45px;
         }
 
-        .pt-rank-col { font-family: 'Rajdhani', sans-serif; font-size: var(--pt-rank-size, 1.5rem); font-weight: 700; color: var(--pt-rank-color) !important; background: var(--pt-rank-bg, transparent); border-right: 2px solid rgba(255, 255, 255, 0.1); }
+        .pt-rank-col { font-family: 'Rajdhani', sans-serif; font-size: var(--pt-rank-size, 1.5rem); font-weight: 700; color: var(--pt-rank-color) !important; background: var(--pt-rank-bg, transparent); }
         
         .pt-team-col { 
-            vertical-align: middle;
+            font-weight: 800; font-size: var(--pt-team-size, 1.15rem); letter-spacing: 0.5px; 
             color: var(--pt-team-color) !important; 
-        }
-
-        /* LOGO & NAME WRAPPER (Prevents black gap bug) */
-        .team-wrapper {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            max-width: 100%;
-        }
-        .team-logo {
-            width: 26px;
-            height: 26px;
-            object-fit: contain;
-            border-radius: 4px;
-            background-color: rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.2);
-            flex-shrink: 0;
-        }
-        .team-name-text {
-            font-weight: 800; 
-            font-size: var(--pt-team-size, 1.25rem); 
-            letter-spacing: 0.5px; 
-            white-space: nowrap; 
-            overflow: hidden; 
-            text-overflow: ellipsis;
+            display: flex; align-items: center; justify-content: flex-start; gap: 8px;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; vertical-align: middle; height: 100%;
         }
         
         .pt-stat-col { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: var(--pt-stat-size, 1.3rem); color: var(--pt-stat-color); }
@@ -220,38 +196,338 @@
 </head>
 <body>
 
-    <!-- Point Table Container -->
-    <div id="exportTableArea" class="sidebar-container">
-        <div class="pt-header">
-            <h2 class="pt-header-title" id="ptTourName">Loading...</h2>
-            <span class="text-white font-bold text-[11px] bg-red-600 px-2.5 py-1 rounded shadow-[0_0_8px_red]">LIVE</span>
-        </div>
-        
-        <div>
-            <table class="pt-table">
-                <thead>
-                    <tr>
-                        <th class="col-rank">#</th>
-                        <th class="col-team">TEAM</th>
-                        <th class="col-m">M</th>
-                        <th class="col-w">WWCD</th>
-                        <th class="col-p">PTS</th>
-                        <th class="col-k">KILL</th>
-                        <th class="col-t">TOTAL</th>
-                    </tr>
-                </thead>
-                <tbody id="finalTbody">
-                    <tr><td colspan="7" class="text-center p-4 text-slate-400">Connecting...</td></tr>
-                </tbody>
-            </table>
+    <!-- LOGIN SCREEN -->
+    <div id="loginView" class="min-h-screen bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] flex items-center justify-center p-4 relative">
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-blue-600 rounded-full blur-[100px] opacity-20"></div>
+        <div class="glass-panel p-8 md:p-10 rounded-2xl w-full max-w-md relative z-10 overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 to-esports-accent shadow-[0_0_15px_#3B82F6]"></div>
+            <div class="text-center mb-8">
+                <h1 class="text-3xl md:text-4xl text-white font-bold tracking-wider esports-font drop-shadow-[0_0_8px_rgba(59,130,246,0.8)] mb-2">BD ORG <span class="text-esports-accent">ESP</span></h1>
+                <p class="text-xs text-blue-400 uppercase tracking-widest font-bold">Admin Portal Login</p>
+            </div>
+            <form id="loginForm" onsubmit="event.preventDefault(); window.handleLogin();">
+                <div class="mb-5">
+                    <label class="block text-xs text-slate-400 mb-1 uppercase font-bold tracking-wider"><i class="fa-solid fa-envelope mr-1"></i> Email</label>
+                    <input type="email" id="loginEmail" class="w-full p-3 rounded-lg neon-input text-sm" placeholder="admin@example.com" required>
+                </div>
+                <div class="mb-8">
+                    <label class="block text-xs text-slate-400 mb-1 uppercase font-bold tracking-wider"><i class="fa-solid fa-lock mr-1"></i> Password</label>
+                    <input type="password" id="loginPassword" class="w-full p-3 rounded-lg neon-input text-sm" placeholder="••••••••" required>
+                </div>
+                <button type="submit" id="loginBtn" class="w-full btn-primary text-white font-bold py-3.5 rounded-lg text-lg esports-font tracking-wider">
+                    LOGIN TO DASHBOARD <i class="fa-solid fa-arrow-right-to-bracket ml-2"></i>
+                </button>
+            </form>
         </div>
     </div>
 
-    <!-- Firebase Script -->
+    <!-- MAIN APP CONTAINER -->
+    <div id="appContainer" class="hidden flex-col md:flex-row h-screen">
+
+        <!-- Sidebar -->
+        <nav class="bg-esports-card w-full md:w-64 flex-shrink-0 border-b md:border-b-0 md:border-r border-slate-700/50 flex flex-col z-50 shadow-2xl">
+            <div class="p-4 md:p-6 text-center border-b border-slate-700/50 bg-slate-900/50">
+                <h1 class="text-2xl md:text-3xl text-white font-bold tracking-wider esports-font drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]">BD ORG <span class="text-esports-accent">ESP</span></h1>
+                <p class="text-[10px] md:text-xs text-blue-400 mt-1 uppercase tracking-widest font-bold">Admin Portal</p>
+            </div>
+            
+            <div class="flex-grow flex flex-row md:flex-col p-3 gap-2 overflow-x-auto md:overflow-x-visible md:overflow-y-auto hide-scrollbar">
+                <button onclick="window.switchView('setupView')" class="nav-btn w-auto md:w-full text-left px-4 py-3 rounded-lg bg-slate-800 text-slate-300 text-sm md:text-base font-semibold whitespace-nowrap active-nav" id="btn-setupView">
+                    <i class="fa-solid fa-square-plus md:mr-2"></i> <span class="hidden md:inline">1. Create Setup</span>
+                </button>
+                <button onclick="window.switchView('historyView')" class="nav-btn w-auto md:w-full text-left px-4 py-3 rounded-lg bg-slate-800 text-slate-300 text-sm md:text-base font-semibold whitespace-nowrap" id="btn-historyView">
+                    <i class="fa-solid fa-clock-rotate-left md:mr-2"></i> <span class="hidden md:inline">2. Tournaments</span>
+                </button>
+                
+                <div id="tournamentContextNav" class="hidden md:block flex-row md:flex-col gap-2 mt-0 md:mt-4 md:pt-4 md:border-t border-slate-700/50">
+                    <p class="hidden md:block text-xs text-esports-primary mb-2 px-2 uppercase font-bold tracking-wider" id="navActiveTName">Current</p>
+                    <button onclick="window.switchView('matchListView')" class="nav-btn w-auto md:w-full text-left px-4 py-3 md:py-2 rounded-lg bg-slate-800/80 text-white text-sm whitespace-nowrap" id="btn-matchListView">
+                        <i class="fa-solid fa-list text-esports-primary md:mr-2"></i> <span class="hidden md:inline">3. Match List</span>
+                    </button>
+                    <button onclick="window.generateFinalTable()" class="nav-btn w-auto md:w-full text-left px-4 py-3 md:py-2 rounded-lg bg-slate-800/80 text-white text-sm whitespace-nowrap" id="btn-finalTableView">
+                        <i class="fa-solid fa-trophy text-esports-accent md:mr-2"></i> <span class="hidden md:inline">4. Final Table</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="p-3 md:p-4 border-t border-slate-700/50 flex flex-col gap-3 bg-slate-900/30">
+                <div class="text-center hidden md:block">
+                    <div id="authStatus" class="text-xs text-green-500 mb-1"><i class="fa-solid fa-cloud"></i> Connected</div>
+                    <p class="text-[10px] text-slate-500">System Logo Enabled • WP: 01303482412</p>
+                </div>
+                <button onclick="window.handleLogout()" class="w-full bg-red-900/40 hover:bg-red-700 border border-red-800 text-red-200 hover:text-white text-xs font-bold py-2 px-4 rounded-lg transition flex items-center justify-center whitespace-nowrap">
+                    <i class="fa-solid fa-power-off mr-2"></i> <span class="hidden md:inline">Logout</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-grow p-4 md:p-8 overflow-y-auto w-full relative bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
+            
+            <!-- 1. Setup View -->
+            <div id="setupView" class="view-section max-w-5xl mx-auto">
+                <div class="glass-panel p-5 md:p-8 rounded-xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-esports-primary shadow-[0_0_15px_#3B82F6]"></div>
+                    <h2 class="text-2xl md:text-3xl text-white pl-4 mb-6 esports-font tracking-wider" id="setupFormTitle">CREATE NEW TOURNAMENT</h2>
+                    
+                    <form id="setupForm" onsubmit="event.preventDefault(); window.saveTournament();">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1 uppercase font-bold tracking-wider">Tournament Name</label>
+                                <input type="text" id="tourName" class="w-full p-3 rounded-lg neon-input text-lg font-bold" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1 uppercase font-bold tracking-wider">Date</label>
+                                <input type="date" id="tourDate" class="w-full p-3 rounded-lg neon-input" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1 uppercase font-bold tracking-wider">Time</label>
+                                <input type="time" id="tourTime" class="w-full p-3 rounded-lg neon-input" required>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-900/50 p-4 rounded-lg mb-8 border border-slate-700/50">
+                            <h3 class="text-sm text-esports-primary mb-4 esports-font tracking-widest"><i class="fa-solid fa-crosshairs mr-2"></i>Point Distribution (Rank 1-12)</h3>
+                            <div class="grid grid-cols-6 md:grid-cols-12 gap-2" id="setupPoints"></div>
+                        </div>
+
+                        <div class="bg-slate-900/50 p-4 rounded-lg mb-8 border border-slate-700/50">
+                            <h3 class="text-sm text-esports-accent mb-4 esports-font tracking-widest"><i class="fa-solid fa-users mr-2"></i>Team Slots & Logos</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="setupTeams"></div>
+                        </div>
+
+                        <button type="submit" class="w-full btn-primary text-white font-bold py-4 rounded-lg text-lg esports-font tracking-wider" id="setupSaveBtn">
+                            <i class="fa-solid fa-save mr-2"></i> SAVE TOURNAMENT
+                        </button>
+                        <button type="button" id="setupCancelBtn" onclick="window.resetSetupForm()" class="hidden w-full mt-3 bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-lg transition border border-slate-600 text-sm">CANCEL EDIT</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 2. History View -->
+            <div id="historyView" class="view-section max-w-5xl mx-auto">
+                <h2 class="text-2xl md:text-3xl text-white border-l-4 border-esports-accent pl-4 mb-6 esports-font tracking-wider drop-shadow-md">TOURNAMENT HISTORY</h2>
+                <div id="tourList" class="grid gap-5"></div>
+            </div>
+
+            <!-- 3. Matches List View -->
+            <div id="matchListView" class="view-section max-w-5xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                    <div>
+                        <h2 class="text-2xl md:text-3xl text-white border-l-4 border-esports-primary pl-4 esports-font tracking-wider drop-shadow-md" id="matchListTourName">MATCHES</h2>
+                    </div>
+                    <button onclick="window.createMatch()" class="btn-accent font-bold px-5 py-3 rounded-lg w-full md:w-auto text-sm esports-font tracking-wider">
+                        <i class="fa-solid fa-plus mr-2"></i> ADD MATCH
+                    </button>
+                </div>
+                
+                <div class="glass-panel rounded-xl overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left min-w-[500px]">
+                            <thead class="bg-slate-900/80 border-b border-slate-700/50">
+                                <tr>
+                                    <th class="p-4 text-slate-300 text-xs font-bold uppercase">Match Info</th>
+                                    <th class="p-4 text-slate-300 text-xs font-bold uppercase">Status</th>
+                                    <th class="p-4 text-slate-300 text-xs font-bold uppercase text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="matchesListBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Live Dashboard -->
+            <div id="liveDashboardView" class="view-section max-w-6xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-6 bg-slate-900/50 p-4 rounded-xl border border-slate-700/50">
+                    <h2 class="text-2xl text-white esports-font tracking-wider mb-2 md:mb-0" id="liveMatchTitle">LIVE CONTROL</h2>
+                    <div class="text-green-400 text-xs font-bold bg-green-900/30 px-3 py-1 rounded-full border border-green-500/30"><i class="fa-solid fa-bolt text-yellow-500 mr-1"></i> INSTANT SYNC ACTIVE</div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 mb-4">
+                    <div class="glass-panel p-4 rounded-xl flex justify-between items-center relative overflow-hidden">
+                        <div class="absolute w-1 h-full bg-blue-500 left-0 top-0"></div>
+                        <div>
+                            <p class="text-slate-400 text-[10px] font-bold uppercase">Alive Teams</p>
+                            <input type="text" id="liveAliveTeams" class="w-20 bg-transparent text-2xl md:text-3xl font-bold text-white border-b border-slate-600 mt-1 outline-none focus:border-blue-500" oninput="window.forceSaveLiveStats()">
+                        </div>
+                    </div>
+                    <div class="glass-panel p-4 rounded-xl flex justify-between items-center relative overflow-hidden">
+                        <div class="absolute w-1 h-full bg-red-500 left-0 top-0"></div>
+                        <div>
+                            <p class="text-slate-400 text-[10px] font-bold uppercase">Alive Enemies</p>
+                            <input type="number" id="liveAliveEnemies" class="w-20 bg-transparent text-2xl md:text-3xl font-bold text-white border-b border-slate-600 mt-1 outline-none focus:border-red-500" oninput="window.forceSaveLiveStats()">
+                        </div>
+                    </div>
+                    <div class="glass-panel p-4 rounded-xl flex justify-between items-center col-span-2 md:col-span-1 relative overflow-hidden">
+                        <div class="absolute w-1 h-full bg-yellow-500 left-0 top-0"></div>
+                        <div>
+                            <p class="text-slate-400 text-[10px] font-bold uppercase">Match Timer</p>
+                            <div id="liveTimerDisplay" class="text-3xl font-bold text-esports-accent esports-font mt-1">00:00</div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="window.toggleTimer()" id="timerToggleBtn" class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center transition hover:bg-blue-500"><i class="fa-solid fa-play"></i></button>
+                            <button onclick="window.resetTimer()" class="bg-slate-700 text-white w-10 h-10 rounded-full flex items-center justify-center transition hover:bg-slate-600"><i class="fa-solid fa-rotate-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SPECIAL MATCH MODIFIERS -->
+                <div class="glass-panel p-4 rounded-xl mb-6 relative overflow-hidden">
+                    <div class="absolute w-1 h-full bg-purple-500 left-0 top-0"></div>
+                    <h3 class="text-sm text-purple-400 mb-3 esports-font tracking-widest pl-2"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i>GLOBAL HIGHLIGHTS & EFFECTS</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pl-2">
+                        <div>
+                            <label class="block text-[10px] text-slate-400 font-bold uppercase mb-2"><i class="fa-solid fa-crown text-yellow-500 mr-1"></i> Champion Team (Crown Logo)</label>
+                            <select id="championTeamSelect" class="w-full p-2.5 rounded bg-slate-900 border border-slate-700 text-white text-sm outline-none focus:border-purple-500 font-bold" onchange="window.forceSaveLiveStats()">
+                                <option value="">-- No Champion Selected --</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-slate-400 font-bold uppercase mb-2"><i class="fa-solid fa-fire text-orange-500 mr-1"></i> Champion Rush (Highlight Row)</label>
+                            <div id="championRushCheckboxes" class="grid grid-cols-2 md:grid-cols-3 gap-2 bg-slate-900/50 p-2 rounded-lg border border-slate-700 max-h-32 overflow-y-auto hide-scrollbar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-xl overflow-hidden mb-6">
+                    <div class="overflow-x-auto">
+                        <table class="w-full live-table min-w-[700px]">
+                            <thead>
+                                <tr>
+                                    <th class="w-16"># (SORT)</th>
+                                    <th class="text-left">TEAM NAME</th>
+                                    <th class="w-20">ELIMS</th>
+                                    <th class="w-20">RANK</th>
+                                    <th class="w-16">P.PTS</th>
+                                    <th class="w-20 text-esports-primary">TOTAL</th>
+                                    <th class="w-24">BOOYAH</th>
+                                </tr>
+                            </thead>
+                            <tbody id="liveTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <button onclick="window.finalizeMatch()" class="w-full bg-gradient-to-r from-green-600 to-emerald-500 text-white font-bold py-4 rounded-xl shadow-lg text-lg esports-font tracking-wider mb-4 transition hover:scale-[1.01]">
+                    <i class="fa-solid fa-flag-checkered mr-2"></i> FINALIZE & SAVE MATCH
+                </button>
+            </div>
+
+            <!-- 5. Final Table View -->
+            <div id="finalTableView" class="view-section max-w-7xl mx-auto">
+                <div class="flex flex-col justify-between items-start mb-6 gap-4">
+                    <div class="flex justify-between w-full items-center">
+                        <h2 class="text-2xl md:text-3xl text-white border-l-4 border-esports-accent pl-4 esports-font drop-shadow-md">STANDINGS</h2>
+                        <button id="dwnBtn" onclick="window.downloadTableImage()" class="btn-accent font-bold px-5 py-3 rounded-lg text-sm esports-font tracking-wider shadow-[0_0_15px_rgba(245,158,11,0.4)]">
+                            <i class="fa-solid fa-download mr-1"></i> EXPORT HD
+                        </button>
+                    </div>
+                    
+                    <div class="w-full bg-slate-900/80 p-3 rounded-lg border border-slate-700/50 shadow-lg overflow-x-auto hide-scrollbar">
+                        <div class="flex flex-col gap-2">
+                            <!-- 20 Classic Themes -->
+                            <div class="flex items-center gap-2 min-w-max">
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mr-2 sticky left-0 bg-slate-900/80 px-2 py-1"><i class="fa-solid fa-palette mr-1"></i> 20 Classic Themes:</span>
+                                <button onclick="window.setTheme('t-survival', this)" class="theme-select-btn px-3 py-1.5 bg-[#ea580c] text-white text-[10px] font-bold rounded ring-2 ring-white opacity-100 shadow-[0_0_10px_#ea580c]">1. Survival</button>
+                                <button onclick="window.setTheme('t-worldcup', this)" class="theme-select-btn px-3 py-1.5 bg-[#db2777] text-white text-[10px] font-bold rounded opacity-50 hover:opacity-100">2. WorldCup</button>
+                                <button onclick="window.setTheme('t-volcano', this)" class="theme-select-btn px-3 py-1.5 bg-[#8b5cf6] text-white text-[10px] font-bold rounded opacity-50 hover:opacity-100">3. Volcano</button>
+                                <button onclick="window.setTheme('t-luxray', this)" class="theme-select-btn px-3 py-1.5 bg-[#f97316] text-white text-[10px] font-bold rounded opacity-50 hover:opacity-100">4. Luxray</button>
+                                <button onclick="window.setTheme('t-tech', this)" class="theme-select-btn px-3 py-1.5 bg-[#1d4ed8] text-white text-[10px] font-bold rounded opacity-50 hover:opacity-100">5. Tech Blue</button>
+                                <button onclick="window.setTheme('t-matrix', this)" class="theme-select-btn px-3 py-1.5 bg-[#080c16] border border-blue-500 text-blue-400 text-[10px] font-bold rounded opacity-50 hover:opacity-100">6. Matrix</button>
+                                <button onclick="window.setTheme('t-cyber', this)" class="theme-select-btn px-3 py-1.5 bg-[#eab308] text-black text-[10px] font-bold rounded opacity-50 hover:opacity-100">7. Cyberpunk</button>
+                                <button onclick="window.setTheme('t-ice', this)" class="theme-select-btn px-3 py-1.5 bg-[#38bdf8] text-black text-[10px] font-bold rounded opacity-50 hover:opacity-100">8. Ice Wind</button>
+                                <button onclick="window.setTheme('t-blood', this)" class="theme-select-btn px-3 py-1.5 bg-[#dc2626] text-white text-[10px] font-bold rounded opacity-50 hover:opacity-100">9. BloodStrike</button>
+                                <button onclick="window.setTheme('t-gold', this)" class="theme-select-btn px-3 py-1.5 bg-[#d4af37] text-black text-[10px] font-bold rounded opacity-50 hover:opacity-100">10. GoldenEra</button>
+                                <button onclick="window.setTheme('t-toxic', this)" class="theme-select-btn px-3 py-1.5 bg-[#10b981] text-white text-[10px] font-bold rounded opacity-50 hover:opacity-100">11. ToxicBio</button>
+                                <button onclick="window.setTheme('t-desert', this)" class="theme-select-btn px-3 py-1.5 bg-[#854d0e] text-white text-[10px] font-bold rounded opacity-50 hover:opacity-100">12. DesertStorm</button>
+                                <button onclick="window.setTheme('t-galaxy', this)" class="theme-select-btn px-3 py-1.5 bg-[#d946ef] text-white text-[10px] font-bold rounded opacity-50 hover:opacity-100">13. Galaxy</button>
+                                <button onclick="window.setTheme('t-phantom', this)" class="theme-select-btn px-3 py-1.5 bg-[#2dd4bf] text-black text-[10px] font-bold rounded opacity-50 hover:opacity-100">14. Phantom</button>
+                                <button onclick="window.setTheme('t-royal', this)" class="theme-select-btn px-3 py-1.5 bg-[#1e3a8a] border border-yellow-500 text-yellow-400 text-[10px] font-bold rounded opacity-50 hover:opacity-100">15. Royal</button>
+                                <button onclick="window.setTheme('t-inferno', this)" class="theme-select-btn px-3 py-1.5 bg-[#991b1b] text-white text-[10px] font-bold rounded opacity-50 hover:opacity-100">16. Inferno</button>
+                                <button onclick="window.setTheme('t-stealth', this)" class="theme-select-btn px-3 py-1.5 bg-[#52525b] text-white text-[10px] font-bold rounded opacity-50 hover:opacity-100">17. Stealth</button>
+                                <button onclick="window.setTheme('t-sunset', this)" class="theme-select-btn px-3 py-1.5 bg-gradient-to-r from-pink-600 to-orange-500 text-white text-[10px] font-bold rounded opacity-50 hover:opacity-100">18. Sunset</button>
+                                <button onclick="window.setTheme('t-glitch', this)" class="theme-select-btn px-3 py-1.5 bg-black border border-cyan-500 text-cyan-400 text-[10px] font-bold rounded opacity-50 hover:opacity-100">19. Glitch</button>
+                                <button onclick="window.setTheme('t-champion', this)" class="theme-select-btn px-3 py-1.5 bg-[#e2e8f0] text-blue-700 text-[10px] font-bold rounded opacity-50 hover:opacity-100">20. Champion</button>
+                            </div>
+                            
+                            <!-- 15 New Premium Themes -->
+                            <div class="flex items-center gap-2 min-w-max">
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mr-2 sticky left-0 bg-slate-900/80 px-2 py-1"><i class="fa-solid fa-gem mr-1"></i> 15 New Pro Themes:</span>
+                                <button onclick="window.setTheme('t-new1', this)" class="theme-select-btn px-3 py-1.5 bg-[#08283b] text-[#67e8f9] border border-[#155e75] text-[10px] font-bold rounded opacity-50 hover:opacity-100">21. Aqua</button>
+                                <button onclick="window.setTheme('t-new2', this)" class="theme-select-btn px-3 py-1.5 bg-[#451a03] text-[#fef3c7] border border-[#a16207] text-[10px] font-bold rounded opacity-50 hover:opacity-100">22. Desert Titan</button>
+                                <button onclick="window.setTheme('t-new3', this)" class="theme-select-btn px-3 py-1.5 bg-[#312e81] text-[#ddd6fe] border border-[#7c3aed] text-[10px] font-bold rounded opacity-50 hover:opacity-100">23. Void</button>
+                                <button onclick="window.setTheme('t-new4', this)" class="theme-select-btn px-3 py-1.5 bg-[#064e3b] text-[#a7f3d0] border border-[#10b981] text-[10px] font-bold rounded opacity-50 hover:opacity-100">24. Emerald</button>
+                                <button onclick="window.setTheme('t-new5', this)" class="theme-select-btn px-3 py-1.5 bg-[#27272a] text-[#fff] border border-[#71717a] text-[10px] font-bold rounded opacity-50 hover:opacity-100">25. Chrome</button>
+                                <button onclick="window.setTheme('t-new6', this)" class="theme-select-btn px-3 py-1.5 bg-[#9d174d] text-[#fce7f3] border border-[#db2777] text-[10px] font-bold rounded opacity-50 hover:opacity-100">26. Phantom</button>
+                                <button onclick="window.setTheme('t-new7', this)" class="theme-select-btn px-3 py-1.5 bg-[#075985] text-[#e0f2fe] border border-[#38bdf8] text-[10px] font-bold rounded opacity-50 hover:opacity-100">27. Ocean</button>
+                                <button onclick="window.setTheme('t-new8', this)" class="theme-select-btn px-3 py-1.5 bg-[#4338ca] text-[#e0e7ff] border border-[#818cf8] text-[10px] font-bold rounded opacity-50 hover:opacity-100">28. Rift</button>
+                                <button onclick="window.setTheme('t-new9', this)" class="theme-select-btn px-3 py-1.5 bg-[#c2410c] text-[#ffedd5] border border-[#fb923c] text-[10px] font-bold rounded opacity-50 hover:opacity-100">29. Inferno</button>
+                                <button onclick="window.setTheme('t-new10', this)" class="theme-select-btn px-3 py-1.5 bg-[#0e7490] text-[#ccfbf1] border border-[#2dd4bf] text-[10px] font-bold rounded opacity-50 hover:opacity-100">30. Tidal</button>
+                                <button onclick="window.setTheme('t-new11', this)" class="theme-select-btn px-3 py-1.5 bg-[#713f12] text-[#fef3c7] border border-[#d97706] text-[10px] font-bold rounded opacity-50 hover:opacity-100">31. Bronze</button>
+                                <button onclick="window.setTheme('t-new12', this)" class="theme-select-btn px-3 py-1.5 bg-[#1e3a8a] text-[#dbeafe] border border-[#60a5fa] text-[10px] font-bold rounded opacity-50 hover:opacity-100">32. Nova</button>
+                                <button onclick="window.setTheme('t-new13', this)" class="theme-select-btn px-3 py-1.5 bg-[#86198f] text-[#fae8ff] border border-[#e879f9] text-[10px] font-bold rounded opacity-50 hover:opacity-100">33. Purple</button>
+                                <button onclick="window.setTheme('t-new14', this)" class="theme-select-btn px-3 py-1.5 bg-[#334155] text-[#f1f5f9] border border-[#94a3b8] text-[10px] font-bold rounded opacity-50 hover:opacity-100">34. Night</button>
+                                <button onclick="window.setTheme('t-new15', this)" class="theme-select-btn px-3 py-1.5 bg-[#be123c] text-[#fff1f2] border border-[#fb7185] text-[10px] font-bold rounded opacity-50 hover:opacity-100">35. Crimson</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto hide-scrollbar pb-10">
+                    <!-- Exportable Area -->
+                    <div id="exportTableArea" class="pt-container t-survival min-w-[750px] max-w-[1000px] mx-auto">
+                        <div class="pt-header">
+                            <h2 class="pt-header-title" id="ptMainTitle">OVERALL STANDINGS</h2>
+                            <p class="pt-header-sub" id="ptTourName">COMMUNITY CUP</p>
+                        </div>
+                        
+                        <div class="pt-table-wrap">
+                            <table class="pt-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>TEAM</th>
+                                        <th>M</th>
+                                        <th>WWCD</th>
+                                        <th>P.PTS</th>
+                                        <th>ELIMS</th>
+                                        <th>TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="finalTbody">
+                                    <!-- Generated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="pt-footer">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-brands fa-whatsapp text-green-500 text-xl"></i>
+                                <span style="font-family:'Rajdhani',sans-serif;font-size:1.2rem;">01303482412</span>
+                            </div>
+                            <div style="font-size:0.8rem;letter-spacing:1px;text-transform:uppercase;">
+                                ORGANIZED BY <strong style="font-size:1.1rem;margin-left:5px;">BD ORG</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Toast Component -->
+    <div id="toast" class="toast"><i class="fa-solid fa-circle-check mr-2"></i> <span id="toastMsg">Success!</span></div>
+
+    <!-- html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <!-- MAIN JAVASCRIPT -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, getDocs, onSnapshot, doc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDocs, collection, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const envConfig = {
             apiKey: "AIzaSyCghsS37q-hk21jJfR1_XBlzelMv85ocGc",
@@ -259,121 +535,386 @@
             projectId: "modhu-5e3e9",
             storageBucket: "modhu-5e3e9.firebasestorage.app",
             messagingSenderId: "1068529992737",
-            appId: "1:1068529992737:web:9b13c43eff8f7515e88f60"
+            appId: "1:1068529992737:web:9b13c43eff8f7515e88f60",
+            measurementId: "G-1MKDRB4P79"
         };
-        const app = initializeApp(envConfig); 
-        const auth = getAuth(app); 
-        const db = getFirestore(app);
         const appId = 'bd-org-esports';
+        const app = initializeApp(envConfig); const auth = getAuth(app); const db = getFirestore(app);
+        
+        let userId = null; let unsubLive = null;
+        const state = { tournaments: [], matches: [], activeTId: null, activeMId: null, editingTId: null, timerInterval: null, timerSeconds: 0, saveTimeout: null };
+        const DEFAULT_POINTS = [12, 9, 7, 7, 6, 5, 4, 3, 2, 1, 0, 0];
 
-        // OBS AUTO-LOGIN CREDENTIALS
-        const OBS_EMAIL = "mominul@gmail.com";
-        const OBS_PASSWORD = "mominul";
-
-        async function initOverlay() {
+        // --- ImgBB API Upload Function ---
+        window.uploadTeamLogo = async (input, idx) => {
+            const file = input.files[0];
+            if(!file) return;
+            
+            const preview = document.getElementById(`setup_logo_preview_${idx}`);
+            const urlInput = document.getElementById(`setup_logo_url_${idx}`);
+            
+            preview.style.opacity = "0.5";
+            window.showToast("Uploading logo...");
+            
+            const formData = new FormData();
+            formData.append("image", file);
+            
             try {
-                const userCredential = await signInWithEmailAndPassword(auth, OBS_EMAIL, OBS_PASSWORD);
-                const userId = userCredential.user.uid;
-
-                // Sync Global Tournament Settings (For Logos and Highlights)
-                const tournsRef = collection(db, 'artifacts', appId, 'users', userId, 'tournaments');
-                
-                onSnapshot(tournsRef, (tSnapshot) => {
-                    let tournaments = [];
-                    tSnapshot.forEach(d => tournaments.push({id: d.id, ...d.data()}));
-                    tournaments.sort((a, b) => b.createdAt - a.createdAt);
-                    
-                    if(tournaments.length === 0) return;
-                    const activeTourn = tournaments[0];
-                    document.getElementById('ptTourName').innerText = activeTourn.name;
-
-                    const matchesRef = collection(db, 'artifacts', appId, 'users', userId, 'matches');
-                    getDocs(matchesRef).then((mSnapshot) => {
-                        onSnapshot(matchesRef, (snapshot) => {
-                            let matches = [];
-                            snapshot.forEach(doc => {
-                                if(doc.data().tId === activeTourn.id) {
-                                    matches.push({id: doc.id, ...doc.data()});
-                                }
-                            });
-                            generateTable(activeTourn, matches);
-                        });
-                    });
+                const res = await fetch("https://api.imgbb.com/1/upload?key=48958619f4e043d398635890e2222cf1", {
+                    method: "POST",
+                    body: formData
                 });
-
-            } catch (error) {
-                document.getElementById('finalTbody').innerHTML = `<tr><td colspan="7" class="text-center text-red-500 p-4">Auth Error</td></tr>`;
+                const data = await res.json();
+                if(data.success) {
+                    const imgUrl = data.data.display_url; 
+                    urlInput.value = imgUrl;
+                    preview.src = imgUrl;
+                    preview.style.opacity = "1";
+                    window.showToast("Logo Uploaded!");
+                } else {
+                    throw new Error("Upload Failed");
+                }
+            } catch (e) {
+                window.showToast("Upload Error!", true);
+                preview.style.opacity = "1";
             }
-        }
+        };
 
-        function generateTable(tournament, matches) {
-            let currentChamp = tournament.championTeam || "";
-            let currentRush = tournament.championRushTeams || [];
+        window.showToast = (msg, isErr=false) => {
+            const t=document.getElementById('toast'); document.getElementById('toastMsg').innerText=msg;
+            t.classList.toggle('error', isErr); t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000);
+        };
 
-            const results = Array.from({length: 12}, (_, i) => ({ 
+        window.switchView = (vId) => {
+            document.querySelectorAll('.view-section').forEach(e=>e.classList.remove('active')); document.getElementById(vId).classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active-nav')); const b=document.getElementById(`btn-${vId}`); if(b) b.classList.add('active-nav');
+            const ctx=document.getElementById('tournamentContextNav');
+            if(state.activeTId) {
+                const t=state.tournaments.find(x=>x.id===state.activeTId); document.getElementById('navActiveTName').innerText=t?t.name:'Selected';
+                ctx.classList.remove('hidden'); ctx.classList.add('md:block','flex');
+            } else { ctx.classList.add('hidden'); ctx.classList.remove('md:block','flex'); }
+            if(vId==='historyView') window.loadTournaments();
+        };
+
+        window.handleLogin = async () => {
+            const e=document.getElementById('loginEmail').value, p=document.getElementById('loginPassword').value, b=document.getElementById('loginBtn'), og=b.innerHTML;
+            b.innerHTML='Authenticating...'; b.disabled=true;
+            try { await signInWithEmailAndPassword(auth,e,p); window.showToast("Login Success!"); b.innerHTML=og; b.disabled=false; document.getElementById('loginForm').reset(); }
+            catch(err){ b.innerHTML=og; b.disabled=false; window.showToast("Invalid Credentials",true); }
+        };
+        window.handleLogout = async () => { await signOut(auth); window.showToast("Logged out"); };
+
+        window.renderSetupForm = () => {
+            const p=document.getElementById('setupPoints'), t=document.getElementById('setupTeams'); p.innerHTML=''; t.innerHTML='';
+            for(let i=0;i<12;i++){
+                p.innerHTML+=`<div><label class="block text-[9px] text-slate-500 font-bold text-center">#${i+1}</label><input type="number" id="setup_pt_${i}" value="${DEFAULT_POINTS[i]}" class="w-full p-2 rounded bg-slate-800 border border-slate-600 text-center text-sm font-bold text-esports-primary focus:border-blue-500 outline-none"></div>`;
+                
+                t.innerHTML+=`
+                <div class="bg-slate-800/50 p-3 rounded border border-slate-700">
+                    <label class="block text-[10px] text-esports-accent font-bold uppercase mb-1">Slot ${i+1}</label>
+                    <input type="text" id="setup_tm_${i}" placeholder="Team ${i+1}" class="w-full p-2 mb-2 rounded bg-slate-900 border border-slate-600 text-white text-sm font-semibold outline-none focus:border-blue-500">
+                    <div class="flex items-center gap-2">
+                        <img id="setup_logo_preview_${i}" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM0NzU1NjkiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cmVjdCB4PSIzIiB5PSIzIiB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHJ4PSIyIiByeT0iMiI+PC9yZWN0PjxjaXJjbGUgY3g9IjguNSIgY3k9IjguNSIgcj0iMS41Ij48L2NpcmNsZT48cG9seWxpbmUgcG9pbnRzPSIyMSAxNSAxNiAxMCA1IDIxIj48L3BvbHlsaW5lPjwvc3ZnPg==" class="w-8 h-8 rounded bg-slate-900 border border-slate-600 object-cover">
+                        <input type="hidden" id="setup_logo_url_${i}" value="">
+                        <label class="cursor-pointer bg-slate-700 hover:bg-slate-600 text-white text-[10px] font-bold py-1.5 px-3 rounded transition">
+                            <i class="fa-solid fa-upload"></i> Logo
+                            <input type="file" accept="image/*" class="hidden" onchange="window.uploadTeamLogo(this, ${i})">
+                        </label>
+                    </div>
+                </div>`;
+            }
+        };
+
+        window.saveTournament = async () => {
+            if(!userId) return;
+            const data={name:document.getElementById('tourName').value, date:document.getElementById('tourDate').value, time:document.getElementById('tourTime').value, points:[], teams:[], logos:[], championTeam: "", championRushTeams: [], updatedAt:Date.now()};
+            for(let i=0;i<12;i++){ 
+                data.points.push(parseInt(document.getElementById(`setup_pt_${i}`).value)||0); 
+                data.teams.push(document.getElementById(`setup_tm_${i}`).value||`Team ${i+1}`); 
+                data.logos.push(document.getElementById(`setup_logo_url_${i}`).value||""); 
+            }
+            if(state.editingTId){ await updateDoc(doc(db,'artifacts',appId,'users',userId,'tournaments',state.editingTId),data); window.showToast("Updated!"); }
+            else{ data.createdAt=Date.now(); await setDoc(doc(db,'artifacts',appId,'users',userId,'tournaments','tour_'+Date.now()),data); window.showToast("Created!"); }
+            window.resetSetupForm(); window.switchView('historyView');
+        };
+
+        window.editTournament = (tId) => {
+            const t=state.tournaments.find(x=>x.id===tId); if(!t) return; state.editingTId=tId;
+            document.getElementById('setupFormTitle').innerText="EDIT TOURNAMENT"; document.getElementById('tourName').value=t.name; document.getElementById('tourDate').value=t.date; document.getElementById('tourTime').value=t.time;
+            for(let i=0;i<12;i++){ 
+                document.getElementById(`setup_pt_${i}`).value=t.points[i]; 
+                document.getElementById(`setup_tm_${i}`).value=t.teams[i]; 
+                
+                const url = (t.logos && t.logos[i]) ? t.logos[i] : "";
+                document.getElementById(`setup_logo_url_${i}`).value = url;
+                document.getElementById(`setup_logo_preview_${i}`).src = url ? url : "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM0NzU1NjkiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cmVjdCB4PSIzIiB5PSIzIiB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHJ4PSIyIiByeT0iMiI+PC9yZWN0PjxjaXJjbGUgY3g9IjguNSIgY3k9IjguNSIgcj0iMS41Ij48L2NpcmNsZT48cG9seWxpbmUgcG9pbnRzPSIyMSAxNSAxNiAxMCA1IDIxIj48L3BvbHlsaW5lPjwvc3ZnPg==";
+            }
+            document.getElementById('setupSaveBtn').innerHTML='UPDATE TOURNAMENT'; document.getElementById('setupCancelBtn').classList.remove('hidden'); window.switchView('setupView');
+        };
+
+        window.resetSetupForm = () => { state.editingTId=null; document.getElementById('setupForm').reset(); document.getElementById('setupFormTitle').innerText="CREATE NEW TOURNAMENT"; document.getElementById('setupSaveBtn').innerHTML='SAVE TOURNAMENT'; document.getElementById('setupCancelBtn').classList.add('hidden'); window.renderSetupForm(); };
+
+        window.loadTournaments = async () => {
+            if(!userId) return;
+            const snap=await getDocs(collection(db,'artifacts',appId,'users',userId,'tournaments')); state.tournaments=[]; snap.forEach(d=>state.tournaments.push({id:d.id,...d.data()})); state.tournaments.sort((a,b)=>b.createdAt-a.createdAt);
+            const list=document.getElementById('tourList'); list.innerHTML='';
+            if(state.tournaments.length===0) list.innerHTML='<p class="text-slate-500 text-center p-8 bg-slate-900/50 rounded-xl border border-slate-700">No tournaments created yet.</p>';
+            state.tournaments.forEach(t=>{
+                list.innerHTML+=`<div class="glass-panel p-5 rounded-xl flex flex-col md:flex-row justify-between items-center gap-4 hover:border-esports-primary transition"><div><h3 class="text-2xl font-bold esports-font text-white drop-shadow-md">${t.name}</h3><p class="text-xs text-slate-400 mt-2 font-mono bg-slate-900/80 inline-block px-2 py-1 rounded">${t.date} | ${t.time}</p></div><div class="flex gap-2 w-full md:w-auto"><button onclick="window.openTournament('${t.id}')" class="flex-1 md:flex-none btn-primary text-white px-4 py-2 rounded-lg text-sm font-bold">Manage</button><button onclick="window.editTournament('${t.id}')" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg transition"><i class="fa-solid fa-pen"></i></button><button onclick="window.deleteTournament('${t.id}')" class="bg-red-900/80 hover:bg-red-700 text-white px-4 py-2 rounded-lg border border-red-800 transition"><i class="fa-solid fa-trash"></i></button></div></div>`;
+            });
+        };
+        window.deleteTournament = async (tId) => { if(confirm("Delete?")){ await deleteDoc(doc(db,'artifacts',appId,'users',userId,'tournaments',tId)); window.showToast("Deleted"); if(state.activeTId===tId) state.activeTId=null; window.loadTournaments(); } };
+
+        window.openTournament = (tId) => { state.activeTId=tId; const t=state.tournaments.find(x=>x.id===tId); if(t) document.getElementById('matchListTourName').innerText=t.name.toUpperCase(); window.loadMatches(); window.switchView('matchListView'); };
+
+        window.loadMatches = async () => {
+            if(!userId || !state.activeTId) return;
+            const snap=await getDocs(collection(db,'artifacts',appId,'users',userId,'matches')); state.matches=[]; snap.forEach(d=>{if(d.data().tId===state.activeTId) state.matches.push({id:d.id,...d.data()});}); state.matches.sort((a,b)=>a.matchNum-b.matchNum);
+            const tbody=document.getElementById('matchesListBody'); tbody.innerHTML='';
+            if(state.matches.length===0) tbody.innerHTML='<tr><td colspan="3" class="p-8 text-center text-slate-500">No matches found.</td></tr>';
+            state.matches.forEach(m=>{
+                const isC=m.status==='completed';
+                tbody.innerHTML+=`<tr class="border-b border-slate-700/50 hover:bg-slate-800/50"><td class="p-4 font-bold esports-font text-lg text-white">MATCH ${m.matchNum}</td><td class="p-4"><span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase border ${isC?'bg-green-900/30 text-green-400 border-green-500/50':'bg-yellow-900/30 text-yellow-400 border-yellow-500/50'}">${m.status}</span></td><td class="p-4 text-right flex justify-end gap-2"><button onclick="window.openLiveMatch('${m.id}')" class="${isC?'bg-slate-700':'btn-primary'} text-white px-4 py-2 rounded-lg text-xs font-bold">${isC?'View':'Live'}</button><button onclick="window.deleteMatch('${m.id}')" class="bg-slate-800 text-red-500 px-3 py-2 rounded-lg"><i class="fa-solid fa-trash"></i></button></td></tr>`;
+            });
+        };
+        window.createMatch = async () => {
+            const nextNum=state.matches.length>0 ? Math.max(...state.matches.map(m=>m.matchNum))+1 : 1; const tStats={}; for(let i=0;i<12;i++) tStats[i]={sl:i+1,elims:0,pos:''};
+            await setDoc(doc(db,'artifacts',appId,'users',userId,'matches',`m_${Date.now()}`), {
+                tId:state.activeTId, matchNum:nextNum, status:'active', aliveTeams:'12/12', aliveEnemies:48, timerSeconds:0, 
+                teamStats:tStats, createdAt:Date.now()
+            });
+            window.showToast(`Match Created`); window.loadMatches();
+        };
+        window.deleteMatch = async (mId) => { if(confirm("Delete match?")){ await deleteDoc(doc(db,'artifacts',appId,'users',userId,'matches',mId)); window.loadMatches(); } };
+
+        window.openLiveMatch = (mId) => {
+            state.activeMId=mId; const m=state.matches.find(x=>x.id===mId); if(!m) return;
+            document.getElementById('liveMatchTitle').innerHTML=m.status==='completed'?`MATCH ${m.matchNum} <span class="text-green-500">DONE</span>`:`MATCH ${m.matchNum} LIVE`;
+            document.getElementById('liveAliveTeams').value=m.aliveTeams||'12/12'; document.getElementById('liveAliveEnemies').value=m.aliveEnemies||48; state.timerSeconds=m.timerSeconds||0; window.updateTimerUI();
+            
+            window.buildLiveTable(); 
+            window.switchView('liveDashboardView');
+            
+            if(unsubLive) unsubLive();
+            unsubLive = onSnapshot(doc(db,'artifacts',appId,'users',userId,'matches',mId), (snap)=>{
+                const data=snap.data(); if(!data) return;
+                if(document.activeElement.id!=='liveAliveTeams') document.getElementById('liveAliveTeams').value=data.aliveTeams;
+                if(document.activeElement.id!=='liveAliveEnemies') document.getElementById('liveAliveEnemies').value=data.aliveEnemies;
+                
+                let needsSort=false;
+                for(let i=0;i<12;i++){
+                    if(data.teamStats && data.teamStats[i]){
+                        if(document.activeElement.id!==`live_elim_${i}`) document.getElementById(`live_elim_${i}`).value=data.teamStats[i].elims;
+                        if(document.activeElement.id!==`live_pos_${i}`) document.getElementById(`live_pos_${i}`).value=data.teamStats[i].pos;
+                        if(document.activeElement.id!==`live_sl_${i}`) { document.getElementById(`live_sl_${i}`).value=data.teamStats[i].sl; needsSort=true; }
+                        window.calcLiveRow(i);
+                    }
+                }
+                if(needsSort && (!document.activeElement || !document.activeElement.id.startsWith('live_sl_'))) window.sortLiveTable();
+            });
+        };
+
+        window.buildLiveTable = () => {
+            const t = state.tournaments.find(x=>x.id===state.activeTId); 
+            const m = state.matches.find(x=>x.id===state.activeMId);
+            
+            const champSelect = document.getElementById('championTeamSelect');
+            const rushDiv = document.getElementById('championRushCheckboxes');
+            
+            if(champSelect && rushDiv) {
+                champSelect.innerHTML = '<option value="">-- No Champion Selected --</option>';
+                rushDiv.innerHTML = '';
+            }
+
+            const tbody=document.getElementById('liveTableBody'); tbody.innerHTML='';
+            for(let i=0;i<12;i++){
+                const s=(m&&m.teamStats&&m.teamStats[i])?m.teamStats[i]:{sl:i+1,elims:0,pos:''}; 
+                const tName=(t&&t.teams&&t.teams[i])?t.teams[i]:`Team ${i+1}`;
+                
+                let tLogo = (t && t.logos && t.logos[i]) ? `<img src="${t.logos[i]}" class="w-6 h-6 object-contain rounded bg-slate-900 border border-slate-600">` : '';
+                
+                if(champSelect && rushDiv) {
+                    let isChampSel = (t && t.championTeam === i.toString()) ? "selected" : "";
+                    champSelect.innerHTML += `<option value="${i}" ${isChampSel}>${tName}</option>`;
+                    
+                    let isRushChkd = (t && t.championRushTeams && t.championRushTeams.includes(i.toString())) ? "checked" : "";
+                    rushDiv.innerHTML += `
+                        <label class="flex items-center space-x-2 p-1.5 bg-slate-800 rounded border border-slate-700 text-[11px] text-white cursor-pointer hover:bg-slate-700 transition">
+                            <input type="checkbox" value="${i}" class="rush-cb" onchange="window.forceSaveLiveStats()" ${isRushChkd}> 
+                            <span class="truncate font-bold">${tName}</span>
+                        </label>
+                    `;
+                }
+
+                tbody.innerHTML+=`<tr id="live_row_${i}" class="border-b border-slate-800 hover:bg-slate-800/30"><td class="p-2"><input type="number" id="live_sl_${i}" value="${s.sl}" class="w-14 bg-slate-900 border border-slate-600 rounded p-1.5 text-center text-white text-sm font-bold outline-none focus:border-blue-500" oninput="window.sortLiveTable(); window.forceSaveLiveStats()"></td><td class="text-left font-bold text-white uppercase text-sm"><div class="flex items-center gap-2">${tLogo} <span>${tName}</span></div></td><td><input type="number" id="live_elim_${i}" value="${s.elims}" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-blue-500" oninput="window.calcLiveRow(${i}); window.forceSaveLiveStats()"></td><td><input type="number" id="live_pos_${i}" value="${s.pos}" class="w-14 bg-slate-900 border border-slate-600 rounded p-2 text-center text-white outline-none focus:border-blue-500" oninput="window.calcLiveRow(${i}); window.forceSaveLiveStats()"></td><td id="live_pts_${i}" class="text-slate-400 font-mono font-bold">0</td><td id="live_tot_${i}" class="text-blue-400 font-bold text-xl drop-shadow">0</td><td id="live_stat_${i}"></td></tr>`;
+                window.calcLiveRow(i);
+            }
+            window.sortLiveTable();
+        };
+
+        window.sortLiveTable = () => {
+            const tbody=document.getElementById('liveTableBody'); const rows=Array.from(tbody.querySelectorAll('tr[id^="live_row_"]'));
+            rows.sort((a,b)=>{ const slA=parseInt(a.querySelector('input[id^="live_sl_"]').value)||999; const slB=parseInt(b.querySelector('input[id^="live_sl_"]').value)||999; return slA-slB; });
+            rows.forEach(r=>tbody.appendChild(r));
+        };
+
+        window.calcLiveRow = (i) => {
+            const t=state.tournaments.find(x=>x.id===state.activeTId); const pos=parseInt(document.getElementById(`live_pos_${i}`).value)||0;
+            const pPts=(t&&pos>=1&&pos<=12)?t.points[pos-1]:0; const elims=parseInt(document.getElementById(`live_elim_${i}`).value)||0;
+            document.getElementById(`live_pts_${i}`).innerText=pPts; document.getElementById(`live_tot_${i}`).innerText=elims+pPts;
+            document.getElementById(`live_stat_${i}`).innerHTML=pos===1?'<span class="bg-gradient-to-r from-yellow-500 to-amber-600 text-black px-2 py-1 rounded text-[10px] font-bold shadow-md">BOOYAH</span>':'';
+        };
+
+        window.forceSaveLiveStats = async () => {
+            if(!state.activeMId || !state.activeTId) return;
+            
+            const champTeam = document.getElementById('championTeamSelect') ? document.getElementById('championTeamSelect').value : "";
+            const rushTms = Array.from(document.querySelectorAll('.rush-cb:checked')).map(cb => cb.value);
+
+            await updateDoc(doc(db,'artifacts',appId,'users',userId,'tournaments',state.activeTId), {
+                championTeam: champTeam,
+                championRushTeams: rushTms
+            });
+
+            const t = state.tournaments.find(x => x.id === state.activeTId);
+            if(t) {
+                t.championTeam = champTeam;
+                t.championRushTeams = rushTms;
+            }
+
+            const data = {
+                aliveTeams: document.getElementById('liveAliveTeams').value,
+                aliveEnemies: document.getElementById('liveAliveEnemies').value,
+                timerSeconds: state.timerSeconds,
+                isTimerRunning: state.timerInterval !== null,
+                teamStats: {}
+            };
+            for(let i=0; i<12; i++){
+                data.teamStats[i] = {
+                    sl: parseInt(document.getElementById(`live_sl_${i}`).value) || 99,
+                    elims: parseInt(document.getElementById(`live_elim_${i}`).value) || 0,
+                    pos: document.getElementById(`live_pos_${i}`).value
+                };
+            }
+            await updateDoc(doc(db,'artifacts',appId,'users',userId,'matches',state.activeMId), data);
+        };
+
+        window.autoSaveMatchDebounced = () => { window.forceSaveLiveStats(); };
+
+        window.finalizeMatch = async () => { await window.forceSaveLiveStats(); await updateDoc(doc(db,'artifacts',appId,'users',userId,'matches',state.activeMId),{status:'completed'}); window.showToast("Saved!"); if(unsubLive) unsubLive(); window.loadMatches(); window.switchView('matchListView'); };
+        
+        window.toggleTimer = () => { 
+            const b=document.getElementById('timerToggleBtn'); 
+            if(state.timerInterval){ 
+                clearInterval(state.timerInterval); state.timerInterval=null; b.innerHTML='<i class="fa-solid fa-play"></i>'; 
+            }else{ 
+                state.timerInterval=setInterval(()=>{state.timerSeconds++; window.updateTimerUI();},1000); b.innerHTML='<i class="fa-solid fa-pause"></i>'; 
+            } 
+            window.forceSaveLiveStats(); 
+        };
+        
+        window.resetTimer = () => { 
+            clearInterval(state.timerInterval); state.timerInterval=null; state.timerSeconds=0; 
+            window.updateTimerUI(); document.getElementById('timerToggleBtn').innerHTML='<i class="fa-solid fa-play"></i>'; 
+            window.forceSaveLiveStats(); 
+        };
+        
+        window.updateTimerUI = () => { document.getElementById('liveTimerDisplay').innerText=`${String(Math.floor(state.timerSeconds/60)).padStart(2,'0')}:${String(state.timerSeconds%60).padStart(2,'0')}`; };
+
+        window.setTheme = (themeName, btnElement) => {
+            document.getElementById('exportTableArea').className = `pt-container ${themeName} min-w-[750px] max-w-[1000px] mx-auto`;
+            document.querySelectorAll('.theme-select-btn').forEach(b => { b.classList.remove('ring-2','ring-white','opacity-100'); b.classList.add('opacity-50'); b.style.boxShadow='none'; });
+            btnElement.classList.remove('opacity-50'); btnElement.classList.add('ring-2','ring-white','opacity-100');
+            btnElement.style.boxShadow = `0 0 10px ${window.getComputedStyle(btnElement).backgroundColor}`;
+        };
+
+        window.generateFinalTable = () => {
+            if(!state.activeTId) return window.showToast("Select a tournament first", true);
+            const t = state.tournaments.find(x => x.id === state.activeTId);
+            document.getElementById('ptTourName').innerText = t.name.toUpperCase();
+            
+            let currentChamp = t.championTeam || "";
+            let currentRush = t.championRushTeams || [];
+
+            const results = Array.from({length:12}, (_,i) => ({ 
                 teamIdx: i,
-                name: (tournament.teams && tournament.teams[i]) ? tournament.teams[i] : `Team ${i+1}`, 
-                logo: (tournament.logos && tournament.logos[i]) ? tournament.logos[i] : null,
+                name: (t.teams && t.teams[i]) ? t.teams[i] : `Team ${i+1}`,
+                logo: (t.logos && t.logos[i]) ? t.logos[i] : null,
                 matches: 0, booyahs: 0, pPts: 0, elims: 0, total: 0 
             }));
-
-            matches.filter(m => m.status === 'completed').forEach(m => {
-                for(let i=0; i<12; i++) {
-                    if(m.teamStats && m.teamStats[i]) {
-                        const pos = parseInt(m.teamStats[i].pos) || 0;
-                        const elims = parseInt(m.teamStats[i].elims) || 0;
-                        
+            
+            state.matches.filter(m => m.status === 'completed').forEach(m => {
+                for(let i=0; i<12; i++){
+                    if(m.teamStats && m.teamStats[i]){
+                        const pos = parseInt(m.teamStats[i].pos) || 0, elims = parseInt(m.teamStats[i].elims) || 0;
                         if(pos > 0 || elims > 0) results[i].matches++;
                         if(pos === 1) results[i].booyahs++;
-                        
-                        const pPts = (pos >= 1 && pos <= 12) ? tournament.points[pos-1] : 0;
-                        results[i].pPts += pPts; 
-                        results[i].elims += elims; 
-                        results[i].total += (elims + pPts);
+                        const pPts = (pos >= 1 && pos <= 12) ? t.points[pos-1] : 0;
+                        results[i].pPts += pPts; results[i].elims += elims; results[i].total += (elims + pPts);
                     }
                 }
             });
-
             results.sort((a,b) => b.total - a.total || b.booyahs - a.booyahs || b.elims - a.elims);
 
-            const tbody = document.getElementById('finalTbody'); 
-            tbody.innerHTML = '';
-            
+            const tbody = document.getElementById('finalTbody'); tbody.innerHTML = '';
             results.forEach((team, idx) => {
-                let rowClass = idx === 0 ? "rank-1" : idx === 1 ? "rank-2" : idx === 2 ? "rank-3" : "rank-normal";
-                let animDelay = idx * 0.07; 
-
-                // Check Highlight Logic
+                let rowClass = idx===0?"rank-1":idx===1?"rank-2":idx===2?"rank-3":"";
+                
                 let isChampion = (team.teamIdx.toString() === currentChamp.toString());
                 let isRush = currentRush.includes(team.teamIdx.toString());
 
-                if (isRush) rowClass += " rush-highlight";
+                if (isRush) rowClass += " rush-highlight"; 
 
-                // Generate Logo HTML
-                let logoHtml = team.logo ? `<img src="${team.logo}" class="team-logo">` : '';
-
-                // Wrap Logo + Name cleanly without flexbox issues
-                let displayTeamName = `<div class="team-wrapper">${logoHtml} <span class="team-name-text">${team.name}</span>`;
+                let logoHtml = team.logo ? `<img src="${team.logo}" style="width: 26px; height: 26px; object-fit: contain; border-radius: 4px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); flex-shrink: 0;">` : '';
+                
+                let displayTeamName = `${logoHtml} <span class="truncate">${team.name}</span>`;
                 if (isChampion) {
-                    displayTeamName += ` <i class="fa-solid fa-crown text-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.9)] ml-2 text-[1rem]" title="Champion"></i>`;
+                    displayTeamName += ` <i class="fa-solid fa-crown text-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.9)] text-[1.2rem]" title="Champion"></i>`;
                 }
-                displayTeamName += `</div>`;
 
                 tbody.innerHTML += `
-                    <tr class="${rowClass} animate-row" style="animation-delay: ${animDelay}s;">
-                        <td class="pt-rank-col text-center">${idx + 1}</td>
-                        <td class="pt-team-col col-team">${displayTeamName}</td>
-                        <td class="text-center opacity-70 text-sm">${team.matches}</td>
-                        <td class="text-center text-[#fcd34d]">${team.booyahs}</td>
-                        <td class="text-center opacity-80">${team.pPts}</td>
-                        <td class="text-center text-white font-bold">${team.elims}</td>
-                        <td class="text-center"><span class="pt-total-col">${team.total}</span></td>
+                    <tr class="${rowClass}">
+                        <td class="pt-rank-col text-center">${String(idx+1).padStart(2, '0')}</td>
+                        <td class="pt-team-col">${displayTeamName}</td>
+                        <td class="pt-stat-col opacity-80 text-center">${team.matches}</td>
+                        <td class="pt-booyah-col text-center">${team.booyahs}</td>
+                        <td class="pt-stat-col opacity-80 text-center">${team.pPts}</td>
+                        <td class="pt-stat-col text-center" style="font-weight:700;">${team.elims}</td>
+                        <td class="text-center"><span class="pt-total-col px-3 py-1">${team.total}</span></td>
                     </tr>
                 `;
             });
-        }
+            window.switchView('finalTableView');
+        };
 
-        initOverlay();
+        window.downloadTableImage = () => {
+            const btn = document.getElementById('dwnBtn'), ogHtml = btn.innerHTML;
+            btn.innerHTML = 'Processing...'; const el = document.getElementById('exportTableArea');
+            const origWidth = el.style.width; el.style.width = '1000px'; 
+            html2canvas(el, { backgroundColor: null, scale: 2.5, useCORS: true }).then(canvas => {
+                el.style.width = origWidth || 'auto'; 
+                const link = document.createElement('a');
+                link.download = `BD_ORG_${document.getElementById('ptTourName').innerText.replace(/\s+/g, '_')}.png`;
+                link.href = canvas.toDataURL('image/png'); link.click();
+                btn.innerHTML = ogHtml; window.showToast("HD Image Downloaded!");
+            }).catch(e => { el.style.width = origWidth || 'auto'; btn.innerHTML = 'Failed'; });
+        };
+
+        async function initApp() {
+            window.renderSetupForm(); 
+            onAuthStateChanged(auth, async (user) => {
+                const loginView = document.getElementById('loginView'), appCon = document.getElementById('appContainer');
+                if (user) {
+                    userId = user.uid; loginView.classList.add('hidden'); loginView.classList.remove('flex');
+                    appCon.classList.remove('hidden'); appCon.classList.add('flex');
+                    window.switchView('setupView'); try { await window.loadTournaments(); } catch (err) {}
+                } else {
+                    userId = null; loginView.classList.remove('hidden'); loginView.classList.add('flex');
+                    appCon.classList.add('hidden'); appCon.classList.remove('flex');
+                }
+            });
+        }
+        initApp();
     </script>
 </body>
 </html>
